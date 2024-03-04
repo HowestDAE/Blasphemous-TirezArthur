@@ -4,15 +4,15 @@
 <br />
 <div align="center">
 
-  <h1 align="center">NAME OF CHOSEN GAME</h1>
+  <h1 align="center">Infernae</h1>
 
   <p align="center">
-    Short description of the game.
+    Infernae is a top down down bullet hell boss rush. While still in development there is already a free demo available on both itch.io and steam. The controls are simple but mastering the mechanics however is not as easy.
     <br />
     <strong>Original game : </strong>
-    <a href="https://www.google.be/"><strong>General info »</strong></a>
+    <a href="https://anuke.itch.io/infernae"><strong>General info »</strong></a>
     ·
-    <a href="https://www.google.be/"><strong>Youtube video »<strong></a>
+    <a href="https://www.youtube.com/watch?v=XG9xNQrU0Ws"><strong>Youtube video »<strong></a>
     <br />
     <br />
   </p>
