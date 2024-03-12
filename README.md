@@ -4,15 +4,15 @@
 <br />
 <div align="center">
 
-  <h1 align="center">Infernae</h1>
+  <h1 align="center">Blasphemous</h1>
 
   <p align="center">
-    Infernae is a top down down bullet hell boss rush. While still in development there is already a free demo available on both itch.io and steam. The controls are simple but mastering the mechanics however is not as easy.
+    Blasphemous is a difficult metroidvania set in a weirdly twisted religous setting. The game has many unique bosses and an intricate map with plenty of areas to explore for completionists.
     <br />
     <strong>Original game : </strong>
-    <a href="https://anuke.itch.io/infernae"><strong>General info »</strong></a>
+    <a href="https://store.steampowered.com/app/774361/Blasphemous/"><strong>General info »</strong></a>
     ·
-    <a href="https://www.youtube.com/watch?v=XG9xNQrU0Ws"><strong>Youtube video »<strong></a>
+    <a href="https://youtu.be/XbWL90l_0Ow"><strong>Youtube video »<strong></a>
     <br />
     <br />
   </p>
