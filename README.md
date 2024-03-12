@@ -61,16 +61,23 @@ TODO: describe why you chose this game
 This section gives a clear and detailed overview of which parts of the original game I planned to make.
 
 ### The minimum I will most certainly develop:
-* .. 
-* .. 
+* The movement
+* The enemies shown in the video
+* The areas shown in the video
+* The pickups shown in the video
 
 ### What I will probably make as well:
-* .. 
-* .. 
+* The map
+* The prayer abilities
+* The activatable shrines
+* The grief mechanic (punishment for dying)
 
 ### What I plan to create if I have enough time left:
-* .. 
-* .. 
+* The execute mechanic
+* More areas
+* More enemies
+* A boss from a zone
+* The inventory and permanent upgrades
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
