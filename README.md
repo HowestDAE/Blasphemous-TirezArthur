@@ -50,8 +50,8 @@ TODO: add screenshot
 
 Here's why:
 TODO: describe why you chose this game 
-* reason 1
-* reason .. 
+* I wanted a game that I enjoyed myself to keep motivation to work on the project.
+* I wanted a fairly recent game instead of an nes game or similar
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
