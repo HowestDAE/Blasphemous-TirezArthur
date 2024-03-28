@@ -5,6 +5,11 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Engine", "Engine\Engine.vcxproj", "{5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "DAE16_Tirez_Arthur", "DAE16_Tirez_Arthur\DAE16_Tirez_Arthur.vcxproj", "{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}"
+	ProjectSection(ProjectDependencies) = postProject
+		{5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC} = {5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC}
+	EndProjectSection
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +26,14 @@ Global
 		{5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC}.Release|x64.Build.0 = Release|x64
 		{5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC}.Release|x86.ActiveCfg = Release|Win32
 		{5ADAB721-CB6C-4EF5-89EB-20EC51A13CFC}.Release|x86.Build.0 = Release|Win32
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Debug|x64.ActiveCfg = Debug|x64
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Debug|x64.Build.0 = Debug|x64
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Debug|x86.ActiveCfg = Debug|Win32
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Debug|x86.Build.0 = Debug|Win32
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Release|x64.ActiveCfg = Release|x64
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Release|x64.Build.0 = Release|x64
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Release|x86.ActiveCfg = Release|Win32
+		{26BC8785-5873-4F0C-9E00-5E8E2F6C1738}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
