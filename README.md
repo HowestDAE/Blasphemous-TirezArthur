@@ -4,15 +4,15 @@
 <br />
 <div align="center">
 
-  <h1 align="center">NAME OF CHOSEN GAME</h1>
+  <h1 align="center">Blasphemous</h1>
 
   <p align="center">
-    Short description of the game.
+    Blasphemous is a difficult metroidvania set in a weirdly twisted religous setting. The game has many unique bosses and an intricate map with plenty of areas to explore for completionists.
     <br />
     <strong>Original game : </strong>
-    <a href="https://www.google.be/"><strong>General info »</strong></a>
+    <a href="https://store.steampowered.com/app/774361/Blasphemous/"><strong>General info »</strong></a>
     ·
-    <a href="https://www.google.be/"><strong>Youtube video »<strong></a>
+    <a href="https://youtu.be/XbWL90l_0Ow"><strong>Youtube video »<strong></a>
     <br />
     <br />
   </p>
@@ -50,8 +50,8 @@ TODO: add screenshot
 
 Here's why:
 TODO: describe why you chose this game 
-* reason 1
-* reason .. 
+* I wanted a game that I enjoyed myself to keep motivation to work on the project.
+* I wanted a fairly recent game instead of an nes game or similar
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -61,16 +61,23 @@ TODO: describe why you chose this game
 This section gives a clear and detailed overview of which parts of the original game I planned to make.
 
 ### The minimum I will most certainly develop:
-* .. 
-* .. 
+* The movement
+* The enemies shown in the video
+* The areas shown in the video
+* The pickups shown in the video
 
 ### What I will probably make as well:
-* .. 
-* .. 
+* The map
+* The prayer abilities
+* The activatable shrines
+* The grief mechanic (punishment for dying)
 
 ### What I plan to create if I have enough time left:
-* .. 
-* .. 
+* The execute mechanic
+* More areas
+* More enemies
+* A boss from a zone
+* The inventory and permanent upgrades
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
