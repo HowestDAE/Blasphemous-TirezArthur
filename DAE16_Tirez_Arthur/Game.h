@@ -1,5 +1,11 @@
 #pragma once
+#include "json/forwards.h"
 #include "BaseGame.h"
+class TextureManager;
+class Camera;
+class Player;
+class LevelManager;
+
 class Game : public BaseGame
 {
 public:
@@ -22,7 +28,10 @@ public:
 	void ProcessMouseUpEvent( const SDL_MouseButtonEvent& e ) override;
 
 private:
-
+	TextureManager* m_TextureManagerPtr{};
+	Camera* m_CameraPtr{};
+	Player* m_PlayerPtr{};
+	LevelManager* m_LevelManagerPtr{};
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );

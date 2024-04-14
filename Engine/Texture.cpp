@@ -214,7 +214,7 @@ void Texture::CreateFromSurface( SDL_Surface* pSurface )
 	glTexParameteri( GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST );
 }
 
-void Texture::Draw( const Point2f& dstBottomLeft, const Rectf& srcRect ) const
+void Texture::Draw( const Point2f& dstBottomLeft, const Rectf& srcRect, bool flipped) const
 {
 	const float epsilon{ 0.001f };
 	if ( !m_CreationOk )
@@ -236,11 +236,11 @@ void Texture::Draw( const Point2f& dstBottomLeft, const Rectf& srcRect ) const
 			dstRect.width = m_Width;
 			dstRect.height = m_Height;
 		}
-		Draw( dstRect, srcRect );
+		Draw( dstRect, srcRect, flipped );
 	}
 }
 
-void Texture::Draw( const Rectf& dstRect, const Rectf& srcRect ) const
+void Texture::Draw( const Rectf& dstRect, const Rectf& srcRect, bool flipped ) const
 {
 	const float epsilon{ 0.001f };
 	if ( !m_CreationOk )
@@ -295,6 +295,11 @@ void Texture::Draw( const Rectf& dstRect, const Rectf& srcRect ) const
 		vertexRight = vertexLeft + dstRect.width;
 		vertexTop = vertexBottom + dstRect.height;
 
+	}
+
+	if (flipped)
+	{
+		std::swap(vertexLeft, vertexRight);
 	}
 
 	// Tell opengl which texture we will use

@@ -88,13 +88,11 @@ Detailed instructions on how to run your game project are in this section.
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
 * Visual Studio 2022
 
 ### How to run the project
 
-Explain which project (version) must be run.
-* any extra steps if required 
+Build and run the latest version with a compiler that supports at least C++17
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -103,12 +101,12 @@ Explain which project (version) must be run.
 <!-- HOW TO PLAY -->
 ## How to play
 
-Use this space to show useful examples of how a game can be played. 
-Additional screenshots and demos work well in this space. 
+These are the currently implemented controls.
 
 ### Controls
-* keys, .. 
-* .. 
+* A to move left
+* D to move right
+* Space to jump
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -118,10 +116,10 @@ Additional screenshots and demos work well in this space.
 ## Class structure 
 
 ### Object composition 
-If you applied object composition (optional); explain where and how.
+The player class has a pointer to the texture manager and the level manager. The level manager also has a pointer to the texture manager.
 
 ### Inheritance 
-Explain where you applied inheritance (mandatory).
+Not yet implemented but inheritance will apply to the different enemy types.
 
 ### ..
 
@@ -132,10 +130,10 @@ Explain where you applied inheritance (mandatory).
 ## Checklist
 
 - [x] Accept / set up github project
-- [ ] week 01 topics applied
-    - [ ] const keyword applied proactively (variables, functions,..)
+- [X] week 01 topics applied
+    - [X] const keyword applied proactively (variables, functions,..)
     - [ ] static keyword applied proactively (class variables, static functions,..)
-    - [ ] object composition (optional)
+    - [X] object composition (optional)
 - [ ] week 02 topics applied
 - [ ] week 03 topics applied
 - [ ] week 04 topics applied
@@ -151,9 +149,9 @@ Explain where you applied inheritance (mandatory).
 <!-- CONTACT -->
 ## Contact
 
-Your Name - email@student.howest.be
+Tirez Arthur - arthur.tirez@student.howest.be
 
-Project Link: [https://github.com/your_username/repo_name](https://github.com/your_username/repo_name)
+Project Link: [https://github.com/HowestDAE/dae16-TirezArthur](https://github.com/HowestDAE/dae16-TirezArthur)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -163,8 +161,11 @@ Project Link: [https://github.com/your_username/repo_name](https://github.com/yo
 
 Use this space to list resources you find helpful and would like to give credit to. 
 
-* [Example 1: cpp reference on std::vector](https://en.cppreference.com/w/cpp/container/vector)
-* ..
+* [Many pages on cpp reference](https://en.cppreference.com/w/)
+* [Jsoncpp an open source json parser for C++](https://github.com/open-source-parsers/jsoncpp)
+* [Forum user miner600 provided all the sprites from the original game](https://mugenguild.com/forum/topics/blasphemous-spritesupdated-191072.0.html)
+* [Reddit user RAMAR713 provided all the sounds from the original game](https://www.reddit.com/r/Blasphemous/comments/xnl62p/blashpemous_sound_files/)
+* [codeandweb.com allowed me to make the spritesheets](https://www.codeandweb.com/free-sprite-sheet-packer)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

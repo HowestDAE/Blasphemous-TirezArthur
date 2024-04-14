@@ -1,0 +1,49 @@
+{
+	"frames": {
+		"0": {
+			"frame": {
+				"x": 0,
+				"y": 0,
+				"w": 59,
+				"h": 76
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 29,
+				"right": 12,
+				"bottom": 3
+			}
+		},
+		"1": {
+			"frame": {
+				"x": 59,
+				"y": 0,
+				"w": 59,
+				"h": 76
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 29,
+				"right": 12,
+				"bottom": 3
+			}
+		},
+		"2": {
+			"frame": {
+				"x": 0,
+				"y": 76,
+				"w": 59,
+				"h": 76
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 29,
+				"right": 12,
+				"bottom": 3
+			}
+		}
+	}
+}

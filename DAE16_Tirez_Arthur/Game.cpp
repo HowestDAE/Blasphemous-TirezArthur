@@ -1,5 +1,11 @@
 #include "pch.h"
 #include "Game.h"
+#include "TextureManager.h"
+#include "Texture.h"
+#include "Camera.h"
+#include "Player.h"
+#include "LevelManager.h"
+#include <iostream>
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -14,31 +20,33 @@ Game::~Game( )
 
 void Game::Initialize()
 {
-
+	m_TextureManagerPtr = new TextureManager{ };
+	m_CameraPtr = new Camera{ GetViewPort().width, GetViewPort().height };
+	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr };
+	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr };
 }
 
 void Game::Cleanup()
 {
-
+	delete m_TextureManagerPtr;
+	delete m_CameraPtr;
+	delete m_PlayerPtr;
+	delete m_LevelManagerPtr;
 }
 
 void Game::Update( float elapsedSec )
 {
-	// Check keyboard state
-	//const Uint8 *pStates = SDL_GetKeyboardState( nullptr );
-	//if ( pStates[SDL_SCANCODE_RIGHT] )
-	//{
-	//	std::cout << "Right arrow key is down\n";
-	//}
-	//if ( pStates[SDL_SCANCODE_LEFT] && pStates[SDL_SCANCODE_UP])
-	//{
-	//	std::cout << "Left and up arrow keys are down\n";
-	//}
+	m_PlayerPtr->Update(elapsedSec);
 }
 
 void Game::Draw( ) const
 {
 	ClearBackground( );
+	m_CameraPtr->Aim(m_TextureManagerPtr->GetTextureWidth("indoor1"), m_TextureManagerPtr->GetTextureHeight("indoor1"), Point2f{ m_PlayerPtr->GetHitbox().left, m_PlayerPtr->GetHitbox().bottom});
+	m_LevelManagerPtr->DrawBackGround();
+	m_PlayerPtr->Draw();
+	m_LevelManagerPtr->DrawForeground();
+	m_CameraPtr->Reset();
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
