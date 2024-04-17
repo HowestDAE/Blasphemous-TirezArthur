@@ -6,13 +6,14 @@ enum State {
 	idle,
 	run,
 	jump,
-	fall
+	fall,
+	crouch,
+	dodge
 };
-class Player
+class Player final
 {
 public:
 	Player(TextureManager* textureManager, LevelManager* levelManager);
-	~Player();
 
 	void Update(float elapsedSec);
 	void Draw();
@@ -20,7 +21,12 @@ public:
 	Rectf GetHitbox() const;
 private:
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
-	void FallCheck(float elapsedSec);
+	bool FallCheck();
+	void Idle();
+	void Jump();
+	void Dodge();
+	void Crouch();
+	void Run();
 
 	TextureManager* m_TextureManagerPtr;
 	const LevelManager* m_LevelManagerPtr;
@@ -30,8 +36,11 @@ private:
 	Point2f m_Velocity;
 	bool m_LeftFacing;
 	float m_AnimationDuration;
+	float m_DodgeCooldown;
 
 	const float GRAVITY{ 1000.0f };
 	const float SPEED{ 170.0f };
+	const float HITBOXHEIGHT{ 50.0f };
+	const float HITBOXWIDTH{ 18.0f };
 };
 

@@ -81,14 +81,14 @@
     "13": {
       "left": 704,
       "bottom": 568,
-      "width": 320,
+      "width": 255,
       "height": 181
     },
     "14": {
       "left": 959,
-      "bottom": 749,
+      "bottom": 568,
       "width": 65,
-      "height": 102
+      "height": 283
     },
     "15": {
       "left": 1150,
@@ -98,7 +98,7 @@
     },
     "16": {
       "left": 1215,
-      "bottom": 1096,
+      "bottom": 851,
       "width": 65,
       "height": 245
     }

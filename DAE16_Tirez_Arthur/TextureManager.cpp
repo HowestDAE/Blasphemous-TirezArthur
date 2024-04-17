@@ -27,7 +27,7 @@ void TextureManager::Draw(std::string path, Point2f pos, bool flipped)
 {
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{
-		Texture* texture{ m_TextureMap[path] };
+		Texture* texture{ m_TextureMap.at(path) };
 		texture->Draw(Rectf{ pos.x, pos.y, texture->GetWidth(), texture->GetHeight() }, Rectf{ 0.f, 0.f, texture->GetWidth(), texture->GetHeight() });
 	}
 	else
@@ -43,19 +43,21 @@ void TextureManager::Draw(std::string path, Point2f pos, bool flipped)
 	}
 }
 
-void TextureManager::Animate(std::string path, float x, float y, float animationDuration, bool flipped, bool loop)
+void TextureManager::Animate(std::string path, float x, float y, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
 {
-	Animate(path, Point2f{ x,y }, animationDuration, flipped);
+	Animate(path, Point2f{ x,y }, animationDuration, flipped, loop, frameTimeModifier);
 }
 
-void TextureManager::Animate(std::string path, Point2f pos, float animationDuration, bool flipped, bool loop)
+void TextureManager::Animate(std::string path, Point2f pos, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
 {
+	animationDuration *= frameTimeModifier;
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{
-		Texture* texture{ m_TextureMap[path] };
+		Texture* texture{ m_TextureMap.at(path) };
+
 		if (m_AnimationMap.find(path) != m_AnimationMap.end())
 		{
-			Json::Value animationData{ m_AnimationMap[path] };
+			Json::Value& animationData{ m_AnimationMap.at(path) };
 			const int animationFrames{ (int)animationData["frames"].size() };
 			const float secondsPerFrame{ 1.0f / ANIMATIONFRAMERATE };
 			int currentFrame{ (int)(animationDuration / secondsPerFrame) % animationFrames };
@@ -108,6 +110,12 @@ float TextureManager::GetTextureHeight(std::string path) const
 {
 	if (m_TextureMap.find(path) == m_TextureMap.end()) return -1.0f;
 	return m_TextureMap.at(path)->GetHeight();
+}
+
+float TextureManager::GetAnimationDuration(std::string path) const
+{
+	if (m_AnimationMap.find(path) == m_AnimationMap.end()) return -1.0f;
+	return (float)m_AnimationMap.at(path)["frames"].size() / ANIMATIONFRAMERATE;
 }
 
 bool TextureManager::LoadTexture(std::string path)

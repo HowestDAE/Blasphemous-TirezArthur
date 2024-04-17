@@ -1,9 +1,8 @@
 #pragma once
-class Camera
+class Camera final
 {
 public:
 	Camera(float screenwidth, float screenheight);
-	~Camera();
 
 	void Aim(float levelW, float levelH, Point2f center);
 	void Reset();

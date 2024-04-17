@@ -4,11 +4,10 @@
 #include "json/json-forwards.h"
 class TextureManager;
 
-class LevelManager
+class LevelManager final
 {
 public:
 	LevelManager(TextureManager* textureManager);
-	~LevelManager();
 
 	bool CollisionCheck(Rectf& hitbox, Point2f& velocity) const;
 

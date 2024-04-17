@@ -24,6 +24,7 @@ void Game::Initialize()
 	m_CameraPtr = new Camera{ GetViewPort().width, GetViewPort().height };
 	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr };
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr };
+	ShowCursor(false);
 }
 
 void Game::Cleanup()
@@ -32,6 +33,7 @@ void Game::Cleanup()
 	delete m_CameraPtr;
 	delete m_PlayerPtr;
 	delete m_LevelManagerPtr;
+	ShowCursor(true);
 }
 
 void Game::Update( float elapsedSec )
