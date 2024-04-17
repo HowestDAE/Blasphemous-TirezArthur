@@ -12,11 +12,6 @@ LevelManager::LevelManager(TextureManager* textureManager):
 	LoadLevel("indoor1");
 }
 
-LevelManager::~LevelManager()
-{
-
-}
-
 bool LevelManager::CollisionCheck(Rectf& hitbox, Point2f& velocity) const
 {
 	bool collisionHappened{ false };

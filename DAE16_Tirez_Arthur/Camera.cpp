@@ -8,11 +8,6 @@ Camera::Camera(float screenwidth, float screenheight):
 	
 }
 
-Camera::~Camera()
-{
-	
-}
-
 void Camera::Aim(float levelW, float levelH, Point2f center)
 {
 	levelW *= DISPLAYSCALE;
