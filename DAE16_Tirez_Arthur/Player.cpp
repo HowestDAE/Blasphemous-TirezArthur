@@ -49,19 +49,19 @@ void Player::Update(float elapsedSec)
 
 		break;
 	case run:
-		HorizontalMovement(leftHeld, rightHeld);
-
 		if (FallCheck()) break;
 		if (!leftHeld && !rightHeld || leftHeld && rightHeld) Idle();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 
-		break;
-	case jump:
 		HorizontalMovement(leftHeld, rightHeld);
 
+		break;
+	case jump:
 		if (FallCheck()) break;
+
+		HorizontalMovement(leftHeld, rightHeld);
 
 		break;
 	case fall:
