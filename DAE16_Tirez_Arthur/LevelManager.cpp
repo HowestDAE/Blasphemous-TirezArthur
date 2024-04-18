@@ -12,9 +12,15 @@ LevelManager::LevelManager(TextureManager* textureManager):
 	LoadLevel("indoor1");
 }
 
-bool LevelManager::CollisionCheck(Rectf& hitbox, Point2f& velocity) const
+bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity) const
 {
 	bool collisionHappened{ false };
+	if (hitbox.left < 0.0f && hitbox.bottom < 0.0f)
+	{
+		hitbox.left = m_LevelDoors.at(0).destinationPos.x;
+		hitbox.bottom = m_LevelDoors.at(0).destinationPos.y;
+		return collisionHappened;
+	}
 	for (Rectf collisionRect : m_LevelGeometry)
 	{
 		if (utils::IsOverlapping(hitbox, collisionRect))
@@ -54,7 +60,42 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, Point2f& velocity) const
 			collisionHappened = true;
 		}
 	}
+	for (const Door& door : m_LevelDoors)
+	{
+		if (utils::IsOverlapping(hitbox, door.hitbox) 
+			&&
+			(!door.flipped &&
+			hitbox.left <= door.hitbox.left &&
+			hitbox.left + hitbox.width >= door.hitbox.left
+			||
+			door.flipped &&
+			hitbox.left <= door.hitbox.left + door.hitbox.width &&
+			hitbox.left + hitbox.width >= door.hitbox.left + door.hitbox.width))
+		{
+			std::cout << "travel to " << door.destination << std::endl;
+		}
+	}
 	return collisionHappened;
+}
+
+bool LevelManager::Interact(Interactions interaction, Rectf& hitbox) const
+{
+	switch (interaction)
+	{
+	case Interactions::ladder:
+		for (const Rectf& ladder : m_LevelLadders)
+		{
+			if (utils::IsOverlapping(ladder, hitbox))
+			{
+				hitbox.left = ladder.left - hitbox.width * 0.5f;
+				return true;
+			}
+		}
+		return false;
+		break;
+	default:
+		break;
+	}
 }
 
 void LevelManager::DrawBackGround()
@@ -64,7 +105,10 @@ void LevelManager::DrawBackGround()
 
 void LevelManager::DrawForeground()
 {
-
+	for (const Door& currentDoor : m_LevelDoors)
+	{
+		m_TextureManagerPtr->Draw(currentDoor.texture, currentDoor.hitbox.left, currentDoor.hitbox.bottom, currentDoor.flipped);
+	}
 }
 
 void LevelManager::LoadLevel(std::string path)
@@ -81,7 +125,7 @@ void LevelManager::LoadLevel(std::string path)
 	Json::Value levelData;
 	levelDataFile >> levelData;
 
-	Json::Value::Members collisionBoxes{ levelData["collision"].getMemberNames() };
+	const Json::Value::Members& collisionBoxes{ levelData["collision"].getMemberNames() };
 
 	for (const std::string& currentCollissionRect : collisionBoxes)
 	{
@@ -90,5 +134,32 @@ void LevelManager::LoadLevel(std::string path)
 								levelData["collision"][currentCollissionRect].get("width", -1).asFloat() ,
 								levelData["collision"][currentCollissionRect].get("height", -1).asFloat() };
 		m_LevelGeometry.push_back(ColissionRect);
+	}
+
+	const Json::Value::Members& doors{ levelData["door"].getMemberNames() };
+
+	for (const std::string& currentDoor : doors)
+	{
+		Rectf doorHitbox{			levelData["door"][currentDoor].get("left", -1).asFloat(),
+									levelData["door"][currentDoor].get("bottom", -1).asFloat() ,
+									levelData["door"][currentDoor].get("width", -1).asFloat() ,
+									levelData["door"][currentDoor].get("height", -1).asFloat() };
+		bool doorFlipped{			levelData["door"][currentDoor].get("flipped", false).asBool() };
+		std::string texture{		levelData["door"][currentDoor].get("texture", "").asString() };
+		std::string destination{	levelData["door"][currentDoor]["destination"].get("area", "").asString()};
+		Point2f destinationPos{		levelData["door"][currentDoor]["destination"].get("left", "").asFloat(),
+									levelData["door"][currentDoor]["destination"].get("bottom", "").asFloat() };
+		m_LevelDoors.push_back(Door{ doorHitbox,doorFlipped, texture, destination, destinationPos });
+	}
+
+	const Json::Value::Members& ladders{ levelData["ladder"].getMemberNames() };
+
+	for (const std::string& currentLadder : ladders)
+	{
+		Rectf ladderHitbox{	levelData["ladder"][currentLadder].get("left", -1).asFloat(),
+							levelData["ladder"][currentLadder].get("bottom", -1).asFloat() ,
+							levelData["ladder"][currentLadder].get("width", -1).asFloat() ,
+							levelData["ladder"][currentLadder].get("height", -1).asFloat() };
+		m_LevelLadders.push_back(ladderHitbox);
 	}
 }

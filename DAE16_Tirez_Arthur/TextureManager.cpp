@@ -28,7 +28,7 @@ void TextureManager::Draw(std::string path, Point2f pos, bool flipped)
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{
 		Texture* texture{ m_TextureMap.at(path) };
-		texture->Draw(Rectf{ pos.x, pos.y, texture->GetWidth(), texture->GetHeight() }, Rectf{ 0.f, 0.f, texture->GetWidth(), texture->GetHeight() });
+		texture->Draw(Rectf{ pos.x, pos.y, texture->GetWidth(), texture->GetHeight() }, Rectf{ 0.f, 0.f, texture->GetWidth(), texture->GetHeight() }, flipped);
 	}
 	else
 	{
@@ -50,6 +50,7 @@ void TextureManager::Animate(std::string path, float x, float y, float animation
 
 void TextureManager::Animate(std::string path, Point2f pos, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
 {
+	if (animationDuration < 0.0f) animationDuration = abs(GetAnimationDuration(path) + animationDuration);
 	animationDuration *= frameTimeModifier;
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{

@@ -102,5 +102,66 @@
       "width": 65,
       "height": 245
     }
+  },
+  "door": {
+    "0": {
+      "left": 0,
+      "bottom": 103,
+      "width": 63,
+      "height": 217,
+      "flipped": false,
+      "texture": "tower_door",
+      "destination": {
+        "area": "outside1",
+        "left": 200,
+        "bottom": 150
+      }
+    },
+    "1": {
+      "left": 0,
+      "bottom": 358,
+      "width": 63,
+      "height": 217,
+      "flipped": false,
+      "texture": "tower_door",
+      "destination": {
+        "area": "outside1",
+        "left": 350,
+        "bottom": 200
+      }
+    },
+    "2": {
+      "left": 1217,
+      "bottom": 391,
+      "width": 63,
+      "height": 217,
+      "flipped": true,
+      "texture": "tower_door",
+      "destination": {
+        "area": "outside1",
+        "left": 350,
+        "bottom": 200
+      }
+    }
+  },
+  "ladder": {
+    "0": {
+      "left": 176,
+      "bottom": 686,
+      "width": 1,
+      "height": 200
+    },
+    "1": {
+      "left": 815,
+      "bottom": 186,
+      "width": 1,
+      "height": 250
+    },
+    "2": {
+      "left": 1103,
+      "bottom": 428,
+      "width": 1,
+      "height": 160
+    }
   }
 }

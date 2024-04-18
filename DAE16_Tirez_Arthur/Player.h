@@ -1,14 +1,16 @@
 #pragma once
+#include "Vector2f.h"
 class TextureManager;
 class LevelManager;
 
-enum State {
+enum class State {
 	idle,
 	run,
 	jump,
 	fall,
 	crouch,
-	dodge
+	dodge,
+	ladder
 };
 class Player final
 {
@@ -18,7 +20,7 @@ public:
 	void Update(float elapsedSec);
 	void Draw();
 
-	Rectf GetHitbox() const;
+	Rectf& GetHitbox();
 private:
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
 	bool FallCheck();
@@ -27,16 +29,19 @@ private:
 	void Dodge();
 	void Crouch();
 	void Run();
+	void Ladder();
 
 	TextureManager* m_TextureManagerPtr;
 	const LevelManager* m_LevelManagerPtr;
 
 	State m_PlayerState;
 	Rectf m_HitBox;
-	Point2f m_Velocity;
+	Vector2f m_Velocity;
 	bool m_LeftFacing;
 	float m_AnimationDuration;
 	float m_DodgeCooldown;
+	float m_LadderCooldown;
+	float m_JumpCooldown;
 
 	const float GRAVITY{ 1000.0f };
 	const float SPEED{ 170.0f };
