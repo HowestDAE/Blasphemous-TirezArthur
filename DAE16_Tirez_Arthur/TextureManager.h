@@ -13,9 +13,9 @@ public:
 
 	TextureManager& operator=(const TextureManager& textureManager) = delete;
 
-	void Draw(std::string path, float x, float y, bool flipped = false);
+	void Draw(std::string path, float x = 0.0f, float y = 0.0f, bool flipped = false);
 	void Draw(std::string path, Point2f pos, bool flipped = false);
-	void Animate(std::string path, float x, float y, float animationDuration, bool flipped = false, bool loop = true, float frameTimeModifier = 1.0f);
+	void Animate(std::string path, float x = 0.0, float y = 0.0f, float animationDuration = 0.0f, bool flipped = false, bool loop = true, float frameTimeModifier = 1.0f);
 	void Animate(std::string path, Point2f pos, float animationDuration, bool flipped = false, bool loop = true, float frameTimeModifier = 1.0f);
 
 	float GetTextureWidth(std::string path) const;

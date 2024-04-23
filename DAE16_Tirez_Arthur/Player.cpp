@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "LevelManager.h"
 #include <iostream>
+#include "utils.h"
 
 Player::Player(TextureManager* textureManager, LevelManager* levelManager) :
 	m_PlayerState{ State::run },
@@ -15,7 +16,7 @@ Player::Player(TextureManager* textureManager, LevelManager* levelManager) :
 	m_LadderCooldown{ 0.0f },
 	m_JumpCooldown{ 0.0f }
 {
-	m_HitBox = Rectf{ -1.0f, -1.0f, HITBOXWIDTH, HITBOXHEIGHT };
+	m_HitBox = Rectf{ 50.0f, 350.0f, HITBOXWIDTH, HITBOXHEIGHT };
 }
 
 void Player::Update(float elapsedSec)
@@ -24,6 +25,7 @@ void Player::Update(float elapsedSec)
 	m_DodgeCooldown -= elapsedSec;
 	m_LadderCooldown -= elapsedSec;
 	m_JumpCooldown -= elapsedSec;
+	m_LedgeCooldown -= elapsedSec;
 	m_Velocity.y += -GRAVITY * elapsedSec;
 	m_Velocity.y = std::max(m_Velocity.y, -500.0f);
 
@@ -41,8 +43,16 @@ void Player::Update(float elapsedSec)
 		if (leftHeld) m_LeftFacing = true;
 		else if (rightHeld) m_LeftFacing = false;
 
+		if (FallCheck()) break;
+		if (m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox))
+		{
+			m_HitBox.bottom -= 15.0f;
+			Ladder();
+			break;
+		}
 		if (!downHeld) Idle();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
+		if (spaceHeld) m_HitBox.bottom -= 5.0f;
 
 		break;
 	case State::idle:
@@ -68,6 +78,7 @@ void Player::Update(float elapsedSec)
 	case State::jump:
 		HorizontalMovement(leftHeld, rightHeld);
 
+		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if (upHeld && m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (FallCheck()) break;
 
@@ -75,6 +86,7 @@ void Player::Update(float elapsedSec)
 	case State::fall:
 		HorizontalMovement(leftHeld, rightHeld);
 
+		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if (upHeld && m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 
 		break;
@@ -107,6 +119,14 @@ void Player::Update(float elapsedSec)
 
 		if (!m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox)) Idle();
 		if (spaceHeld && m_JumpCooldown < 0.0f) Jump();
+
+		break;
+	case State::ledge:
+		m_LedgeCooldown = 0.4f;
+
+		if (!downHeld) m_Velocity.y = 0.0f;
+
+		FallCheck();
 
 		break;
 	default:
@@ -152,10 +172,15 @@ void Player::Draw()
 		animationPath = "penitent_ladder";
 		frameTimeModifier = 0.4f;
 		break;
+	case State::ledge:
+		animationPath = "penitent_ledge";
+		loop = false;
+		break;
 	default:
 		break;
 	}
 	m_TextureManagerPtr->Animate(animationPath, Point2f{ m_HitBox.left, m_HitBox.bottom }, m_AnimationDuration, m_LeftFacing, loop, frameTimeModifier);
+	//utils::DrawRect(m_HitBox);
 }
 
 Rectf& Player::GetHitbox()
@@ -238,6 +263,14 @@ void Player::Ladder()
 	m_PlayerState = State::ladder;
 	m_AnimationDuration = 0.0f;
 	m_JumpCooldown = 0.5f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
+}
+
+void Player::Ledge()
+{
+	m_PlayerState = State::ledge;
+	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
 }

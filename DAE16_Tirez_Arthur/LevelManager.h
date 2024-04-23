@@ -13,8 +13,15 @@ struct Door {
 	Point2f destinationPos;
 };
 
+struct Platform {
+	Rectf hitbox;
+	bool rightGrabbable;
+	bool leftGrabbable;
+};
+
 enum class Interactions {
-	ladder
+	ladder,
+	ledge
 };
 
 class LevelManager final
@@ -23,7 +30,7 @@ public:
 	LevelManager(TextureManager* textureManager);
 
 	bool CollisionCheck(Rectf& hitbox, Vector2f& velocity) const;
-	bool Interact(Interactions interaction, Rectf& hitbox) const;
+	bool Interact(Interactions interaction, Rectf& hitbox, const Vector2f& velocity = Vector2f{ 0.0f, 0.0f }) const;
 
 	void DrawBackGround();
 	void DrawForeground();
@@ -33,6 +40,7 @@ private:
 	TextureManager* m_TextureManagerPtr{};
 
 	std::vector<Rectf> m_LevelGeometry;
+	std::vector<Platform> m_LevelPlatforms;
 	std::vector<Door> m_LevelDoors;
 	std::vector<Rectf> m_LevelLadders;
 	std::string m_CurrentLevel;

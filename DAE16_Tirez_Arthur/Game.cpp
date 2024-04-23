@@ -49,6 +49,10 @@ void Game::Draw( ) const
 	m_PlayerPtr->Draw();
 	m_LevelManagerPtr->DrawForeground();
 	m_CameraPtr->Reset();
+
+	m_CameraPtr->ApplyScale();
+	// Draw ui
+	m_CameraPtr->Reset();
 }
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )

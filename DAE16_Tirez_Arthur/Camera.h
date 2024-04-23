@@ -5,6 +5,7 @@ public:
 	Camera(float screenwidth, float screenheight);
 
 	void Aim(float levelW, float levelH, Point2f center);
+	void ApplyScale();
 	void Reset();
 private:
 	float m_Screenwidth;

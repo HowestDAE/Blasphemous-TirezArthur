@@ -15,7 +15,7 @@ LevelManager::LevelManager(TextureManager* textureManager):
 bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity) const
 {
 	bool collisionHappened{ false };
-	if (hitbox.left < 0.0f && hitbox.bottom < 0.0f)
+	if (hitbox.left < 0.0f && hitbox.bottom < 0.0f && m_LevelDoors.size() > 0)
 	{
 		hitbox.left = m_LevelDoors.at(0).destinationPos.x;
 		hitbox.bottom = m_LevelDoors.at(0).destinationPos.y;
@@ -60,6 +60,23 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity) const
 			collisionHappened = true;
 		}
 	}
+	for (Platform platform : m_LevelPlatforms)
+	{
+		if (utils::IsOverlapping(hitbox, platform.hitbox))
+		{
+			float deltaX{};
+			float deltaY{};
+			platform.hitbox.bottom -= 0.1f; // Add margin
+			platform.hitbox.height += 0.2f;
+			if (velocity.y <= 0.0f && - platform.hitbox.bottom - platform.hitbox.height + hitbox.bottom > -5.0f)
+			{
+				hitbox.bottom = platform.hitbox.bottom + platform.hitbox.height;
+				velocity.y = 0.0f;
+				collisionHappened = true;
+			}
+		}
+	}
+
 	for (const Door& door : m_LevelDoors)
 	{
 		if (utils::IsOverlapping(hitbox, door.hitbox) 
@@ -78,17 +95,44 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity) const
 	return collisionHappened;
 }
 
-bool LevelManager::Interact(Interactions interaction, Rectf& hitbox) const
+bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const Vector2f& velocity) const
 {
 	switch (interaction)
 	{
 	case Interactions::ladder:
 		for (const Rectf& ladder : m_LevelLadders)
 		{
-			if (utils::IsOverlapping(ladder, hitbox))
+			if (utils::IsOverlapping(ladder, playerHitbox))
 			{
-				hitbox.left = ladder.left - hitbox.width * 0.5f;
+				playerHitbox.left = ladder.left - playerHitbox.width * 0.5f;
 				return true;
+			}
+		}
+		return false;
+		break;
+	case Interactions::ledge:
+		for (const Platform& ledge : m_LevelPlatforms)
+		{
+			float deltaY{ abs(ledge.hitbox.bottom + ledge.hitbox.height - playerHitbox.bottom - playerHitbox.height) };
+			if (velocity.x < 0.0f && ledge.rightGrabbable)
+			{
+				float deltaX{ playerHitbox.left - ledge.hitbox.left - ledge.hitbox.width };
+				if (abs(deltaX) < 10.0f && deltaY < 20.0f)
+				{
+					playerHitbox.bottom = ledge.hitbox.bottom + ledge.hitbox.height - playerHitbox.height;
+					playerHitbox.left = ledge.hitbox.left + ledge.hitbox.width;
+					return true;
+				}
+			}
+			else if (velocity.x > 0.0f && ledge.leftGrabbable)
+			{
+				float deltaX{ ledge.hitbox.left - playerHitbox.left - playerHitbox.width };
+				if (abs(deltaX) < 10.0f && deltaY < 20.0f)
+				{
+					playerHitbox.bottom = ledge.hitbox.bottom + ledge.hitbox.height - playerHitbox.height;
+					playerHitbox.left = ledge.hitbox.left - playerHitbox.width;
+					return true;
+				}
 			}
 		}
 		return false;
@@ -109,6 +153,10 @@ void LevelManager::DrawForeground()
 	{
 		m_TextureManagerPtr->Draw(currentDoor.texture, currentDoor.hitbox.left, currentDoor.hitbox.bottom, currentDoor.flipped);
 	}
+	//for (const Rectf& currentPlatform : m_LevelLadders)
+	//{
+	//	utils::DrawRect(currentPlatform);
+	//}
 }
 
 void LevelManager::LoadLevel(std::string path)
@@ -134,6 +182,19 @@ void LevelManager::LoadLevel(std::string path)
 								levelData["collision"][currentCollissionRect].get("width", -1).asFloat() ,
 								levelData["collision"][currentCollissionRect].get("height", -1).asFloat() };
 		m_LevelGeometry.push_back(ColissionRect);
+	}
+
+	const Json::Value::Members& platformBoxes{ levelData["platform"].getMemberNames() };
+
+	for (const std::string& currentPlatform : platformBoxes)
+	{
+		Rectf PlatformRect{ levelData["platform"][currentPlatform].get("left", -1).asFloat(),
+							levelData["platform"][currentPlatform].get("bottom", -1).asFloat() ,
+							levelData["platform"][currentPlatform].get("width", -1).asFloat() ,
+							levelData["platform"][currentPlatform].get("height", -1).asFloat() };
+		bool rightGrab{		levelData["platform"][currentPlatform].get("grabRight", false).asBool() };
+		bool leftGrab{		levelData["platform"][currentPlatform].get("grabLeft", false).asBool() };
+		m_LevelPlatforms.push_back(Platform{ PlatformRect, rightGrab, leftGrab });
 	}
 
 	const Json::Value::Members& doors{ levelData["door"].getMemberNames() };

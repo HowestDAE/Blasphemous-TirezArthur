@@ -10,7 +10,8 @@ enum class State {
 	fall,
 	crouch,
 	dodge,
-	ladder
+	ladder,
+	ledge
 };
 class Player final
 {
@@ -30,6 +31,7 @@ private:
 	void Crouch();
 	void Run();
 	void Ladder();
+	void Ledge();
 
 	TextureManager* m_TextureManagerPtr;
 	const LevelManager* m_LevelManagerPtr;
@@ -42,6 +44,7 @@ private:
 	float m_DodgeCooldown;
 	float m_LadderCooldown;
 	float m_JumpCooldown;
+	float m_LedgeCooldown;
 
 	const float GRAVITY{ 1000.0f };
 	const float SPEED{ 170.0f };

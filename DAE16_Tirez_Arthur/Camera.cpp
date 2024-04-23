@@ -31,6 +31,12 @@ void Camera::Aim(float levelW, float levelH, Point2f center)
 	glTranslatef(center.x / DISPLAYSCALE, center.y / DISPLAYSCALE, 0.0f);
 }
 
+void Camera::ApplyScale()
+{
+	glPushMatrix();
+	glScalef(DISPLAYSCALE, DISPLAYSCALE, 1.0f);
+}
+
 void Camera::Reset()
 {
 	glPopMatrix();

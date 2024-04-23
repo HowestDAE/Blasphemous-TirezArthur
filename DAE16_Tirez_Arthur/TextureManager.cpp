@@ -50,7 +50,10 @@ void TextureManager::Animate(std::string path, float x, float y, float animation
 
 void TextureManager::Animate(std::string path, Point2f pos, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
 {
-	if (animationDuration < 0.0f) animationDuration = abs(GetAnimationDuration(path) + animationDuration);
+	while (animationDuration < 0.0f)
+	{
+		animationDuration += GetAnimationDuration(path) / frameTimeModifier;
+	}
 	animationDuration *= frameTimeModifier;
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{
