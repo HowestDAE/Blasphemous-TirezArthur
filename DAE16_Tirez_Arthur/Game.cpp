@@ -38,6 +38,7 @@ void Game::Cleanup()
 
 void Game::Update( float elapsedSec )
 {
+	std::cout << "ElapsedSec: " << elapsedSec * 1000 << std::endl;
 	m_PlayerPtr->Update(elapsedSec);
 }
 

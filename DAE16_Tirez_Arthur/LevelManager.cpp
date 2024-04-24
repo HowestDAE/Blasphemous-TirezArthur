@@ -113,11 +113,11 @@ bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const
 	case Interactions::ledge:
 		for (const Platform& ledge : m_LevelPlatforms)
 		{
-			float deltaY{ abs(ledge.hitbox.bottom + ledge.hitbox.height - playerHitbox.bottom - playerHitbox.height) };
+			float deltaY{ abs(ledge.hitbox.bottom + ledge.hitbox.height - playerHitbox.bottom - playerHitbox.height * 0.5f) };
 			if (velocity.x < 0.0f && ledge.rightGrabbable)
 			{
 				float deltaX{ playerHitbox.left - ledge.hitbox.left - ledge.hitbox.width };
-				if (abs(deltaX) < 10.0f && deltaY < 20.0f)
+				if (abs(deltaX) < 15.0f && deltaY < 20.0f)
 				{
 					playerHitbox.bottom = ledge.hitbox.bottom + ledge.hitbox.height - playerHitbox.height;
 					playerHitbox.left = ledge.hitbox.left + ledge.hitbox.width;
@@ -127,12 +127,23 @@ bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const
 			else if (velocity.x > 0.0f && ledge.leftGrabbable)
 			{
 				float deltaX{ ledge.hitbox.left - playerHitbox.left - playerHitbox.width };
-				if (abs(deltaX) < 10.0f && deltaY < 20.0f)
+				if (abs(deltaX) < 15.0f && deltaY < 20.0f)
 				{
 					playerHitbox.bottom = ledge.hitbox.bottom + ledge.hitbox.height - playerHitbox.height;
 					playerHitbox.left = ledge.hitbox.left - playerHitbox.width;
 					return true;
 				}
+			}
+		}
+		return false;
+		break;
+	case Interactions::spike:
+		for (const Rectf& spike : m_LevelSpikes)
+		{
+			if (utils::IsOverlapping(spike, playerHitbox))
+			{
+				playerHitbox.bottom = spike.bottom + 0.1f;
+				return true;
 			}
 		}
 		return false;
@@ -169,11 +180,16 @@ void LevelManager::LoadLevel(std::string path)
 	}
 	m_CurrentLevel = path;
 	m_LevelGeometry.clear();
+	m_LevelLadders.clear();
+	m_LevelPlatforms.clear();
+	m_LevelSpikes.clear();
+	m_LevelDoors.clear();
 
 	Json::Value levelData;
 	levelDataFile >> levelData;
 
 	const Json::Value::Members& collisionBoxes{ levelData["collision"].getMemberNames() };
+	m_LevelGeometry.reserve(collisionBoxes.size());
 
 	for (const std::string& currentCollissionRect : collisionBoxes)
 	{
@@ -185,6 +201,7 @@ void LevelManager::LoadLevel(std::string path)
 	}
 
 	const Json::Value::Members& platformBoxes{ levelData["platform"].getMemberNames() };
+	m_LevelPlatforms.reserve(platformBoxes.size());
 
 	for (const std::string& currentPlatform : platformBoxes)
 	{
@@ -198,6 +215,7 @@ void LevelManager::LoadLevel(std::string path)
 	}
 
 	const Json::Value::Members& doors{ levelData["door"].getMemberNames() };
+	m_LevelDoors.reserve(doors.size());
 
 	for (const std::string& currentDoor : doors)
 	{
@@ -214,6 +232,7 @@ void LevelManager::LoadLevel(std::string path)
 	}
 
 	const Json::Value::Members& ladders{ levelData["ladder"].getMemberNames() };
+	m_LevelLadders.reserve(ladders.size());
 
 	for (const std::string& currentLadder : ladders)
 	{
@@ -222,5 +241,17 @@ void LevelManager::LoadLevel(std::string path)
 							levelData["ladder"][currentLadder].get("width", -1).asFloat() ,
 							levelData["ladder"][currentLadder].get("height", -1).asFloat() };
 		m_LevelLadders.push_back(ladderHitbox);
+	}
+
+	const Json::Value::Members& spikes{ levelData["spike"].getMemberNames() };
+	m_LevelSpikes.reserve(spikes.size());
+
+	for (const std::string& currentSpike : spikes)
+	{
+		Rectf ladderHitbox{ levelData["spike"][currentSpike].get("left", -1).asFloat(),
+							levelData["spike"][currentSpike].get("bottom", -1).asFloat(),
+							levelData["spike"][currentSpike].get("width", -1).asFloat(),
+							levelData["spike"][currentSpike].get("height", -1).asFloat() };
+		m_LevelSpikes.push_back(ladderHitbox);
 	}
 }

@@ -21,7 +21,8 @@ struct Platform {
 
 enum class Interactions {
 	ladder,
-	ledge
+	ledge,
+	spike
 };
 
 class LevelManager final
@@ -43,5 +44,6 @@ private:
 	std::vector<Platform> m_LevelPlatforms;
 	std::vector<Door> m_LevelDoors;
 	std::vector<Rectf> m_LevelLadders;
+	std::vector<Rectf> m_LevelSpikes;
 	std::string m_CurrentLevel;
 };

@@ -1,0 +1,154 @@
+{
+	"frames": {
+		"0": {
+			"frame": {
+				"x": 0,
+				"y": 0,
+				"w": 41,
+				"h": 86
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 37,
+				"right": -14,
+				"bottom": 66
+			}
+		},
+		"1": {
+			"frame": {
+				"x": 41,
+				"y": 0,
+				"w": 64,
+				"h": 79
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 44,
+				"right": 2,
+				"bottom": 50
+			}
+		},
+		"2": {
+			"frame": {
+				"x": 105,
+				"y": 0,
+				"w": 79,
+				"h": 79
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 41,
+				"right": 20,
+				"bottom": 37
+			}
+		},
+		"3": {
+			"frame": {
+				"x": 41,
+				"y": 79,
+				"w": 74,
+				"h": 72
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 42,
+				"right": 15,
+				"bottom": 26
+			}
+		},
+		"4": {
+			"frame": {
+				"x": 115,
+				"y": 79,
+				"w": 63,
+				"h": 55
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 32,
+				"right": 13,
+				"bottom": 6
+			}
+		},
+		"5": {
+			"frame": {
+				"x": 115,
+				"y": 134,
+				"w": 83,
+				"h": 58
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 46,
+				"right": 19,
+				"bottom": 2
+			}
+		},
+		"6": {
+			"frame": {
+				"x": 184,
+				"y": 0,
+				"w": 78,
+				"h": 70
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 42,
+				"right": 17,
+				"bottom": 2
+			}
+		},
+		"7": {
+			"frame": {
+				"x": 198,
+				"y": 70,
+				"w": 84,
+				"h": 70
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 44,
+				"right": 22,
+				"bottom": 2
+			}
+		},
+		"8": {
+			"frame": {
+				"x": 198,
+				"y": 140,
+				"w": 85,
+				"h": 61
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 50,
+				"right": 17,
+				"bottom": 2
+			}
+		},
+		"9": {
+			"frame": {
+				"x": 0,
+				"y": 201,
+				"w": 84,
+				"h": 61
+			},
+			"rotated": false,
+			"trimmed": false,
+			"offset": {
+				"left": 49,
+				"right": 17,
+				"bottom": 2
+			}
+		}
+	}
+}

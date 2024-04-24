@@ -11,7 +11,9 @@ enum class State {
 	crouch,
 	dodge,
 	ladder,
-	ledge
+	ledge,
+	ledgeclimb,
+	death_spike
 };
 class Player final
 {
@@ -32,6 +34,8 @@ private:
 	void Run();
 	void Ladder();
 	void Ledge();
+	void LedgeClimb();
+	void DeathSpike();
 
 	TextureManager* m_TextureManagerPtr;
 	const LevelManager* m_LevelManagerPtr;

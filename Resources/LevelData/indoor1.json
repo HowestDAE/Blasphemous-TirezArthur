@@ -234,24 +234,32 @@
        }
      }
    },
-   "ladder": {
-     "0": {
-       "left": 176,
-       "bottom": 686,
-       "width": 1,
-       "height": 199
-     },
-     "1": {
-       "left": 815,
-       "bottom": 186,
-       "width": 1,
-       "height": 249
-     },
-     "2": {
-       "left": 1103,
-       "bottom": 468,
-       "width": 1,
-       "height": 129
-     }
-   }
- }
+  "ladder": {
+    "0": {
+      "left": 176,
+      "bottom": 686,
+      "width": 1,
+      "height": 199
+    },
+    "1": {
+      "left": 815,
+      "bottom": 186,
+      "width": 1,
+      "height": 249
+    },
+    "2": {
+      "left": 1103,
+      "bottom": 468,
+      "width": 1,
+      "height": 129
+    }
+  },
+  "spike": {
+    "0": {
+      "left": 704,
+      "bottom": 749,
+      "width": 255,
+      "height": 32
+    }
+  }
+}

@@ -14,9 +14,10 @@ Player::Player(TextureManager* textureManager, LevelManager* levelManager) :
 	m_AnimationDuration{ 0.0f },
 	m_DodgeCooldown{ 0.0f },
 	m_LadderCooldown{ 0.0f },
-	m_JumpCooldown{ 0.0f }
+	m_JumpCooldown{ 0.0f },
+	m_LedgeCooldown{ 0.0f }
 {
-	m_HitBox = Rectf{ 50.0f, 350.0f, HITBOXWIDTH, HITBOXHEIGHT };
+	m_HitBox = Rectf{ -1.0f, -1.0f, HITBOXWIDTH, HITBOXHEIGHT };
 }
 
 void Player::Update(float elapsedSec)
@@ -88,6 +89,7 @@ void Player::Update(float elapsedSec)
 
 		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if (upHeld && m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if (m_LevelManagerPtr->Interact(Interactions::spike, m_HitBox)) DeathSpike();
 
 		break;
 	case State::dodge:
@@ -125,10 +127,13 @@ void Player::Update(float elapsedSec)
 		m_LedgeCooldown = 0.4f;
 
 		if (!downHeld) m_Velocity.y = 0.0f;
+		if (upHeld && m_AnimationDuration > 0.5f) LedgeClimb();
 
 		FallCheck();
 
 		break;
+	case State::ledgeclimb:
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_ledge_climb")) Idle();
 	default:
 		break;
 	}
@@ -176,6 +181,15 @@ void Player::Draw()
 		animationPath = "penitent_ledge";
 		loop = false;
 		break;
+	case State::ledgeclimb:
+		animationPath = "penitent_ledge_climb";
+		loop = false;
+		frameTimeModifier = 0.5f;
+		break;
+	case State::death_spike:
+		animationPath = "penitent_death_spike";
+		loop = false;
+		break;
 	default:
 		break;
 	}
@@ -212,6 +226,7 @@ bool Player::FallCheck()
 	{
 		m_PlayerState = State::fall;
 		m_AnimationDuration = 0.0f;
+		m_HitBox.height = HITBOXHEIGHT;
 		return true;
 	}
 	return false;
@@ -270,6 +285,23 @@ void Player::Ladder()
 void Player::Ledge()
 {
 	m_PlayerState = State::ledge;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
+}
+
+void Player::LedgeClimb()
+{
+	m_PlayerState = State::ledgeclimb;
+	m_AnimationDuration = 0.0f;
+	m_HitBox.bottom += m_HitBox.height + 0.1f;
+	if (m_LeftFacing) m_HitBox.left -= m_HitBox.width;
+	else m_HitBox.left += m_HitBox.width;
+}
+
+void Player::DeathSpike()
+{
+	m_PlayerState = State::death_spike;
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
