@@ -194,6 +194,14 @@ void Player::Draw()
 		break;
 	}
 	m_TextureManagerPtr->Animate(animationPath, Point2f{ m_HitBox.left, m_HitBox.bottom }, m_AnimationDuration, m_LeftFacing, loop, frameTimeModifier);
+	if (m_PlayerState == State::death_spike && m_AnimationDuration >= 1.0f)
+	{
+		utils::SetColor(Color4f{ 0.0f, 0.0f, 0.0f, (m_AnimationDuration - 1.0f) * 0.5f });
+		utils::FillRect(Rectf{ m_HitBox.left - 700.0f, m_HitBox.bottom - 500.0f, 1400.0f, 1000.0f });
+		m_TextureManagerPtr->Draw(	"death_screen", 
+									m_HitBox.left + m_HitBox.width * 0.5f - m_TextureManagerPtr->GetTextureWidth("death_screen") * 0.5f, 
+									m_HitBox.bottom + m_HitBox.height * 0.5f - m_TextureManagerPtr->GetTextureHeight("death_screen") * 0.5f);
+	}
 	//utils::DrawRect(m_HitBox);
 }
 

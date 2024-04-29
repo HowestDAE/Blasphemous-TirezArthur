@@ -6,6 +6,7 @@
 #include "Player.h"
 #include "LevelManager.h"
 #include <iostream>
+#include "UiManager.h"
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -24,6 +25,7 @@ void Game::Initialize()
 	m_CameraPtr = new Camera{ GetViewPort().width, GetViewPort().height };
 	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr };
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr };
+	m_UiManagerPtr = new UiManager{};
 	ShowCursor(false);
 }
 
@@ -33,12 +35,12 @@ void Game::Cleanup()
 	delete m_CameraPtr;
 	delete m_PlayerPtr;
 	delete m_LevelManagerPtr;
+	delete m_UiManagerPtr;
 	ShowCursor(true);
 }
 
 void Game::Update( float elapsedSec )
 {
-	std::cout << "ElapsedSec: " << elapsedSec * 1000 << std::endl;
 	m_PlayerPtr->Update(elapsedSec);
 }
 

@@ -5,6 +5,7 @@ class TextureManager;
 class Camera;
 class Player;
 class LevelManager;
+class UiManager;
 
 class Game : public BaseGame
 {
@@ -32,6 +33,7 @@ private:
 	Camera* m_CameraPtr{};
 	Player* m_PlayerPtr{};
 	LevelManager* m_LevelManagerPtr{};
+	UiManager* m_UiManagerPtr{};
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );
