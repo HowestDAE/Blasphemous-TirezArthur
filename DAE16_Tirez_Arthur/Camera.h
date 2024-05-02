@@ -2,7 +2,7 @@
 class Camera final
 {
 public:
-	Camera(float screenwidth, float screenheight);
+	explicit Camera(float screenwidth, float screenheight);
 
 	void Aim(float levelW, float levelH, Point2f center);
 	void ApplyScale();

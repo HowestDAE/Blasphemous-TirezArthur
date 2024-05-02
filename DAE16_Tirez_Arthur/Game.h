@@ -6,6 +6,7 @@ class Camera;
 class Player;
 class LevelManager;
 class UiManager;
+class EnemyManager;
 
 class Game : public BaseGame
 {
@@ -34,6 +35,7 @@ private:
 	Player* m_PlayerPtr{};
 	LevelManager* m_LevelManagerPtr{};
 	UiManager* m_UiManagerPtr{};
+	EnemyManager* m_EnemyManagerPtr{};
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );

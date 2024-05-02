@@ -3,28 +3,29 @@
 class TextureManager;
 class LevelManager;
 
-enum class State {
-	idle,
-	run,
-	jump,
-	fall,
-	crouch,
-	dodge,
-	ladder,
-	ledge,
-	ledgeclimb,
-	death_spike
-};
 class Player final
 {
 public:
-	Player(TextureManager* textureManager, LevelManager* levelManager);
+	explicit Player(TextureManager* textureManager, LevelManager* levelManager);
 
 	void Update(float elapsedSec);
 	void Draw();
 
 	Rectf& GetHitbox();
 private:
+	enum class State {
+		idle,
+		run,
+		jump,
+		fall,
+		crouch,
+		dodge,
+		ladder,
+		ledge,
+		ledgeclimb,
+		death_spike
+	};
+
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
 	bool FallCheck();
 	void Idle();
@@ -50,9 +51,9 @@ private:
 	float m_JumpCooldown;
 	float m_LedgeCooldown;
 
-	const float GRAVITY{ 1000.0f };
-	const float SPEED{ 170.0f };
-	const float HITBOXHEIGHT{ 50.0f };
-	const float HITBOXWIDTH{ 18.0f };
+	static const float GRAVITY;
+	static const float SPEED;
+	static const float HITBOXHEIGHT;
+	static const float HITBOXWIDTH;
 };
 

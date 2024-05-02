@@ -7,11 +7,13 @@ class Texture;
 class TextureManager final
 {
 public:
-	TextureManager();
-	TextureManager(const TextureManager& textureManager) = delete;
+	explicit TextureManager();
+	explicit TextureManager(const TextureManager& textureManager) = delete;
+	explicit TextureManager(const TextureManager&& textureManager) = delete;
 	~TextureManager();
 
 	TextureManager& operator=(const TextureManager& textureManager) = delete;
+	TextureManager& operator=(const TextureManager&& textureManager) = delete;
 
 	void Draw(std::string path, float x = 0.0f, float y = 0.0f, bool flipped = false);
 	void Draw(std::string path, Point2f pos, bool flipped = false);

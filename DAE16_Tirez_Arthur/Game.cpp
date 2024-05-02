@@ -5,8 +5,9 @@
 #include "Camera.h"
 #include "Player.h"
 #include "LevelManager.h"
-#include <iostream>
 #include "UiManager.h"
+#include "EnemyManager.h"
+#include <iostream>
 
 Game::Game( const Window& window ) 
 	:BaseGame{ window }
@@ -26,6 +27,7 @@ void Game::Initialize()
 	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr };
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr };
 	m_UiManagerPtr = new UiManager{};
+	m_EnemyManagerPtr = new EnemyManager{ m_LevelManagerPtr, m_TextureManagerPtr };
 	ShowCursor(false);
 }
 
@@ -36,12 +38,14 @@ void Game::Cleanup()
 	delete m_PlayerPtr;
 	delete m_LevelManagerPtr;
 	delete m_UiManagerPtr;
+	delete m_EnemyManagerPtr;
 	ShowCursor(true);
 }
 
 void Game::Update( float elapsedSec )
 {
 	m_PlayerPtr->Update(elapsedSec);
+	m_EnemyManagerPtr->Update(elapsedSec);
 }
 
 void Game::Draw( ) const
@@ -49,6 +53,7 @@ void Game::Draw( ) const
 	ClearBackground( );
 	m_CameraPtr->Aim(m_TextureManagerPtr->GetTextureWidth("indoor1"), m_TextureManagerPtr->GetTextureHeight("indoor1"), Point2f{ m_PlayerPtr->GetHitbox().left, m_PlayerPtr->GetHitbox().bottom});
 	m_LevelManagerPtr->DrawBackGround();
+	m_EnemyManagerPtr->Draw();
 	m_PlayerPtr->Draw();
 	m_LevelManagerPtr->DrawForeground();
 	m_CameraPtr->Reset();

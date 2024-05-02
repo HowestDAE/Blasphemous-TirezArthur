@@ -5,6 +5,11 @@
 #include <iostream>
 #include "utils.h"
 
+const float Player::GRAVITY{ 1000.0f };
+const float Player::SPEED{ 170.0f };
+const float Player::HITBOXHEIGHT{ 50.0f };
+const float Player::HITBOXWIDTH{ 18.0f };
+
 Player::Player(TextureManager* textureManager, LevelManager* levelManager) :
 	m_PlayerState{ State::run },
 	m_Velocity{ 0.f, 0.f },
@@ -45,7 +50,7 @@ void Player::Update(float elapsedSec)
 		else if (rightHeld) m_LeftFacing = false;
 
 		if (FallCheck()) break;
-		if (m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox))
+		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox))
 		{
 			m_HitBox.bottom -= 15.0f;
 			Ladder();
@@ -59,7 +64,7 @@ void Player::Update(float elapsedSec)
 	case State::idle:
 		if (FallCheck()) break;
 		if (leftHeld && !rightHeld || !leftHeld && rightHeld) Run();
-		if (upHeld && m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
@@ -70,7 +75,7 @@ void Player::Update(float elapsedSec)
 
 		if (FallCheck()) break;
 		if (!leftHeld && !rightHeld || leftHeld && rightHeld) Idle();
-		if (upHeld && m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
@@ -79,17 +84,17 @@ void Player::Update(float elapsedSec)
 	case State::jump:
 		HorizontalMovement(leftHeld, rightHeld);
 
-		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
-		if (upHeld && m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
+		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (FallCheck()) break;
 
 		break;
 	case State::fall:
 		HorizontalMovement(leftHeld, rightHeld);
 
-		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
-		if (upHeld && m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
-		if (m_LevelManagerPtr->Interact(Interactions::spike, m_HitBox)) DeathSpike();
+		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
+		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
 
 		break;
 	case State::dodge:
@@ -119,7 +124,7 @@ void Player::Update(float elapsedSec)
 			m_Velocity.y = SPEED * 0.6f;
 		}
 
-		if (!m_LevelManagerPtr->Interact(Interactions::ladder, m_HitBox)) Idle();
+		if (!m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox)) Idle();
 		if (spaceHeld && m_JumpCooldown < 0.0f) Jump();
 
 		break;
@@ -194,15 +199,6 @@ void Player::Draw()
 		break;
 	}
 	m_TextureManagerPtr->Animate(animationPath, Point2f{ m_HitBox.left, m_HitBox.bottom }, m_AnimationDuration, m_LeftFacing, loop, frameTimeModifier);
-	if (m_PlayerState == State::death_spike && m_AnimationDuration >= 1.0f)
-	{
-		utils::SetColor(Color4f{ 0.0f, 0.0f, 0.0f, (m_AnimationDuration - 1.0f) * 0.5f });
-		utils::FillRect(Rectf{ m_HitBox.left - 700.0f, m_HitBox.bottom - 500.0f, 1400.0f, 1000.0f });
-		m_TextureManagerPtr->Draw(	"death_screen", 
-									m_HitBox.left + m_HitBox.width * 0.5f - m_TextureManagerPtr->GetTextureWidth("death_screen") * 0.5f, 
-									m_HitBox.bottom + m_HitBox.height * 0.5f - m_TextureManagerPtr->GetTextureHeight("death_screen") * 0.5f);
-	}
-	//utils::DrawRect(m_HitBox);
 }
 
 Rectf& Player::GetHitbox()

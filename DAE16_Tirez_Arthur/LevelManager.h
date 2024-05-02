@@ -19,19 +19,19 @@ struct Platform {
 	bool leftGrabbable;
 };
 
-enum class Interactions {
-	ladder,
-	ledge,
-	spike
-};
-
 class LevelManager final
 {
 public:
-	LevelManager(TextureManager* textureManager);
+	explicit LevelManager(TextureManager* textureManager);
 
-	bool CollisionCheck(Rectf& hitbox, Vector2f& velocity) const;
+	enum class Interactions {
+		ladder,
+		ledge,
+		spike
+	};
+
 	bool Interact(Interactions interaction, Rectf& hitbox, const Vector2f& velocity = Vector2f{ 0.0f, 0.0f }) const;
+	bool CollisionCheck(Rectf& hitbox, Vector2f& velocity) const;
 
 	void DrawBackGround();
 	void DrawForeground();

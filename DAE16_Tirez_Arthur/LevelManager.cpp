@@ -149,6 +149,7 @@ bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const
 		return false;
 		break;
 	default:
+		return false;
 		break;
 	}
 }
