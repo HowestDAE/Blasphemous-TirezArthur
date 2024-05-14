@@ -2,11 +2,12 @@
 #include "Vector2f.h"
 class TextureManager;
 class LevelManager;
+class EnemyManager;
 
 class Player final
 {
 public:
-	explicit Player(TextureManager* textureManager, LevelManager* levelManager);
+	explicit Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager);
 
 	void Update(float elapsedSec);
 	void Draw();
@@ -23,7 +24,14 @@ private:
 		ladder,
 		ledge,
 		ledgeclimb,
-		death_spike
+		death_spike,
+		attack_part1,
+		attack_part2,
+		attack_part3,
+		attack_heavy,
+		attack_jump,
+		attack_crouch,
+		block
 	};
 
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
@@ -37,19 +45,23 @@ private:
 	void Ledge();
 	void LedgeClimb();
 	void DeathSpike();
+	void Attack1();
 
 	TextureManager* m_TextureManagerPtr;
+	EnemyManager* m_EnemyManagerPtr;
 	const LevelManager* m_LevelManagerPtr;
 
-	State m_PlayerState;
 	Rectf m_HitBox;
-	Vector2f m_Velocity;
-	bool m_LeftFacing;
-	float m_AnimationDuration;
-	float m_DodgeCooldown;
-	float m_LadderCooldown;
-	float m_JumpCooldown;
-	float m_LedgeCooldown;
+	State m_PlayerState{ State::idle };
+	Vector2f m_Velocity{ 0.0f, 0.0f };
+	bool m_LeftFacing{ false };
+	float m_ComboTime{ 0.0f };
+	float m_AnimationDuration{ 0.0f };
+	float m_DodgeCooldown{ 0.0f };
+	float m_LadderCooldown{ 0.0f };
+	float m_JumpCooldown{ 0.0f };
+	float m_LedgeCooldown{ 0.0f };
+	float m_BlockCooldown{ 0.0f };
 
 	static const float GRAVITY;
 	static const float SPEED;

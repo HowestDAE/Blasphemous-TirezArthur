@@ -33,6 +33,8 @@ void EnemyCartwheel::Draw()
 	case Enemy::State::attack:
 		break;
 	case Enemy::State::death:
+		animationPath = "cartwheel_death";
+		loop = false;
 		break;
 	case Enemy::State::parried:
 		break;
@@ -47,8 +49,22 @@ void EnemyCartwheel::Update(float elapsedSec)
 	m_AnimationDuration += elapsedSec;
 	m_Velocity.y += -GRAVITY * elapsedSec;
 	m_Velocity.y = std::max(m_Velocity.y, -500.0f);
-	m_Velocity.x = SPEED;
-	m_State = State::walk;
+	switch (m_State)
+	{
+	case Enemy::State::idle:
+		if (m_Health < 0.0001f) Death();
+		break;
+	case Enemy::State::walk:
+		break;
+	case Enemy::State::attack:
+		break;
+	case Enemy::State::death:
+		break;
+	case Enemy::State::parried:
+		break;
+	default:
+		break;
+	}
 
 	m_HitBox.left += m_Velocity.x * elapsedSec;
 	m_HitBox.bottom += m_Velocity.y * elapsedSec;

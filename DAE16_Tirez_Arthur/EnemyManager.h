@@ -13,6 +13,7 @@ public:
 
 	void Draw();
 	void Update(float elapsedSec);
+	bool Attack(Rectf hitbox, float damage);
 private:
 	LevelManager* m_LevelManager;
 	TextureManager* m_TextureManager;

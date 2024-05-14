@@ -4,23 +4,17 @@
 #include "LevelManager.h"
 #include <iostream>
 #include "utils.h"
+#include "EnemyManager.h"
 
 const float Player::GRAVITY{ 1000.0f };
 const float Player::SPEED{ 170.0f };
 const float Player::HITBOXHEIGHT{ 50.0f };
 const float Player::HITBOXWIDTH{ 18.0f };
 
-Player::Player(TextureManager* textureManager, LevelManager* levelManager) :
-	m_PlayerState{ State::run },
-	m_Velocity{ 0.f, 0.f },
-	m_LeftFacing{ false },
+Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager) :
 	m_TextureManagerPtr{ textureManager },
 	m_LevelManagerPtr{ levelManager },
-	m_AnimationDuration{ 0.0f },
-	m_DodgeCooldown{ 0.0f },
-	m_LadderCooldown{ 0.0f },
-	m_JumpCooldown{ 0.0f },
-	m_LedgeCooldown{ 0.0f }
+	m_EnemyManagerPtr{enemyManager}
 {
 	m_HitBox = Rectf{ -1.0f, -1.0f, HITBOXWIDTH, HITBOXHEIGHT };
 }
@@ -35,13 +29,16 @@ void Player::Update(float elapsedSec)
 	m_Velocity.y += -GRAVITY * elapsedSec;
 	m_Velocity.y = std::max(m_Velocity.y, -500.0f);
 
+	const Uint32 mouseState{ SDL_GetMouseState(NULL, NULL) };
 	const Uint8* keyBoardState{ SDL_GetKeyboardState(nullptr) };
-	bool leftHeld{ (bool)keyBoardState[SDL_SCANCODE_A] };
-	bool rightHeld{ (bool)keyBoardState[SDL_SCANCODE_D] };
-	bool downHeld{ (bool)keyBoardState[SDL_SCANCODE_S] };
-	bool upHeld{ (bool)keyBoardState[SDL_SCANCODE_W] };
-	bool spaceHeld{ (bool)keyBoardState[SDL_SCANCODE_SPACE] };
-	bool dodgeHeld{ (bool)keyBoardState[SDL_SCANCODE_LSHIFT] };
+	const bool leftMouseHeld{ (bool)(mouseState & SDL_BUTTON(1)) };
+	const bool rightMouseHeld{ (bool)(mouseState & SDL_BUTTON(3)) };
+	const bool leftHeld{ (bool)keyBoardState[SDL_SCANCODE_A] };
+	const bool rightHeld{ (bool)keyBoardState[SDL_SCANCODE_D] };
+	const bool downHeld{ (bool)keyBoardState[SDL_SCANCODE_S] };
+	const bool upHeld{ (bool)keyBoardState[SDL_SCANCODE_W] };
+	const bool spaceHeld{ (bool)keyBoardState[SDL_SCANCODE_SPACE] };
+	const bool dodgeHeld{ (bool)keyBoardState[SDL_SCANCODE_LSHIFT] };
 
 	switch (m_PlayerState)
 	{
@@ -67,6 +64,7 @@ void Player::Update(float elapsedSec)
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
+		if (leftMouseHeld) Attack1();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 
 		break;
@@ -78,6 +76,7 @@ void Player::Update(float elapsedSec)
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
+		if (leftMouseHeld) Attack1();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 
 		break;
@@ -109,17 +108,14 @@ void Player::Update(float elapsedSec)
 	case State::ladder:
 		m_LadderCooldown = 0.4f;
 		m_AnimationDuration -= elapsedSec;
-		if (!upHeld && !downHeld)
-		{
+		if (!upHeld && !downHeld) {
 			m_Velocity.y = 0.0f;
 		}
-		else if (!upHeld && downHeld)
-		{
+		else if (!upHeld && downHeld) {
 			m_AnimationDuration -= elapsedSec;
 			m_Velocity.y = -SPEED * 0.6f;
 		}
-		else
-		{
+		else {
 			m_AnimationDuration += elapsedSec;
 			m_Velocity.y = SPEED * 0.6f;
 		}
@@ -139,6 +135,12 @@ void Player::Update(float elapsedSec)
 		break;
 	case State::ledgeclimb:
 		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_ledge_climb")) Idle();
+
+		break;
+	case State::attack_part1:
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1")) Idle();
+
+		break;
 	default:
 		break;
 	}
@@ -195,6 +197,9 @@ void Player::Draw()
 		animationPath = "penitent_death_spike";
 		loop = false;
 		break;
+	case State::attack_part1:
+		animationPath = "penitent_attack_part1";
+		loop = false;
 	default:
 		break;
 	}
@@ -309,4 +314,16 @@ void Player::DeathSpike()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
+}
+
+void Player::Attack1()
+{
+	m_PlayerState = State::attack_part1;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
+	Rectf attackHitBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom + 10.0f, 72.0f, 40.0f };
+	if (m_LeftFacing)
+		attackHitBox.left = m_HitBox.left - 72.0f;
+	if (m_EnemyManagerPtr->Attack(attackHitBox, 25.0f)) std::cout << "hit" << std::endl;
 }

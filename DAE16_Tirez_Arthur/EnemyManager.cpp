@@ -34,4 +34,22 @@ void EnemyManager::Update(float elapsedSec)
 	{
 		enemy->Update(elapsedSec);
 	}
+	for (int index{}; index < m_EnemyPtrVector.size(); ++index)
+	{
+		if (m_EnemyPtrVector.at(index)->IsDead()) {
+			delete m_EnemyPtrVector.at(index);
+			m_EnemyPtrVector.erase(m_EnemyPtrVector.begin() + index);
+		}
+	}
+}
+
+bool EnemyManager::Attack(Rectf hitbox, float damage)
+{
+	bool enemyHit{};
+	for (Enemy* enemy : m_EnemyPtrVector)
+	{
+		if (enemy->Hit(hitbox, damage))
+			enemyHit = true;
+	}
+	return enemyHit;
 }
