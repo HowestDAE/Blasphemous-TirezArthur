@@ -1,0 +1,185 @@
+{
+	"frames" : 
+	{
+		"0" : 
+		{
+			"frame" : 
+			{
+				"h" : 72,
+				"w" : 67,
+				"x" : 0,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 40,
+				"right" : 9.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"1" : 
+		{
+			"frame" : 
+			{
+				"h" : 71,
+				"w" : 63,
+				"x" : 67,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 35,
+				"right" : 10.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"2" : 
+		{
+			"frame" : 
+			{
+				"h" : 68,
+				"w" : 53,
+				"x" : 130,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 23,
+				"right" : 12.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"3" : 
+		{
+			"frame" : 
+			{
+				"h" : 65,
+				"w" : 57,
+				"x" : 130,
+				"y" : 68
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 18,
+				"right" : 21.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"4" : 
+		{
+			"frame" : 
+			{
+				"h" : 65,
+				"w" : 57,
+				"x" : 0,
+				"y" : 133
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 18,
+				"right" : 21.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"5" : 
+		{
+			"frame" : 
+			{
+				"h" : 65,
+				"w" : 56,
+				"x" : 57,
+				"y" : 133
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 18,
+				"right" : 20.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"6" : 
+		{
+			"frame" : 
+			{
+				"h" : 66,
+				"w" : 55,
+				"x" : 183,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 18,
+				"right" : 19.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"7" : 
+		{
+			"frame" : 
+			{
+				"h" : 68,
+				"w" : 50,
+				"x" : 187,
+				"y" : 66
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 18,
+				"right" : 14.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"8" : 
+		{
+			"frame" : 
+			{
+				"h" : 68,
+				"w" : 48,
+				"x" : 113,
+				"y" : 134
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 18,
+				"right" : 12.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"9" : 
+		{
+			"frame" : 
+			{
+				"h" : 71,
+				"w" : 68,
+				"x" : 161,
+				"y" : 134
+			},
+			"offset" : 
+			{
+				"bottom" : 0,
+				"left" : 40,
+				"right" : 10.0
+			},
+			"rotated" : false,
+			"trimmed" : false
+		}
+	}
+}

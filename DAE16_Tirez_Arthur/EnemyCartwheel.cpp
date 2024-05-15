@@ -31,12 +31,17 @@ void EnemyCartwheel::Draw()
 		frameTimeModifier = 0.4f;
 		break;
 	case Enemy::State::attack:
+		animationPath = "cartwheel_attack";
+		frameTimeModifier = 0.4f;
 		break;
 	case Enemy::State::death:
 		animationPath = "cartwheel_death";
 		loop = false;
 		break;
 	case Enemy::State::parried:
+		animationPath = "cartwheel_parried";
+		frameTimeModifier = 0.4f;
+		loop = false;
 		break;
 	default:
 		break;

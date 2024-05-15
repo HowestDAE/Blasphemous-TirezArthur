@@ -400,3 +400,7 @@ FodyWeavers.xsd
 # Game Project specifics -> do not ignore:
 !**/Libraries/**/x86/
 !**/Libraries/**/x64/
+
+# Ignore SpritesheetEditor
+**/Resources/**/*.dll
+**/Resources/**/*.exe
