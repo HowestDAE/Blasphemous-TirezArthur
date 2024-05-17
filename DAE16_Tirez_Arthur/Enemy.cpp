@@ -2,17 +2,15 @@
 #include "Enemy.h"
 #include "LevelManager.h"
 #include "TextureManager.h"
+#include "Player.h"
 #include "utils.h"
+#include <iostream>
 
-Enemy::Enemy(LevelManager* levelManager, TextureManager* textureManager, float x, float y) :
+Enemy::Enemy(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
 	m_HitBox{ x, y, -1.0f, -1.0f },
-	m_Health{ -1.0f },
-	m_LeftFacing{ false },
-	m_AnimationDuration{ 0.0f },
-	m_State{ State::idle },
-	m_LevelManager{ levelManager },
-	m_TextureManager{ textureManager },
-	m_Velocity{0.f, 0.f}
+	m_LevelManagerPtr{ levelManager },
+	m_TextureManagerPtr{ textureManager },
+	m_PlayerPtr{ player }
 {
 }
 
@@ -61,4 +59,5 @@ void Enemy::Attack()
 {
 	m_State = State::attack;
 	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
 }

@@ -27,6 +27,7 @@ void Game::Initialize()
 	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr };
 	m_EnemyManagerPtr = new EnemyManager{ m_LevelManagerPtr, m_TextureManagerPtr };
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr };
+	m_EnemyManagerPtr->SetTargetPlayer(m_PlayerPtr);
 	m_UiManagerPtr = new UiManager{};
 	ShowCursor(false);
 }

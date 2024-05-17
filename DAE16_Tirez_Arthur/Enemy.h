@@ -3,15 +3,22 @@
 
 class TextureManager;
 class LevelManager;
+class Player;
 
 class Enemy
 {
 public:
-	explicit Enemy(LevelManager* levelManager, TextureManager* textureManager, float x, float y);
+	explicit Enemy(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y);
+	explicit Enemy(const Enemy& other) = delete;
+	explicit Enemy(const Enemy&& other) = delete;
+	virtual ~Enemy() = default;
+
+	Enemy& operator=(const Enemy& other) = delete;
+	Enemy& operator=(const Enemy&& other) = delete;
 
 	virtual void Draw() = 0;
 	virtual void Update(float elapsedSec) = 0;
-	bool Hit(Rectf hitbox, float damage);
+	virtual bool Hit(Rectf hitbox, float damage);
 	bool IsDead();
 protected:
 	enum class State {
@@ -28,13 +35,14 @@ protected:
 	void Parried();
 	void Attack();
 
-	LevelManager* m_LevelManager;
-	TextureManager* m_TextureManager;
-	Vector2f m_Velocity;
+	LevelManager* m_LevelManagerPtr;
+	TextureManager* m_TextureManagerPtr;
+	Player* m_PlayerPtr;
+	Vector2f m_Velocity{};
 	Rectf m_HitBox;
-	float m_Health;
-	bool m_LeftFacing;
-	float m_AnimationDuration;
-	State m_State;
+	float m_Health{ -1.0f };
+	bool m_LeftFacing{ false };
+	float m_AnimationDuration{ 0.0f };
+	State m_State{ State::idle };
 };
 
