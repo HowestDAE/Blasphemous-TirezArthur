@@ -1,48 +1,51 @@
 #include "pch.h"
-#include "EnemyCartwheel.h"
+#include "ShieldMaiden.h"
 #include "TextureManager.h"
 #include "Player.h"
 #include "LevelManager.h"
+#include "utils.h"
+#include <iostream>
 
-const float EnemyCartwheel::MAXHEALTH{ 60.0f };
-const float EnemyCartwheel::SPEED{ 25.0f };
-const float EnemyCartwheel::ATTACKDMG{ 10.0f };
-const float EnemyCartwheel::POINTS{ 20.0f };
+const float ShieldMaiden::MAXHEALTH{ 50.0f };
+const float ShieldMaiden::SPEED{ 25.0f };
+const float ShieldMaiden::ATTACKDMG{ 12.0f };
+const float ShieldMaiden::SHIELDDMG{ 5.0f };
+const float ShieldMaiden::POINTS{ 15.0f };
 
-EnemyCartwheel::EnemyCartwheel(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
+ShieldMaiden::ShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
 	Enemy(levelManager, textureManager, player, x, y)
 {
 	m_HitBox.height = 50.0f;
-	m_HitBox.width = 18.0f;
+	m_HitBox.width = 25.0f;
 	m_Health = MAXHEALTH;
 }
 
-void EnemyCartwheel::Draw()
+void ShieldMaiden::Draw()
 {
-	std::string animationPath{ "cartwheel_idle" };
+	std::string animationPath{ "shieldmaiden_idle" };
 	bool loop{ true };
 	float frameTimeModifier{ 1.0f };
 	switch (m_State)
 	{
 	case Enemy::State::idle:
-		animationPath = "cartwheel_idle";
+		animationPath = "shieldmaiden_idle";
 		frameTimeModifier = 0.4f;
 		break;
 	case Enemy::State::walk:
-		animationPath = "cartwheel_walk";
+		animationPath = "shieldmaiden_walk";
 		frameTimeModifier = 0.4f;
 		break;
 	case Enemy::State::attack:
-		animationPath = "cartwheel_attack";
+		animationPath = "shieldmaiden_attack";
 		frameTimeModifier = 0.4f;
 		loop = false;
 		break;
 	case Enemy::State::death:
-		animationPath = "cartwheel_death";
+		animationPath = "shieldmaiden_death";
 		loop = false;
 		break;
 	case Enemy::State::parried:
-		animationPath = "cartwheel_parried";
+		animationPath = "shieldmaiden_parried";
 		frameTimeModifier = 0.4f;
 		loop = false;
 		break;
@@ -52,7 +55,7 @@ void EnemyCartwheel::Draw()
 	m_TextureManagerPtr->Animate(animationPath, Point2f{ m_HitBox.left, m_HitBox.bottom }, m_AnimationDuration, m_LeftFacing, loop, frameTimeModifier);
 }
 
-void EnemyCartwheel::Update(float elapsedSec)
+void ShieldMaiden::Update(float elapsedSec)
 {
 	m_AnimationDuration += elapsedSec;
 	m_AttackCooldown -= elapsedSec;
@@ -63,6 +66,8 @@ void EnemyCartwheel::Update(float elapsedSec)
 	case Enemy::State::idle:
 		if (m_Health < 0.0001f) Death();
 		CheckPlayerInteract();
+
+		PlayerHitShield();
 		break;
 	case Enemy::State::walk:
 		if (m_LeftFacing) m_Velocity.x = -SPEED;
@@ -73,17 +78,20 @@ void EnemyCartwheel::Update(float elapsedSec)
 		if (PlayerDistance() <= 50.0f && m_AttackCooldown < 0.0f) Attack();
 		else if (PlayerDistance() <= 50.0f) Idle();
 
+		PlayerHitShield();
 		break;
 	case Enemy::State::attack:
 		if (m_Health < 0.0001f) Death();
-		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("cartwheel_attack") / 0.4f) Idle();
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("shieldmaiden_attack") / 0.4f) Idle();
 
 		if (m_AttackCooldown < 0.0f) PlayerHit();
 		break;
 	case Enemy::State::death:
 		break;
 	case Enemy::State::parried:
-		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("cartwheel_parried") / 0.4f) Idle();
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("shieldmaiden_parried") / 0.4f) Idle();
+		if (m_Health < 0.0001f && m_AnimationDuration > 0.8f) Death();
+
 		break;
 	default:
 		break;
@@ -94,7 +102,20 @@ void EnemyCartwheel::Update(float elapsedSec)
 	m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity);
 }
 
-void EnemyCartwheel::CheckPlayerInteract()
+bool ShieldMaiden::Hit(Rectf hitbox, float damage)
+{
+	if (utils::IsOverlapping(hitbox, m_HitBox)) {
+		Rectf shieldBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 20.0f, m_HitBox.height };
+		if (m_LeftFacing)
+			shieldBox.left = m_HitBox.left - 20.0f;
+		if ((m_State == State::idle || m_State == State::walk) && utils::IsOverlapping(hitbox, shieldBox)) return false;
+		m_Health = std::max(0.0f, m_Health - damage);
+		return true;
+	}
+	return false;
+}
+
+void ShieldMaiden::CheckPlayerInteract()
 {
 	float leftDistance{};
 	float rightDistance{};
@@ -115,17 +136,25 @@ void EnemyCartwheel::CheckPlayerInteract()
 	}
 }
 
-void EnemyCartwheel::PlayerHit()
+void ShieldMaiden::PlayerHit()
 {
-	Rectf hurtBox{ m_HitBox.left, m_HitBox.bottom, 65.0f + m_HitBox.width, 76.0f };
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, 51.0f + m_HitBox.width * 0.5f, 72.0f };
 	if (m_LeftFacing)
-		hurtBox.left = m_HitBox.left - 65.0f;
+		hurtBox.left = m_HitBox.left - 51.0f;
 	if (m_PlayerPtr->Attack(hurtBox, ATTACKDMG, m_LeftFacing)) Parried();
-	m_AttackCooldown = 1.0f;
+	m_AttackCooldown = 3.0f;
 }
 
-void EnemyCartwheel::Attack()
+void ShieldMaiden::PlayerHitShield()
+{
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 20.0f, m_HitBox.height };
+	if (m_LeftFacing)
+		hurtBox.left = m_HitBox.left - 20.0f;
+	m_PlayerPtr->Attack(hurtBox, SHIELDDMG, m_LeftFacing);
+}
+
+void ShieldMaiden::Attack()
 {
 	Enemy::Attack();
-	m_AttackCooldown = 1.0f;
+	m_AttackCooldown = 0.6f;
 }

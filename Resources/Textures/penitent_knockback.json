@@ -1,0 +1,167 @@
+{
+	"frames" : 
+	{
+		"0" : 
+		{
+			"frame" : 
+			{
+				"h" : 59,
+				"w" : 75,
+				"x" : 0,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 5,
+				"left" : 41,
+				"right" : 16
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"1" : 
+		{
+			"frame" : 
+			{
+				"h" : 73,
+				"w" : 50,
+				"x" : 75,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 7,
+				"left" : 22,
+				"right" : 10
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"2" : 
+		{
+			"frame" : 
+			{
+				"h" : 72,
+				"w" : 49,
+				"x" : 125,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 8,
+				"left" : 22,
+				"right" : 9
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"3" : 
+		{
+			"frame" : 
+			{
+				"h" : 59,
+				"w" : 59,
+				"x" : 0,
+				"y" : 72
+			},
+			"offset" : 
+			{
+				"bottom" : 11,
+				"left" : 22,
+				"right" : 19
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"4" : 
+		{
+			"frame" : 
+			{
+				"h" : 59,
+				"w" : 59,
+				"x" : 59,
+				"y" : 73
+			},
+			"offset" : 
+			{
+				"bottom" : 10,
+				"left" : 22,
+				"right" : 19
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"5" : 
+		{
+			"frame" : 
+			{
+				"h" : 59,
+				"w" : 59,
+				"x" : 118,
+				"y" : 73
+			},
+			"offset" : 
+			{
+				"bottom" : 11,
+				"left" : 22,
+				"right" : 19
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"6" : 
+		{
+			"frame" : 
+			{
+				"h" : 59,
+				"w" : 58,
+				"x" : 174,
+				"y" : 0
+			},
+			"offset" : 
+			{
+				"bottom" : 13,
+				"left" : 22,
+				"right" : 18
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"7" : 
+		{
+			"frame" : 
+			{
+				"h" : 56,
+				"w" : 59,
+				"x" : 177,
+				"y" : 59
+			},
+			"offset" : 
+			{
+				"bottom" : 12,
+				"left" : 22,
+				"right" : 19
+			},
+			"rotated" : false,
+			"trimmed" : false
+		},
+		"8" : 
+		{
+			"frame" : 
+			{
+				"h" : 53,
+				"w" : 62,
+				"x" : 0,
+				"y" : 132
+			},
+			"offset" : 
+			{
+				"bottom" : 10,
+				"left" : 23,
+				"right" : 21
+			},
+			"rotated" : false,
+			"trimmed" : false
+		}
+	}
+}

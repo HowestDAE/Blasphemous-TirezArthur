@@ -5,6 +5,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "EnemyCartwheel.h"
+#include "ShieldMaiden.h"
 
 EnemyManager::EnemyManager(LevelManager* levelManager, TextureManager* textureManager) :
 	m_LevelManagerPtr{ levelManager },
@@ -36,7 +37,7 @@ void EnemyManager::Draw()
 
 void EnemyManager::Update(float elapsedSec)
 {
-	if (m_EnemyPtrVector.size() < 1) m_EnemyPtrVector.emplace_back(new EnemyCartwheel{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, 150.0f, 100.0f });
+	if (m_EnemyPtrVector.size() < 1) m_EnemyPtrVector.emplace_back(new EnemyCartwheel{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, 350.0f, 50.0f });
 	for (Enemy* enemy : m_EnemyPtrVector)
 	{
 		enemy->Update(elapsedSec);

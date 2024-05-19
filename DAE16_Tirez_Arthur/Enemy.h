@@ -29,11 +29,14 @@ protected:
 		parried
 	};
 
-	void Death();
-	void Idle();
-	void Walk();
-	void Parried();
-	void Attack();
+	void PlayerDistance(float& left, float& right);
+	float PlayerDistance();
+
+	virtual void Death();
+	virtual void Idle();
+	virtual void Walk();
+	virtual void Parried();
+	virtual void Attack();
 
 	LevelManager* m_LevelManagerPtr;
 	TextureManager* m_TextureManagerPtr;
@@ -44,5 +47,7 @@ protected:
 	bool m_LeftFacing{ false };
 	float m_AnimationDuration{ 0.0f };
 	State m_State{ State::idle };
+
+	static const float GRAVITY;
 };
 

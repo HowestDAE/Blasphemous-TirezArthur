@@ -19,7 +19,7 @@ public:
 private:
 	LevelManager* m_LevelManagerPtr;
 	TextureManager* m_TextureManagerPtr;
-	Player* m_PlayerPtr;
+	Player* m_PlayerPtr{ nullptr };
 	std::vector<Enemy*> m_EnemyPtrVector{};
 };
 

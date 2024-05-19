@@ -13,6 +13,8 @@ public:
 	void Draw();
 
 	Rectf& GetHitbox();
+	bool Attack(Rectf& hurtbox, float damage, bool direction);
+	bool IsDead();
 private:
 	enum class State {
 		idle,
@@ -25,13 +27,16 @@ private:
 		ledge,
 		ledgeclimb,
 		death_spike,
+		death,
 		attack_part1,
 		attack_part2,
 		attack_part3,
 		attack_heavy,
 		attack_jump,
 		attack_crouch,
-		block
+		block,
+		parry,
+		knockback
 	};
 
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
@@ -45,7 +50,11 @@ private:
 	void Ledge();
 	void LedgeClimb();
 	void DeathSpike();
+	void Death();
 	void Attack1();
+	void KnockBack();
+	void Block();
+	void Parry();
 
 	TextureManager* m_TextureManagerPtr;
 	EnemyManager* m_EnemyManagerPtr;
@@ -62,10 +71,14 @@ private:
 	float m_JumpCooldown{ 0.0f };
 	float m_LedgeCooldown{ 0.0f };
 	float m_BlockCooldown{ 0.0f };
+	float m_Health{ MAXHEALTH };
 
 	static const float GRAVITY;
 	static const float SPEED;
 	static const float HITBOXHEIGHT;
 	static const float HITBOXWIDTH;
+	static const float MAXHEALTH;
+	static const float ATTACKDMG;
+	static const float HEAVYDMG;
 };
 

@@ -10,6 +10,9 @@ const float Player::GRAVITY{ 1000.0f };
 const float Player::SPEED{ 170.0f };
 const float Player::HITBOXHEIGHT{ 50.0f };
 const float Player::HITBOXWIDTH{ 18.0f };
+const float Player::MAXHEALTH{ 100.0f };
+const float Player::ATTACKDMG{ 13.0f };
+const float Player::HEAVYDMG{ 30.0f };
 
 Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager) :
 	m_TextureManagerPtr{ textureManager },
@@ -26,6 +29,7 @@ void Player::Update(float elapsedSec)
 	m_LadderCooldown -= elapsedSec;
 	m_JumpCooldown -= elapsedSec;
 	m_LedgeCooldown -= elapsedSec;
+	m_BlockCooldown -= elapsedSec;
 	m_Velocity.y += -GRAVITY * elapsedSec;
 	m_Velocity.y = std::max(m_Velocity.y, -500.0f);
 
@@ -56,6 +60,8 @@ void Player::Update(float elapsedSec)
 		if (!downHeld) Idle();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 		if (spaceHeld) m_HitBox.bottom -= 5.0f;
+		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
+		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::idle:
@@ -66,6 +72,8 @@ void Player::Update(float elapsedSec)
 		if (downHeld) Crouch();
 		if (leftMouseHeld) Attack1();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
+		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
+		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::run:
@@ -78,6 +86,8 @@ void Player::Update(float elapsedSec)
 		if (downHeld) Crouch();
 		if (leftMouseHeld) Attack1();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
+		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
+		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::jump:
@@ -85,6 +95,7 @@ void Player::Update(float elapsedSec)
 
 		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if (m_Health < 0.0001f) Death();
 		if (FallCheck()) break;
 
 		break;
@@ -94,6 +105,7 @@ void Player::Update(float elapsedSec)
 		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
+		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::dodge:
@@ -101,6 +113,8 @@ void Player::Update(float elapsedSec)
 
 		if (FallCheck()) break;
 		if (spaceHeld) Jump();
+		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
+		if (m_Health < 0.0001f) Death();
 
 		if (m_AnimationDuration >= m_TextureManagerPtr->GetAnimationDuration("penitent_dodge")) Idle();
 
@@ -122,6 +136,7 @@ void Player::Update(float elapsedSec)
 
 		if (!m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox)) Idle();
 		if (spaceHeld && m_JumpCooldown < 0.0f) Jump();
+		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::ledge:
@@ -129,16 +144,31 @@ void Player::Update(float elapsedSec)
 
 		if (!downHeld) m_Velocity.y = 0.0f;
 		if (upHeld && m_AnimationDuration > 0.5f) LedgeClimb();
+		if (m_Health < 0.0001f) Death();
 
 		FallCheck();
 
 		break;
 	case State::ledgeclimb:
 		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_ledge_climb")) Idle();
+		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::attack_part1:
 		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1")) Idle();
+		if (m_Health < 0.0001f) Death();
+
+		break;
+	case State::block:
+		m_BlockCooldown = 0.5f;
+
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_block")) Idle();
+		if (m_Health < 0.0001f) Death();
+
+		break;
+	case State::parry:
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_parry")) Idle();
+		if (m_Health < 0.0001f) Death();
 
 		break;
 	default:
@@ -147,7 +177,7 @@ void Player::Update(float elapsedSec)
 
 	m_HitBox.left += m_Velocity.x * elapsedSec;
 	m_HitBox.bottom += m_Velocity.y * elapsedSec;
-	if (m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity) && (m_PlayerState == State::fall || m_PlayerState == State::ladder) && m_Velocity.y == 0.0f) Idle();
+	if (m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity) && (m_PlayerState == State::fall || m_PlayerState == State::ladder || m_PlayerState == State::knockback) && m_Velocity.y == 0.0f) Idle();
 }
 
 void Player::Draw()
@@ -197,9 +227,26 @@ void Player::Draw()
 		animationPath = "penitent_death_spike";
 		loop = false;
 		break;
+	case State::death:
+		animationPath = "penitent_death";
+		loop = false;
+		break;
+	case State::knockback:
+		animationPath = "penitent_knockback";
+		loop = false;
+		break;
 	case State::attack_part1:
 		animationPath = "penitent_attack_part1";
 		loop = false;
+		break;
+	case State::block:
+		animationPath = "penitent_block";
+		loop = false;
+		break;
+	case State::parry:
+		animationPath = "penitent_parry";
+		loop = false;
+		break;
 	default:
 		break;
 	}
@@ -209,6 +256,27 @@ void Player::Draw()
 Rectf& Player::GetHitbox()
 {
 	return m_HitBox;
+}
+
+bool Player::Attack(Rectf& hurtbox, float damage, bool direction)
+{
+	bool hit{ utils::IsOverlapping(m_HitBox, hurtbox) && m_PlayerState != State::knockback && m_PlayerState != State::death && m_PlayerState != State::death_spike };
+	if (hit) {
+		if (m_PlayerState == State::block) {
+			m_LeftFacing = !direction;
+			Parry();
+			return true;
+		}
+		m_Health -= damage;
+		m_LeftFacing = !direction;
+		KnockBack();
+	}
+	return false;
+}
+
+bool Player::IsDead()
+{
+	return m_PlayerState == State::death && m_PlayerState == State::death;
 }
 
 void Player::HorizontalMovement(bool leftHeld, bool rightHeld)
@@ -289,6 +357,7 @@ void Player::Ladder()
 	m_JumpCooldown = 0.5f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
+	m_HitBox.height = HITBOXHEIGHT;
 }
 
 void Player::Ledge()
@@ -311,6 +380,16 @@ void Player::LedgeClimb()
 void Player::DeathSpike()
 {
 	m_PlayerState = State::death_spike;
+	m_Health = 0.0f;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
+}
+
+void Player::Death()
+{
+	m_PlayerState = State::death;
+	m_Health = 0.0f;
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
@@ -322,8 +401,34 @@ void Player::Attack1()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
-	Rectf attackHitBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom + 10.0f, 72.0f, 40.0f };
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom + 10.0f, 72.0f, 40.0f };
 	if (m_LeftFacing)
-		attackHitBox.left = m_HitBox.left - 72.0f;
-	if (m_EnemyManagerPtr->Attack(attackHitBox, 25.0f)) std::cout << "hit" << std::endl;
+		hurtBox.left = m_HitBox.left - 72.0f;
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG));
+}
+
+void Player::KnockBack()
+{
+	m_PlayerState = State::knockback;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.y = GRAVITY * 0.2f;
+	if (m_LeftFacing)m_Velocity.x = SPEED * 1.5f;
+	else m_Velocity.x = -SPEED * 1.5;
+}
+
+void Player::Block()
+{
+	m_PlayerState = State::block;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+}
+
+void Player::Parry()
+{
+	m_PlayerState = State::parry;
+	m_AnimationDuration = 0.0f;
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, 82.0f, 100.0f };
+	if (m_LeftFacing)
+		hurtBox.left = m_HitBox.left - 82.0f;
+	if (m_EnemyManagerPtr->Attack(hurtBox, HEAVYDMG));
 }
