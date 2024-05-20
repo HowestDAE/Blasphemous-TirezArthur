@@ -51,7 +51,7 @@ TODO: add screenshot
 Here's why:
 TODO: describe why you chose this game 
 * I wanted a game that I enjoyed myself to keep motivation to work on the project.
-* I wanted a fairly recent game instead of an nes game or similar
+* I wanted a fairly recent game instead of an nes game or similar games from that era
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -106,7 +106,12 @@ These are the currently implemented controls.
 ### Controls
 * A to move left
 * D to move right
+* S to crouch
+* W to climb a ladder or S while standing above a ladder
 * Space to jump
+* Shift to dodge
+* Left click to attack
+* Right click to parry
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -116,10 +121,17 @@ These are the currently implemented controls.
 ## Class structure 
 
 ### Object composition 
-The player class has a pointer to the texture manager and the level manager. The level manager also has a pointer to the texture manager.
+The player class knows about the texture manager, enemy manager and the level manager. 
+The level manager knows about the texture manager and enemy manager. 
+The enemy manager knows about the player and level manager. 
+
+The game class has all the manager classes.
+
+The level manager owns multiple vectors of level objects such as the collision, the platforms, the ledges, ...
+The enemy manager owns a vector of enemies.
 
 ### Inheritance 
-Not yet implemented but inheritance will apply to the different enemy types.
+Different enemy types all inherit from the enemy baseclass.
 
 ### ..
 
@@ -132,16 +144,16 @@ Not yet implemented but inheritance will apply to the different enemy types.
 - [x] Accept / set up github project
 - [X] week 01 topics applied
     - [X] const keyword applied proactively (variables, functions,..)
-    - [ ] static keyword applied proactively (class variables, static functions,..)
+    - [X] static keyword applied proactively (class variables, static functions,..)
     - [X] object composition (optional)
-- [ ] week 02 topics applied
-- [ ] week 03 topics applied
-- [ ] week 04 topics applied
+- [X] week 02 topics applied
+- [X] week 03 topics applied
+- [X] week 04 topics applied
 - [ ] week 05 topics applied
 - [ ] week 06 topics applied
-- [ ] week 07 topics applied
-- [ ] week 08 topics applied
-- [ ] week 09 topics applied (optional)
+- [X] week 07 topics applied
+- [X] week 08 topics applied
+- [X] week 09 topics applied (optional)
 - [ ] week 10 topics applied (optional)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
