@@ -157,7 +157,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="main.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="Player.cpp" />
-    <ClCompile Include="ShieldMaiden.cpp" />
+    <ClCompile Include="EnemyShieldMaiden.cpp" />
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UiManager.cpp" />
   </ItemGroup>
@@ -172,7 +172,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="LevelManager.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="Player.h" />
-    <ClInclude Include="ShieldMaiden.h" />
+    <ClInclude Include="EnemyShieldMaiden.h" />
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="UiManager.h" />
   </ItemGroup>

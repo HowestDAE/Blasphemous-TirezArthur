@@ -31,7 +31,7 @@ public:
 	};
 
 	bool Interact(Interactions interaction, Rectf& hitbox, const Vector2f& velocity = Vector2f{ 0.0f, 0.0f }) const;
-	bool CollisionCheck(Rectf& hitbox, Vector2f& velocity) const;
+	bool CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool ignorePlatforms = false) const;
 
 	void DrawBackGround();
 	void DrawForeground();

@@ -47,19 +47,20 @@ void Game::Update( float elapsedSec )
 {
 	m_PlayerPtr->Update(elapsedSec);
 	m_EnemyManagerPtr->Update(elapsedSec);
+	m_CameraPtr->Aim(m_TextureManagerPtr->GetTextureWidth("indoor1"), m_TextureManagerPtr->GetTextureHeight("indoor1"), Point2f{ m_PlayerPtr->GetHitbox().left, m_PlayerPtr->GetHitbox().bottom }, elapsedSec);
 }
 
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	m_CameraPtr->Aim(m_TextureManagerPtr->GetTextureWidth("indoor1"), m_TextureManagerPtr->GetTextureHeight("indoor1"), Point2f{ m_PlayerPtr->GetHitbox().left, m_PlayerPtr->GetHitbox().bottom});
+	m_CameraPtr->ApplyTS();
 	m_LevelManagerPtr->DrawBackGround();
 	m_EnemyManagerPtr->Draw();
 	m_PlayerPtr->Draw();
 	m_LevelManagerPtr->DrawForeground();
 	m_CameraPtr->Reset();
 
-	m_CameraPtr->ApplyScale();
+	m_CameraPtr->ApplyS();
 	// Draw ui
 	m_CameraPtr->Reset();
 }

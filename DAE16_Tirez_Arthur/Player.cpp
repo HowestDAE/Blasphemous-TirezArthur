@@ -13,6 +13,7 @@ const float Player::HITBOXWIDTH{ 18.0f };
 const float Player::MAXHEALTH{ 100.0f };
 const float Player::ATTACKDMG{ 13.0f };
 const float Player::HEAVYDMG{ 30.0f };
+const float Player::COMBOTIME{ 0.2f };
 
 Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager) :
 	m_TextureManagerPtr{ textureManager },
@@ -30,6 +31,8 @@ void Player::Update(float elapsedSec)
 	m_JumpCooldown -= elapsedSec;
 	m_LedgeCooldown -= elapsedSec;
 	m_BlockCooldown -= elapsedSec;
+	m_AttackCooldown -= elapsedSec;
+	m_ComboTime -= elapsedSec;
 	m_Velocity.y += -GRAVITY * elapsedSec;
 	m_Velocity.y = std::max(m_Velocity.y, -500.0f);
 
@@ -59,8 +62,8 @@ void Player::Update(float elapsedSec)
 		}
 		if (!downHeld) Idle();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
-		if (spaceHeld) m_HitBox.bottom -= 5.0f;
 		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
+		if (leftMouseHeld && m_AttackCooldown < 0.0f) AttackCrouch();
 		if (m_Health < 0.0001f) Death();
 
 		break;
@@ -70,7 +73,9 @@ void Player::Update(float elapsedSec)
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
-		if (leftMouseHeld) Attack1();
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 2) Attack3();
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 1) Attack2();
+		if (leftMouseHeld && m_AttackCooldown < 0.0f &&	 m_ComboTime < 0.0f) Attack1();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
 		if (m_Health < 0.0001f) Death();
@@ -84,7 +89,9 @@ void Player::Update(float elapsedSec)
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
-		if (leftMouseHeld) Attack1();
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 2) Attack3();
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 1) Attack2();
+		if (leftMouseHeld && m_AttackCooldown < 0.0f && m_ComboCounter == 0) Attack1();
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
 		if (m_Health < 0.0001f) Death();
@@ -95,6 +102,7 @@ void Player::Update(float elapsedSec)
 
 		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if (leftMouseHeld && m_AttackCooldown < 0.0f) AttackJump();
 		if (m_Health < 0.0001f) Death();
 		if (FallCheck()) break;
 
@@ -105,6 +113,7 @@ void Player::Update(float elapsedSec)
 		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
+		if (leftMouseHeld && m_AttackCooldown < 0.0f) AttackJump();
 		if (m_Health < 0.0001f) Death();
 
 		break;
@@ -155,7 +164,35 @@ void Player::Update(float elapsedSec)
 
 		break;
 	case State::attack_part1:
+		m_AttackCooldown = 0.2f;
 		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1")) Idle();
+		if (m_Health < 0.0001f) Death();
+
+		break;
+	case State::attack_part2:
+		m_AttackCooldown = 0.2f;
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part2")) Idle();
+		if (m_Health < 0.0001f) Death();
+
+		break;
+	case State::attack_part3:
+		m_AttackCooldown = 0.2f;
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part3")) Idle();
+		if (m_Health < 0.0001f) Death();
+
+		break;
+	case State::attack_jump:
+		m_AttackCooldown = 0.5f;
+		HorizontalMovement(leftHeld, rightHeld);
+
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_jump")) m_PlayerState = State::fall;
+		if (m_Health < 0.0001f) Death();
+
+		break;
+	case State::attack_crouch :
+		m_AttackCooldown = 0.3f;
+
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_crouch")) Crouch();
 		if (m_Health < 0.0001f) Death();
 
 		break;
@@ -177,7 +214,7 @@ void Player::Update(float elapsedSec)
 
 	m_HitBox.left += m_Velocity.x * elapsedSec;
 	m_HitBox.bottom += m_Velocity.y * elapsedSec;
-	if (m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity) && (m_PlayerState == State::fall || m_PlayerState == State::ladder || m_PlayerState == State::knockback) && m_Velocity.y == 0.0f) Idle();
+	if (m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity, downHeld && spaceHeld) && (m_PlayerState == State::fall || m_PlayerState == State::ladder || m_PlayerState == State::knockback || m_PlayerState == State::attack_jump) && m_Velocity.y == 0.0f) Idle();
 }
 
 void Player::Draw()
@@ -239,6 +276,22 @@ void Player::Draw()
 		animationPath = "penitent_attack_part1";
 		loop = false;
 		break;
+	case State::attack_part2:
+		animationPath = "penitent_attack_part2";
+		loop = false;
+		break;
+	case State::attack_part3:
+		animationPath = "penitent_attack_part3";
+		loop = false;
+		break;
+	case State::attack_jump:
+		animationPath = "penitent_attack_jump";
+		loop = false;
+		break;
+	case State::attack_crouch:
+		animationPath = "penitent_attack_crouch";
+		loop = false;
+		break;
 	case State::block:
 		animationPath = "penitent_block";
 		loop = false;
@@ -276,7 +329,7 @@ bool Player::Attack(Rectf& hurtbox, float damage, bool direction)
 
 bool Player::IsDead()
 {
-	return m_PlayerState == State::death && m_PlayerState == State::death;
+	return (m_PlayerState == State::death || m_PlayerState == State::death_spike);
 }
 
 void Player::HorizontalMovement(bool leftHeld, bool rightHeld)
@@ -339,6 +392,7 @@ void Player::Crouch()
 	m_PlayerState = State::crouch;
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
 	m_HitBox.height = HITBOXHEIGHT / 2.0f;
 }
 
@@ -404,6 +458,73 @@ void Player::Attack1()
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom + 10.0f, 72.0f, 40.0f };
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 72.0f;
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
+		m_ComboCounter = 1;
+		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1") + 0.2f;
+	}
+	else {
+		m_ComboCounter = 0;
+		m_ComboTime = 0.0f;
+	}
+}
+
+void Player::Attack2()
+{
+	m_PlayerState = State::attack_part2;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom + 10.0f, 80.0f, 50.0f };
+	if (m_LeftFacing)
+		hurtBox.left = m_HitBox.left - 80.0f;
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
+		m_ComboCounter = 2;
+		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part2") + 0.2f;
+	}
+	else {
+		m_ComboCounter = 0;
+		m_ComboTime = 0.0f;
+	}
+}
+
+void Player::Attack3()
+{
+	m_PlayerState = State::attack_part3;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, 77.0f, 84.0f };
+	if (m_LeftFacing)
+		hurtBox.left = m_HitBox.left - 77.0f;
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
+		m_ComboCounter = 3;
+		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part3") + 0.2f;
+	}
+	else {
+		m_ComboCounter = 0;
+		m_ComboTime = 0.0f;
+	}
+}
+
+void Player::AttackJump()
+{
+	m_PlayerState = State::attack_jump;
+	m_AnimationDuration = 0.0f;
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 90.0f, 65.0f };
+	if (m_LeftFacing)
+		hurtBox.left = m_HitBox.left - 90.0f;
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG));
+}
+
+void Player::AttackCrouch()
+{
+	m_PlayerState = State::attack_crouch;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+	m_Velocity.y = 0.0f;
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom - 4.0f, 63.0f, 41.0f };
+	if (m_LeftFacing)
+		hurtBox.left = m_HitBox.left - 63.0f;
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG));
 }
 

@@ -1,18 +1,18 @@
 #include "pch.h"
-#include "ShieldMaiden.h"
+#include "EnemyShieldMaiden.h"
 #include "TextureManager.h"
 #include "Player.h"
 #include "LevelManager.h"
 #include "utils.h"
 #include <iostream>
 
-const float ShieldMaiden::MAXHEALTH{ 50.0f };
-const float ShieldMaiden::SPEED{ 25.0f };
-const float ShieldMaiden::ATTACKDMG{ 12.0f };
-const float ShieldMaiden::SHIELDDMG{ 5.0f };
-const float ShieldMaiden::POINTS{ 15.0f };
+const float EnemyShieldMaiden::MAXHEALTH{ 50.0f };
+const float EnemyShieldMaiden::SPEED{ 25.0f };
+const float EnemyShieldMaiden::ATTACKDMG{ 12.0f };
+const float EnemyShieldMaiden::SHIELDDMG{ 5.0f };
+const float EnemyShieldMaiden::POINTS{ 15.0f };
 
-ShieldMaiden::ShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
+EnemyShieldMaiden::EnemyShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
 	Enemy(levelManager, textureManager, player, x, y)
 {
 	m_HitBox.height = 50.0f;
@@ -20,7 +20,7 @@ ShieldMaiden::ShieldMaiden(LevelManager* levelManager, TextureManager* textureMa
 	m_Health = MAXHEALTH;
 }
 
-void ShieldMaiden::Draw()
+void EnemyShieldMaiden::Draw()
 {
 	std::string animationPath{ "shieldmaiden_idle" };
 	bool loop{ true };
@@ -55,7 +55,7 @@ void ShieldMaiden::Draw()
 	m_TextureManagerPtr->Animate(animationPath, Point2f{ m_HitBox.left, m_HitBox.bottom }, m_AnimationDuration, m_LeftFacing, loop, frameTimeModifier);
 }
 
-void ShieldMaiden::Update(float elapsedSec)
+void EnemyShieldMaiden::Update(float elapsedSec)
 {
 	m_AnimationDuration += elapsedSec;
 	m_AttackCooldown -= elapsedSec;
@@ -102,7 +102,7 @@ void ShieldMaiden::Update(float elapsedSec)
 	m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity);
 }
 
-bool ShieldMaiden::Hit(Rectf hitbox, float damage)
+bool EnemyShieldMaiden::Hit(Rectf hitbox, float damage)
 {
 	if (utils::IsOverlapping(hitbox, m_HitBox)) {
 		Rectf shieldBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 20.0f, m_HitBox.height };
@@ -115,7 +115,7 @@ bool ShieldMaiden::Hit(Rectf hitbox, float damage)
 	return false;
 }
 
-void ShieldMaiden::CheckPlayerInteract()
+void EnemyShieldMaiden::CheckPlayerInteract()
 {
 	float leftDistance{};
 	float rightDistance{};
@@ -136,7 +136,7 @@ void ShieldMaiden::CheckPlayerInteract()
 	}
 }
 
-void ShieldMaiden::PlayerHit()
+void EnemyShieldMaiden::PlayerHit()
 {
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, 51.0f + m_HitBox.width * 0.5f, 72.0f };
 	if (m_LeftFacing)
@@ -145,7 +145,7 @@ void ShieldMaiden::PlayerHit()
 	m_AttackCooldown = 3.0f;
 }
 
-void ShieldMaiden::PlayerHitShield()
+void EnemyShieldMaiden::PlayerHitShield()
 {
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 20.0f, m_HitBox.height };
 	if (m_LeftFacing)
@@ -153,7 +153,7 @@ void ShieldMaiden::PlayerHitShield()
 	m_PlayerPtr->Attack(hurtBox, SHIELDDMG, m_LeftFacing);
 }
 
-void ShieldMaiden::Attack()
+void EnemyShieldMaiden::Attack()
 {
 	Enemy::Attack();
 	m_AttackCooldown = 0.6f;

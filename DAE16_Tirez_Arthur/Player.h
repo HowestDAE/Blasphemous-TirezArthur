@@ -31,7 +31,6 @@ private:
 		attack_part1,
 		attack_part2,
 		attack_part3,
-		attack_heavy,
 		attack_jump,
 		attack_crouch,
 		block,
@@ -52,6 +51,10 @@ private:
 	void DeathSpike();
 	void Death();
 	void Attack1();
+	void Attack2();
+	void Attack3();
+	void AttackJump();
+	void AttackCrouch();
 	void KnockBack();
 	void Block();
 	void Parry();
@@ -64,13 +67,15 @@ private:
 	State m_PlayerState{ State::idle };
 	Vector2f m_Velocity{ 0.0f, 0.0f };
 	bool m_LeftFacing{ false };
-	float m_ComboTime{ 0.0f };
 	float m_AnimationDuration{ 0.0f };
 	float m_DodgeCooldown{ 0.0f };
 	float m_LadderCooldown{ 0.0f };
 	float m_JumpCooldown{ 0.0f };
 	float m_LedgeCooldown{ 0.0f };
 	float m_BlockCooldown{ 0.0f };
+	float m_AttackCooldown{ 0.0f };
+	float m_ComboTime{ 0.0f };
+	int m_ComboCounter{ 0 };
 	float m_Health{ MAXHEALTH };
 
 	static const float GRAVITY;
@@ -80,5 +85,6 @@ private:
 	static const float MAXHEALTH;
 	static const float ATTACKDMG;
 	static const float HEAVYDMG;
+	static const float COMBOTIME;
 };
 

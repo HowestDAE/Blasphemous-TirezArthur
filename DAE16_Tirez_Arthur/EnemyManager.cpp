@@ -5,7 +5,7 @@
 #include "Player.h"
 #include "Enemy.h"
 #include "EnemyCartwheel.h"
-#include "ShieldMaiden.h"
+#include "EnemyShieldMaiden.h"
 
 EnemyManager::EnemyManager(LevelManager* levelManager, TextureManager* textureManager) :
 	m_LevelManagerPtr{ levelManager },

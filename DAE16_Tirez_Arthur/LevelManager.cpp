@@ -12,7 +12,7 @@ LevelManager::LevelManager(TextureManager* textureManager):
 	LoadLevel("indoor1");
 }
 
-bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity) const
+bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool ignorePlatforms) const
 {
 	bool collisionHappened{ false };
 	if (hitbox.left < 0.0f && hitbox.bottom < 0.0f && m_LevelDoors.size() > 0)
@@ -60,19 +60,21 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity) const
 			collisionHappened = true;
 		}
 	}
-	for (Platform platform : m_LevelPlatforms)
-	{
-		if (utils::IsOverlapping(hitbox, platform.hitbox))
+	if (!ignorePlatforms){
+		for (Platform platform : m_LevelPlatforms)
 		{
-			float deltaX{};
-			float deltaY{};
-			platform.hitbox.bottom -= 0.1f; // Add margin
-			platform.hitbox.height += 0.2f;
-			if (velocity.y <= 0.0f && - platform.hitbox.bottom - platform.hitbox.height + hitbox.bottom > -5.0f)
+			if (utils::IsOverlapping(hitbox, platform.hitbox))
 			{
-				hitbox.bottom = platform.hitbox.bottom + platform.hitbox.height;
-				velocity.y = 0.0f;
-				collisionHappened = true;
+				float deltaX{};
+				float deltaY{};
+				platform.hitbox.bottom -= 0.1f; // Add margin
+				platform.hitbox.height += 0.2f;
+				if (velocity.y <= 0.0f && -platform.hitbox.bottom - platform.hitbox.height + hitbox.bottom > -5.0f)
+				{
+					hitbox.bottom = platform.hitbox.bottom + platform.hitbox.height;
+					velocity.y = 0.0f;
+					collisionHappened = true;
+				}
 			}
 		}
 	}

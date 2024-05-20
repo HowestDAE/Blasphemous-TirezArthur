@@ -18,7 +18,7 @@ Enemy::Enemy(LevelManager* levelManager, TextureManager* textureManager, Player*
 
 bool Enemy::Hit(Rectf hitbox, float damage)
 {
-	if (utils::IsOverlapping(hitbox, m_HitBox)) {
+	if (utils::IsOverlapping(hitbox, m_HitBox) && m_State != State::death) {
 		m_Health = std::max(0.0f, m_Health - damage);
 		return true;
 	}

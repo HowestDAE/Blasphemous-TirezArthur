@@ -51,7 +51,7 @@
     <ClCompile Include="EnemyCartwheel.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="ShieldMaiden.cpp">
+    <ClCompile Include="EnemyShieldMaiden.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -92,7 +92,7 @@
     <ClInclude Include="EnemyCartwheel.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="ShieldMaiden.h">
+    <ClInclude Include="EnemyShieldMaiden.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

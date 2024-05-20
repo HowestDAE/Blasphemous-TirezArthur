@@ -1,10 +1,10 @@
 #pragma once
 #include "Enemy.h"
 
-class ShieldMaiden final : public Enemy
+class EnemyShieldMaiden final : public Enemy
 {
 public:
-	explicit ShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y);
+	explicit EnemyShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y);
 
 	virtual void Draw() override;
 	virtual void Update(float elapsedSec) override;
