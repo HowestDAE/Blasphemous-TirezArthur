@@ -104,6 +104,11 @@ void TextureManager::Animate(std::string path, Point2f pos, float animationDurat
 	}
 }
 
+void TextureManager::PreLoadTexture(std::string path)
+{
+	if (m_TextureMap.find(path) == m_TextureMap.end()) LoadTexture(path);
+}
+
 float TextureManager::GetTextureWidth(std::string path) const
 {
 	if (m_TextureMap.find(path) == m_TextureMap.end()) return -1.0f;

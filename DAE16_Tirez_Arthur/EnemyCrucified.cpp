@@ -1,23 +1,23 @@
 #include "pch.h"
-#include "EnemyCartwheel.h"
+#include "EnemyCrucified.h"
 #include "TextureManager.h"
 #include "Player.h"
 #include "LevelManager.h"
 
-const float EnemyCartwheel::MAXHEALTH{ 60.0f };
-const float EnemyCartwheel::SPEED{ 25.0f };
-const float EnemyCartwheel::ATTACKDMG{ 10.0f };
-const float EnemyCartwheel::POINTS{ 20.0f };
+const float EnemyCrucified::MAXHEALTH{ 80.0f };
+const float EnemyCrucified::SPEED{ 25.0f };
+const float EnemyCrucified::ATTACKDMG{ 26.0f };
+const float EnemyCrucified::POINTS{ 20.0f };
 
-EnemyCartwheel::EnemyCartwheel(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
+EnemyCrucified::EnemyCrucified(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) : 
 	Enemy(levelManager, textureManager, player, x, y)
 {
 	m_HitBox.height = 50.0f;
-	m_HitBox.width = 18.0f;
+	m_HitBox.width = 25.0f;
 	m_Health = MAXHEALTH;
 }
 
-void EnemyCartwheel::Draw()
+void EnemyCrucified::Draw()
 {
 	std::string animationPath{ "cartwheel_idle" };
 	bool loop{ true };
@@ -25,25 +25,20 @@ void EnemyCartwheel::Draw()
 	switch (m_State)
 	{
 	case Enemy::State::idle:
-		animationPath = "cartwheel_idle";
+		animationPath = "crucified_idle";
 		frameTimeModifier = 0.4f;
 		break;
 	case Enemy::State::walk:
-		animationPath = "cartwheel_walk";
+		animationPath = "crucified_walk";
 		frameTimeModifier = 0.4f;
 		break;
 	case Enemy::State::attack:
-		animationPath = "cartwheel_attack";
+		animationPath = "crucified_attack";
 		frameTimeModifier = 0.4f;
 		loop = false;
 		break;
 	case Enemy::State::death:
-		animationPath = "cartwheel_death";
-		loop = false;
-		break;
-	case Enemy::State::parried:
-		animationPath = "cartwheel_parried";
-		frameTimeModifier = 0.4f;
+		animationPath = "crucified_death";
 		loop = false;
 		break;
 	default:
@@ -52,7 +47,7 @@ void EnemyCartwheel::Draw()
 	m_TextureManagerPtr->Animate(animationPath, Point2f{ m_HitBox.left, m_HitBox.bottom }, m_AnimationDuration, m_LeftFacing, loop, frameTimeModifier);
 }
 
-void EnemyCartwheel::Update(float elapsedSec)
+void EnemyCrucified::Update(float elapsedSec)
 {
 	m_AnimationDuration += elapsedSec;
 	m_AttackCooldown -= elapsedSec;
@@ -72,18 +67,14 @@ void EnemyCartwheel::Update(float elapsedSec)
 		if (PlayerDistance() <= 50.0f && m_AttackCooldown < 0.0f) Attack();
 		else if (PlayerDistance() <= 50.0f) Idle();
 		if (m_Health < 0.0001f) Death();
-
 		break;
 	case Enemy::State::attack:
-		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("cartwheel_attack") / 0.4f) Idle();
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("crucified_attack") / 0.4f) Idle();
 		if (m_Health < 0.0001f) Death();
 
 		if (m_AttackCooldown < 0.0f) PlayerHit();
 		break;
 	case Enemy::State::death:
-		break;
-	case Enemy::State::parried:
-		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("cartwheel_parried") / 0.4f) Idle();
 		break;
 	default:
 		break;
@@ -94,7 +85,7 @@ void EnemyCartwheel::Update(float elapsedSec)
 	m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity);
 }
 
-void EnemyCartwheel::CheckPlayerInteract()
+void EnemyCrucified::CheckPlayerInteract()
 {
 	float leftDistance{};
 	float rightDistance{};
@@ -115,17 +106,17 @@ void EnemyCartwheel::CheckPlayerInteract()
 	}
 }
 
-void EnemyCartwheel::PlayerHit()
+void EnemyCrucified::PlayerHit()
 {
-	Rectf hurtBox{ m_HitBox.left, m_HitBox.bottom, 65.0f + m_HitBox.width, 76.0f };
+	Rectf hurtBox{ m_HitBox.left, m_HitBox.bottom, 166.0f, 117.0f };
 	if (m_LeftFacing)
-		hurtBox.left = m_HitBox.left - 65.0f;
-	if (m_PlayerPtr->Attack(hurtBox, ATTACKDMG, m_LeftFacing)) Parried();
-	m_AttackCooldown = 1.0f;
+		hurtBox.left = m_HitBox.left - 166.0f;
+	m_PlayerPtr->Attack(hurtBox, ATTACKDMG, m_LeftFacing);
+	m_AttackCooldown = 3.0f;
 }
 
-void EnemyCartwheel::Attack()
+void EnemyCrucified::Attack()
 {
 	Enemy::Attack();
-	m_AttackCooldown = 1.0f;
+	m_AttackCooldown = 1.9f;
 }

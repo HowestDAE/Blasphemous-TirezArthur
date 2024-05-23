@@ -97,6 +97,12 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool 
 	return collisionHappened;
 }
 
+bool LevelManager::CollisionCheck(Rectf& hitbox, const bool ignorePlatforms) const
+{
+	Vector2f velocity{-1.0f, -1.0f};
+	return CollisionCheck(hitbox, velocity, ignorePlatforms);
+}
+
 bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const Vector2f& velocity) const
 {
 	switch (interaction)

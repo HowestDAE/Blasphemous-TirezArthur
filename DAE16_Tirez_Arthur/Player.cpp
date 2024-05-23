@@ -13,7 +13,7 @@ const float Player::HITBOXWIDTH{ 18.0f };
 const float Player::MAXHEALTH{ 100.0f };
 const float Player::ATTACKDMG{ 13.0f };
 const float Player::HEAVYDMG{ 30.0f };
-const float Player::COMBOTIME{ 0.2f };
+const float Player::COMBOTIME{ 1.0f };
 
 Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager) :
 	m_TextureManagerPtr{ textureManager },
@@ -70,7 +70,9 @@ void Player::Update(float elapsedSec)
 	case State::idle:
 		if (FallCheck()) break;
 		if (leftHeld && !rightHeld || !leftHeld && rightHeld) Run();
+		m_HitBox.bottom += 1.0f;
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		m_HitBox.bottom -= 1.0f;
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
 		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 2) Attack3();
@@ -111,10 +113,10 @@ void Player::Update(float elapsedSec)
 		HorizontalMovement(leftHeld, rightHeld);
 
 		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
-		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if ((upHeld || downHeld) && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
+		if (m_Health < 0.0001f) Death();
 		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
 		if (leftMouseHeld && m_AttackCooldown < 0.0f) AttackJump();
-		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::dodge:
@@ -214,7 +216,9 @@ void Player::Update(float elapsedSec)
 
 	m_HitBox.left += m_Velocity.x * elapsedSec;
 	m_HitBox.bottom += m_Velocity.y * elapsedSec;
-	if (m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity, downHeld && spaceHeld) && (m_PlayerState == State::fall || m_PlayerState == State::ladder || m_PlayerState == State::knockback || m_PlayerState == State::attack_jump) && m_Velocity.y == 0.0f) Idle();
+	const bool verticalCollision{ m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity, downHeld && spaceHeld) && m_Velocity.y == 0.0f };
+	if ( verticalCollision && (m_PlayerState == State::fall || m_PlayerState == State::ladder || m_PlayerState == State::knockback || m_PlayerState == State::attack_jump) ) Idle();
+	if (verticalCollision && m_PlayerState == State::jump) m_PlayerState = State::fall;
 }
 
 void Player::Draw()
@@ -460,7 +464,7 @@ void Player::Attack1()
 		hurtBox.left = m_HitBox.left - 72.0f;
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 1;
-		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1") + 0.2f;
+		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1") + COMBOTIME;
 	}
 	else {
 		m_ComboCounter = 0;
@@ -479,7 +483,7 @@ void Player::Attack2()
 		hurtBox.left = m_HitBox.left - 80.0f;
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 2;
-		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part2") + 0.2f;
+		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part2") + COMBOTIME;
 	}
 	else {
 		m_ComboCounter = 0;
@@ -498,7 +502,7 @@ void Player::Attack3()
 		hurtBox.left = m_HitBox.left - 77.0f;
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 3;
-		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part3") + 0.2f;
+		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part3") + COMBOTIME;
 	}
 	else {
 		m_ComboCounter = 0;

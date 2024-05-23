@@ -19,7 +19,8 @@ Enemy::Enemy(LevelManager* levelManager, TextureManager* textureManager, Player*
 bool Enemy::Hit(Rectf hitbox, float damage)
 {
 	if (utils::IsOverlapping(hitbox, m_HitBox) && m_State != State::death) {
-		m_Health = std::max(0.0f, m_Health - damage);
+		m_Health = std::max(-0.01f, m_Health - damage);
+		std::cout << m_Health << std::endl;
 		return true;
 	}
 	return false;
@@ -30,10 +31,10 @@ bool Enemy::IsDead()
 	return (m_State == State::death && m_AnimationDuration > 10.0f);
 }
 
-void Enemy::PlayerDistance(float& left, float& right)
+void Enemy::PlayerDistance(float& left, float& right, float xMargin)
 {
 	Rectf& playerRect{ m_PlayerPtr->GetHitbox() };
-	if ((playerRect.bottom < m_HitBox.bottom + m_HitBox.height) && (playerRect.bottom + playerRect.height > m_HitBox.bottom) && !m_PlayerPtr->IsDead()) {
+	if ((playerRect.bottom < m_HitBox.bottom + m_HitBox.height + xMargin) && (playerRect.bottom + playerRect.height > m_HitBox.bottom - xMargin) && !m_PlayerPtr->IsDead()) {
 		left = m_HitBox.left - playerRect.left - playerRect.width;
 		right = playerRect.left - m_HitBox.left - m_HitBox.width;
 	}

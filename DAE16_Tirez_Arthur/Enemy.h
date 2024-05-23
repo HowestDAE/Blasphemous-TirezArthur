@@ -29,7 +29,7 @@ protected:
 		parried
 	};
 
-	void PlayerDistance(float& left, float& right);
+	void PlayerDistance(float& left, float& right, float xMargin = 0.0f);
 	float PlayerDistance();
 
 	virtual void Death();
