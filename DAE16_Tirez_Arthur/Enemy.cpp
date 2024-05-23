@@ -20,7 +20,6 @@ bool Enemy::Hit(Rectf hitbox, float damage)
 {
 	if (utils::IsOverlapping(hitbox, m_HitBox) && m_State != State::death) {
 		m_Health = std::max(-0.01f, m_Health - damage);
-		std::cout << m_Health << std::endl;
 		return true;
 	}
 	return false;

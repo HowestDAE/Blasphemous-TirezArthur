@@ -2,14 +2,16 @@
 #include "json/json.h"
 #include "LevelManager.h"
 #include "TextureManager.h"
+#include "EnemyManager.h"
 #include "utils.h"
 #include <fstream>
 #include <iostream>
 
-LevelManager::LevelManager(TextureManager* textureManager):
-	m_TextureManagerPtr{textureManager}
+LevelManager::LevelManager(TextureManager* textureManager, EnemyManager* enemyManager):
+	m_TextureManagerPtr{textureManager},
+	m_EnemyManagerPtr{enemyManager}
 {
-	LoadLevel("indoor1");
+	
 }
 
 bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool ignorePlatforms) const
@@ -228,15 +230,15 @@ void LevelManager::LoadLevel(std::string path)
 
 	for (const std::string& currentDoor : doors)
 	{
-		Rectf doorHitbox{			levelData["door"][currentDoor].get("left", -1).asFloat(),
-									levelData["door"][currentDoor].get("bottom", -1).asFloat() ,
-									levelData["door"][currentDoor].get("width", -1).asFloat() ,
-									levelData["door"][currentDoor].get("height", -1).asFloat() };
-		bool doorFlipped{			levelData["door"][currentDoor].get("flipped", false).asBool() };
-		std::string texture{		levelData["door"][currentDoor].get("texture", "").asString() };
-		std::string destination{	levelData["door"][currentDoor]["destination"].get("area", "").asString()};
-		Point2f destinationPos{		levelData["door"][currentDoor]["destination"].get("left", "").asFloat(),
-									levelData["door"][currentDoor]["destination"].get("bottom", "").asFloat() };
+		const Rectf doorHitbox{			levelData["door"][currentDoor].get("left", -1).asFloat(),
+										levelData["door"][currentDoor].get("bottom", -1).asFloat() ,
+										levelData["door"][currentDoor].get("width", -1).asFloat() ,
+										levelData["door"][currentDoor].get("height", -1).asFloat() };
+		const bool doorFlipped{			levelData["door"][currentDoor].get("flipped", false).asBool() };
+		const std::string texture{		levelData["door"][currentDoor].get("texture", "").asString() };
+		const std::string destination{	levelData["door"][currentDoor]["destination"].get("area", "").asString()};
+		const Point2f destinationPos{	levelData["door"][currentDoor]["destination"].get("left", "").asFloat(),
+										levelData["door"][currentDoor]["destination"].get("bottom", "").asFloat() };
 		m_LevelDoors.push_back(Door{ doorHitbox,doorFlipped, texture, destination, destinationPos });
 	}
 
@@ -245,10 +247,10 @@ void LevelManager::LoadLevel(std::string path)
 
 	for (const std::string& currentLadder : ladders)
 	{
-		Rectf ladderHitbox{	levelData["ladder"][currentLadder].get("left", -1).asFloat(),
-							levelData["ladder"][currentLadder].get("bottom", -1).asFloat() ,
-							levelData["ladder"][currentLadder].get("width", -1).asFloat() ,
-							levelData["ladder"][currentLadder].get("height", -1).asFloat() };
+		const Rectf ladderHitbox{	levelData["ladder"][currentLadder].get("left", -1).asFloat(),
+									levelData["ladder"][currentLadder].get("bottom", -1).asFloat() ,
+									levelData["ladder"][currentLadder].get("width", -1).asFloat() ,
+									levelData["ladder"][currentLadder].get("height", -1).asFloat() };
 		m_LevelLadders.push_back(ladderHitbox);
 	}
 
@@ -257,10 +259,25 @@ void LevelManager::LoadLevel(std::string path)
 
 	for (const std::string& currentSpike : spikes)
 	{
-		Rectf ladderHitbox{ levelData["spike"][currentSpike].get("left", -1).asFloat(),
-							levelData["spike"][currentSpike].get("bottom", -1).asFloat(),
-							levelData["spike"][currentSpike].get("width", -1).asFloat(),
-							levelData["spike"][currentSpike].get("height", -1).asFloat() };
+		const Rectf ladderHitbox{	levelData["spike"][currentSpike].get("left", -1).asFloat(),
+									levelData["spike"][currentSpike].get("bottom", -1).asFloat(),
+									levelData["spike"][currentSpike].get("width", -1).asFloat(),
+									levelData["spike"][currentSpike].get("height", -1).asFloat() };
 		m_LevelSpikes.push_back(ladderHitbox);
+	}
+
+	const Json::Value::Members& enemies{ levelData["enemies"].getMemberNames() };
+
+	for (const std::string& currentEnemy : enemies)
+	{
+		EnemyManager::EnemyType enemyType{};
+		const std::string type{ levelData["enemies"][currentEnemy].get("type", "").asString() };
+		if (type == "cartwheel") enemyType = EnemyManager::EnemyType::cartwheel;
+		else if (type == "shieldmaiden") enemyType = EnemyManager::EnemyType::shieldmaiden;
+		else if (type == "stoner") enemyType = EnemyManager::EnemyType::stoner;
+		else if (type == "crucified") enemyType = EnemyManager::EnemyType::crucified;
+		const float xPos{ levelData["enemies"][currentEnemy].get("x", -1).asFloat() };
+		const float yPos{ levelData["enemies"][currentEnemy].get("y", -1).asFloat() };
+		m_EnemyManagerPtr->SpawnEnemy(enemyType, xPos, yPos);
 	}
 }

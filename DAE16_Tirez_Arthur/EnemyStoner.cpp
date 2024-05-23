@@ -97,11 +97,14 @@ void EnemyStoner::Update(float elapsedSec)
 
 void EnemyStoner::CheckPlayerInteract()
 {
+	const float attackDistance{ 300.0f };
+	const float verticalDetectionMargin{ 50.0f };
+
 	float leftDistance{};
 	float rightDistance{};
-	PlayerDistance(leftDistance, rightDistance, 50.0f);
+	PlayerDistance(leftDistance, rightDistance, verticalDetectionMargin);
 	const float distance{ std::min(abs(leftDistance), abs(rightDistance)) };
-	if (distance < 300.0f) {
+	if (distance < attackDistance) {
 		if (!m_RockActive && m_AttackCooldown < 0.0f) Attack();
 		else if (m_State != State::idle) Idle();
 		if (leftDistance > rightDistance) m_LeftFacing = true;
@@ -111,16 +114,23 @@ void EnemyStoner::CheckPlayerInteract()
 
 void EnemyStoner::SpawnRock()
 {
+	const int minAttackCooldown{1};
+	const int maxAttackCooldown{4};
+
 	const float playerCenterX{ m_RockHitbox.left };
 	const float playerCentery{ m_RockHitbox.bottom };
 	if (!m_LeftFacing) {
-		m_RockHitbox.left = m_HitBox.left + 29.0f;
-		m_RockHitbox.bottom = m_HitBox.bottom + 54.0f;
+		const float rockoffsetX{ 29.0f };
+		const float rockoffsetY{ 54.0f };
+		m_RockHitbox.left = m_HitBox.left + rockoffsetX;
+		m_RockHitbox.bottom = m_HitBox.bottom + rockoffsetY;
 		m_Velocity.x = SPEED;
 	}
 	else {
-		m_RockHitbox.left = m_HitBox.left + 32.0f;
-		m_RockHitbox.bottom = m_HitBox.bottom + 54.0f;
+		const float rockoffsetX{ 32.0f };
+		const float rockoffsetY{ 54.0f };
+		m_RockHitbox.left = m_HitBox.left + rockoffsetX;
+		m_RockHitbox.bottom = m_HitBox.bottom + rockoffsetY;
 		m_Velocity.x = -SPEED;
 	}
 	Rectf playerHitbox{ m_PlayerPtr->GetHitbox() };
@@ -129,7 +139,7 @@ void EnemyStoner::SpawnRock()
 	m_Velocity.y = velocityY;
 	m_RockActive = true;
 	m_RockAnimationDuration = 0.0f;
-	m_AttackCooldown = (rand() % 40 + 10) * 0.1f;
+	m_AttackCooldown = (rand() % (  maxAttackCooldown - minAttackCooldown + 1 ) * 10 + minAttackCooldown * 10) * 0.1f;
 }
 
 void EnemyStoner::RockHit()

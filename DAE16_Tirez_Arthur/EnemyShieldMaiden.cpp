@@ -117,11 +117,14 @@ bool EnemyShieldMaiden::Hit(Rectf hitbox, float damage)
 
 void EnemyShieldMaiden::CheckPlayerInteract()
 {
+	const float attackRange{ 50.0f };
+	const float detectionRange{ 180.0f };
+
 	float leftDistance{};
 	float rightDistance{};
 	PlayerDistance(leftDistance, rightDistance);
 	const float distance{ std::min(abs(leftDistance), abs(rightDistance)) };
-	if (distance < 50.0f) {
+	if (distance < attackRange) {
 		if (m_AttackCooldown < 0.0f) {
 			Attack();
 			if (leftDistance > rightDistance) m_LeftFacing = true;
@@ -129,7 +132,7 @@ void EnemyShieldMaiden::CheckPlayerInteract()
 		}
 		else if (m_State != State::idle) Idle();
 	}
-	else if (distance < 180.0f) {
+	else if (distance < detectionRange) {
 		Walk();
 		if (leftDistance > rightDistance) m_LeftFacing = true;
 		else m_LeftFacing = false;
@@ -138,18 +141,22 @@ void EnemyShieldMaiden::CheckPlayerInteract()
 
 void EnemyShieldMaiden::PlayerHit()
 {
-	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, 51.0f + m_HitBox.width * 0.5f, 72.0f };
+	const float hurtboxWidth{ 63.0f };
+	const float hurtboxHeight{ 72.0f };
+	const float attackCooldown{ 3.0f };
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, hurtboxWidth, hurtboxHeight };
 	if (m_LeftFacing)
-		hurtBox.left = m_HitBox.left - 51.0f;
+		hurtBox.left = m_HitBox.left - hurtboxWidth + m_HitBox.width * 0.5f;
 	if (m_PlayerPtr->Attack(hurtBox, ATTACKDMG, m_LeftFacing)) Parried();
 	m_AttackCooldown = 3.0f;
 }
 
 void EnemyShieldMaiden::PlayerHitShield()
 {
-	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 20.0f, m_HitBox.height };
+	const float hurtboxWidth{ 20.0f };
+	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, hurtboxWidth, m_HitBox.height };
 	if (m_LeftFacing)
-		hurtBox.left = m_HitBox.left - 20.0f;
+		hurtBox.left = m_HitBox.left - hurtboxWidth;
 	m_PlayerPtr->Attack(hurtBox, SHIELDDMG, m_LeftFacing);
 }
 

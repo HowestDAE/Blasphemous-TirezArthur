@@ -49,6 +49,8 @@ void EnemyCrucified::Draw()
 
 void EnemyCrucified::Update(float elapsedSec)
 {
+	const float attackRange{ 50.0f };
+	const float detectionRange{ 180.0f };
 	m_AnimationDuration += elapsedSec;
 	m_AttackCooldown -= elapsedSec;
 	m_Velocity.y += -GRAVITY * elapsedSec;
@@ -63,9 +65,9 @@ void EnemyCrucified::Update(float elapsedSec)
 		if (m_LeftFacing) m_Velocity.x = -SPEED;
 		else m_Velocity.x = SPEED;
 
-		if (PlayerDistance() >= 180.0f) Idle();
-		if (PlayerDistance() <= 50.0f && m_AttackCooldown < 0.0f) Attack();
-		else if (PlayerDistance() <= 50.0f) Idle();
+		if (PlayerDistance() >= detectionRange) Idle();
+		if (PlayerDistance() <= attackRange && m_AttackCooldown < 0.0f) Attack();
+		else if (PlayerDistance() <= attackRange) Idle();
 		if (m_Health < 0.0001f) Death();
 		break;
 	case Enemy::State::attack:
@@ -87,11 +89,14 @@ void EnemyCrucified::Update(float elapsedSec)
 
 void EnemyCrucified::CheckPlayerInteract()
 {
+	const float attackRange{ 50.0f };
+	const float detectionRange{ 180.0f };
+
 	float leftDistance{};
 	float rightDistance{};
 	PlayerDistance(leftDistance, rightDistance);
 	const float distance{ std::min(abs(leftDistance), abs(rightDistance)) };
-	if (distance < 50.0f) {
+	if (distance < attackRange) {
 		if (m_AttackCooldown < 0.0f) {
 			Attack();
 			if (leftDistance > rightDistance) m_LeftFacing = true;
@@ -99,7 +104,7 @@ void EnemyCrucified::CheckPlayerInteract()
 		}
 		else if (m_State != State::idle) Idle();
 	}
-	else if (distance < 180.0f) {
+	else if (distance < detectionRange) {
 		Walk();
 		if (leftDistance > rightDistance) m_LeftFacing = true;
 		else m_LeftFacing = false;
@@ -108,15 +113,19 @@ void EnemyCrucified::CheckPlayerInteract()
 
 void EnemyCrucified::PlayerHit()
 {
-	Rectf hurtBox{ m_HitBox.left, m_HitBox.bottom, 166.0f, 117.0f };
+	const float hurtboxWidth{ 166.0f };
+	const float hurtboxHeight{ 117.0f };
+	const float attackCooldown{ 3.0f };
+	Rectf hurtBox{ m_HitBox.left, m_HitBox.bottom, hurtboxWidth, hurtboxHeight };
 	if (m_LeftFacing)
-		hurtBox.left = m_HitBox.left - 166.0f;
+		hurtBox.left = m_HitBox.left - hurtboxWidth + m_HitBox.width;
 	m_PlayerPtr->Attack(hurtBox, ATTACKDMG, m_LeftFacing);
-	m_AttackCooldown = 3.0f;
+	m_AttackCooldown = attackCooldown;
 }
 
 void EnemyCrucified::Attack()
 {
+	const float attackFrame{ 2.0f };
 	Enemy::Attack();
-	m_AttackCooldown = 1.9f;
+	m_AttackCooldown = attackFrame;
 }

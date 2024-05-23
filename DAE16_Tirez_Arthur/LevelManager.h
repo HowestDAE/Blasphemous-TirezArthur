@@ -4,6 +4,7 @@
 #include "json/json-forwards.h"
 #include "Vector2f.h"
 class TextureManager;
+class EnemyManager;
 
 struct Door {
 	Rectf hitbox;
@@ -22,7 +23,7 @@ struct Platform {
 class LevelManager final
 {
 public:
-	explicit LevelManager(TextureManager* textureManager);
+	explicit LevelManager(TextureManager* textureManager, EnemyManager* enemyManager);
 
 	enum class Interactions {
 		ladder,
@@ -36,10 +37,11 @@ public:
 
 	void DrawBackGround();
 	void DrawForeground();
-private:
 	void LoadLevel(std::string path);
+private:
 
 	TextureManager* m_TextureManagerPtr{};
+	EnemyManager* m_EnemyManagerPtr{};
 
 	std::vector<Rectf> m_LevelGeometry;
 	std::vector<Platform> m_LevelPlatforms;

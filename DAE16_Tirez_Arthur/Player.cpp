@@ -189,6 +189,7 @@ void Player::Update(float elapsedSec)
 
 		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_attack_jump")) m_PlayerState = State::fall;
 		if (m_Health < 0.0001f) Death();
+		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
 
 		break;
 	case State::attack_crouch :
@@ -208,6 +209,10 @@ void Player::Update(float elapsedSec)
 	case State::parry:
 		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_parry")) Idle();
 		if (m_Health < 0.0001f) Death();
+
+		break;
+	case State::knockback:
+		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
 
 		break;
 	default:
@@ -321,7 +326,14 @@ bool Player::Attack(Rectf& hurtbox, float damage, bool direction)
 	if (hit) {
 		if (m_PlayerState == State::block) {
 			m_LeftFacing = !direction;
-			Parry();
+			if (damage <= MAXHEALTH * 0.25f) Parry();
+			else {
+				const float pushbackSpeed{400.0f};
+				const float pushbackDuration{ 0.15f };
+				if (!direction) m_Velocity.x = pushbackSpeed;
+				else m_Velocity.x = -pushbackSpeed;
+				m_AnimationDuration = pushbackDuration;
+			}
 			return true;
 		}
 		m_Health -= damage;

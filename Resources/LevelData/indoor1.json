@@ -261,5 +261,37 @@
       "width": 255,
       "height": 32
     }
+  },
+  "enemies": {
+    "0": {
+      "type": "shieldmaiden",
+      "x": 238,
+      "y": 596
+    },
+    "2": {
+      "type": "shieldmaiden",
+      "x": 250,
+      "y": 884
+    },
+    "3": {
+      "type": "crucified",
+      "x": 527,
+      "y": 884
+    },
+    "4": {
+      "type": "cartwheel",
+      "x": 654,
+      "y": 85
+    },
+    "5": {
+      "type": "shieldmaiden",
+      "x": 518,
+      "y": 85
+    },
+    "6": {
+      "type": "cartwheel",
+      "x": 367,
+      "y": 85
+    }
   }
 }

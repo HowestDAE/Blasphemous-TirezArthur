@@ -9,8 +9,7 @@
 #include "EnemyStoner.h"
 #include "EnemyCrucified.h"
 
-EnemyManager::EnemyManager(LevelManager* levelManager, TextureManager* textureManager) :
-	m_LevelManagerPtr{ levelManager },
+EnemyManager::EnemyManager(TextureManager* textureManager) :
 	m_TextureManagerPtr{ textureManager }
 {
 	
@@ -24,14 +23,14 @@ EnemyManager::~EnemyManager()
 	}
 }
 
+void EnemyManager::SetLevelManager(LevelManager* levelManager)
+{
+	m_LevelManagerPtr = levelManager;
+}
+
 void EnemyManager::SetTargetPlayer(Player* player)
 {
 	m_PlayerPtr = player;
-
-	m_EnemyPtrVector.emplace_back(new EnemyCartwheel{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, 350.0f, 80.0f });
-	m_EnemyPtrVector.emplace_back(new EnemyShieldMaiden{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, 550.0f, 80.0f });
-	m_EnemyPtrVector.emplace_back(new EnemyCrucified{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, 750.0f, 80.0f });
-	m_EnemyPtrVector.emplace_back(new EnemyStoner{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, 950.0f, 80.0f });
 }
 
 void EnemyManager::Draw()
@@ -66,4 +65,23 @@ bool EnemyManager::Attack(Rectf hitbox, float damage)
 			enemyHit = true;
 	}
 	return enemyHit;
+}
+
+void EnemyManager::SpawnEnemy(EnemyType type, float x, float y)
+{
+	switch (type)
+	{
+	case EnemyManager::EnemyType::cartwheel:
+		m_EnemyPtrVector.emplace_back(new EnemyCartwheel{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		break;
+	case EnemyManager::EnemyType::shieldmaiden:
+		m_EnemyPtrVector.emplace_back(new EnemyShieldMaiden{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		break;
+	case EnemyManager::EnemyType::stoner:
+		m_EnemyPtrVector.emplace_back(new EnemyStoner{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		break;
+	case EnemyManager::EnemyType::crucified:
+		m_EnemyPtrVector.emplace_back(new EnemyCrucified{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		break;
+	}
 }

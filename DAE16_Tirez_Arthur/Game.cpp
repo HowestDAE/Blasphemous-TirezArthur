@@ -24,11 +24,13 @@ void Game::Initialize()
 {
 	m_TextureManagerPtr = new TextureManager{ };
 	m_CameraPtr = new Camera{ GetViewPort().width, GetViewPort().height };
-	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr };
-	m_EnemyManagerPtr = new EnemyManager{ m_LevelManagerPtr, m_TextureManagerPtr };
+	m_EnemyManagerPtr = new EnemyManager{ m_TextureManagerPtr };
+	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr, m_EnemyManagerPtr };
+	m_EnemyManagerPtr->SetLevelManager(m_LevelManagerPtr);
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr };
 	m_EnemyManagerPtr->SetTargetPlayer(m_PlayerPtr);
 	m_UiManagerPtr = new UiManager{};
+	m_LevelManagerPtr->LoadLevel("indoor1");
 	ShowCursor(false);
 }
 
