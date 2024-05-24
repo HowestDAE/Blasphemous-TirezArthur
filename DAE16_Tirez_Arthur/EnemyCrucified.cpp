@@ -9,8 +9,8 @@ const float EnemyCrucified::SPEED{ 25.0f };
 const float EnemyCrucified::ATTACKDMG{ 26.0f };
 const float EnemyCrucified::POINTS{ 20.0f };
 
-EnemyCrucified::EnemyCrucified(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) : 
-	Enemy(levelManager, textureManager, player, x, y)
+EnemyCrucified::EnemyCrucified(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
+	Enemy(levelManager, textureManager, soundManager, player, x, y)
 {
 	m_HitBox.height = 50.0f;
 	m_HitBox.width = 25.0f;

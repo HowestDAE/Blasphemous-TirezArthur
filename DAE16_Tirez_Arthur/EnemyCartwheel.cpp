@@ -9,8 +9,8 @@ const float EnemyCartwheel::SPEED{ 25.0f };
 const float EnemyCartwheel::ATTACKDMG{ 10.0f };
 const float EnemyCartwheel::POINTS{ 20.0f };
 
-EnemyCartwheel::EnemyCartwheel(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
-	Enemy(levelManager, textureManager, player, x, y)
+EnemyCartwheel::EnemyCartwheel(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
+	Enemy(levelManager, textureManager, soundManager, player, x, y)
 {
 	m_HitBox.height = 50.0f;
 	m_HitBox.width = 18.0f;

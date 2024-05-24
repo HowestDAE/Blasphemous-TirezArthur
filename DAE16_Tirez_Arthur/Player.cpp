@@ -2,6 +2,7 @@
 #include "Player.h"
 #include "TextureManager.h"
 #include "LevelManager.h"
+#include "SoundManager.h"
 #include <iostream>
 #include "utils.h"
 #include "EnemyManager.h"
@@ -15,10 +16,11 @@ const float Player::ATTACKDMG{ 13.0f };
 const float Player::HEAVYDMG{ 30.0f };
 const float Player::COMBOTIME{ 1.0f };
 
-Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager) :
+Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager) :
 	m_TextureManagerPtr{ textureManager },
 	m_LevelManagerPtr{ levelManager },
-	m_EnemyManagerPtr{enemyManager}
+	m_EnemyManagerPtr{ enemyManager },
+	m_SoundManager{ soundManager }
 {
 	m_HitBox = Rectf{ -1.0f, -1.0f, HITBOXWIDTH, HITBOXHEIGHT };
 }

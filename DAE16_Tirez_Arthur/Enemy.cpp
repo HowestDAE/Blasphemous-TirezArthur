@@ -8,11 +8,12 @@
 
 const float Enemy::GRAVITY{ 1000.0f };
 
-Enemy::Enemy(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
+Enemy::Enemy(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
 	m_HitBox{ x, y, -1.0f, -1.0f },
 	m_LevelManagerPtr{ levelManager },
 	m_TextureManagerPtr{ textureManager },
-	m_PlayerPtr{ player }
+	m_PlayerPtr{ player },
+	m_SoundManager{ soundManager }
 {
 }
 

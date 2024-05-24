@@ -7,6 +7,7 @@
 #include "LevelManager.h"
 #include "UiManager.h"
 #include "EnemyManager.h"
+#include "SoundManager.h"
 #include <iostream>
 
 Game::Game( const Window& window ) 
@@ -23,11 +24,12 @@ Game::~Game( )
 void Game::Initialize()
 {
 	m_TextureManagerPtr = new TextureManager{ };
+	m_SoundManagerPtr = new SoundManager{};
 	m_CameraPtr = new Camera{ GetViewPort().width, GetViewPort().height };
-	m_EnemyManagerPtr = new EnemyManager{ m_TextureManagerPtr };
+	m_EnemyManagerPtr = new EnemyManager{ m_TextureManagerPtr, m_SoundManagerPtr };
 	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr, m_EnemyManagerPtr };
 	m_EnemyManagerPtr->SetLevelManager(m_LevelManagerPtr);
-	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr };
+	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr, m_SoundManagerPtr };
 	m_EnemyManagerPtr->SetTargetPlayer(m_PlayerPtr);
 	m_UiManagerPtr = new UiManager{};
 	m_LevelManagerPtr->LoadLevel("indoor1");
@@ -37,6 +39,7 @@ void Game::Initialize()
 void Game::Cleanup()
 {
 	delete m_TextureManagerPtr;
+	delete m_SoundManagerPtr;
 	delete m_CameraPtr;
 	delete m_PlayerPtr;
 	delete m_LevelManagerPtr;

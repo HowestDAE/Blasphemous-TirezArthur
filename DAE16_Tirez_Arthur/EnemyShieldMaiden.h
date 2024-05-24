@@ -4,7 +4,7 @@
 class EnemyShieldMaiden final : public Enemy
 {
 public:
-	explicit EnemyShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y);
+	explicit EnemyShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y);
 
 	virtual void Draw() override;
 	virtual void Update(float elapsedSec) override;

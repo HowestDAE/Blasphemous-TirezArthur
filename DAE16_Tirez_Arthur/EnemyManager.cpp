@@ -9,8 +9,9 @@
 #include "EnemyStoner.h"
 #include "EnemyCrucified.h"
 
-EnemyManager::EnemyManager(TextureManager* textureManager) :
-	m_TextureManagerPtr{ textureManager }
+EnemyManager::EnemyManager(TextureManager* textureManager, SoundManager* soundManager) :
+	m_TextureManagerPtr{ textureManager },
+	m_SoundManager{ soundManager }
 {
 	
 }
@@ -72,16 +73,16 @@ void EnemyManager::SpawnEnemy(EnemyType type, float x, float y)
 	switch (type)
 	{
 	case EnemyManager::EnemyType::cartwheel:
-		m_EnemyPtrVector.emplace_back(new EnemyCartwheel{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		m_EnemyPtrVector.emplace_back(new EnemyCartwheel{ m_LevelManagerPtr, m_TextureManagerPtr, m_SoundManager, m_PlayerPtr, x, y });
 		break;
 	case EnemyManager::EnemyType::shieldmaiden:
-		m_EnemyPtrVector.emplace_back(new EnemyShieldMaiden{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		m_EnemyPtrVector.emplace_back(new EnemyShieldMaiden{ m_LevelManagerPtr, m_TextureManagerPtr, m_SoundManager, m_PlayerPtr, x, y });
 		break;
 	case EnemyManager::EnemyType::stoner:
-		m_EnemyPtrVector.emplace_back(new EnemyStoner{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		m_EnemyPtrVector.emplace_back(new EnemyStoner{ m_LevelManagerPtr, m_TextureManagerPtr, m_SoundManager, m_PlayerPtr, x, y });
 		break;
 	case EnemyManager::EnemyType::crucified:
-		m_EnemyPtrVector.emplace_back(new EnemyCrucified{ m_LevelManagerPtr, m_TextureManagerPtr, m_PlayerPtr, x, y });
+		m_EnemyPtrVector.emplace_back(new EnemyCrucified{ m_LevelManagerPtr, m_TextureManagerPtr, m_SoundManager, m_PlayerPtr, x, y });
 		break;
 	}
 }

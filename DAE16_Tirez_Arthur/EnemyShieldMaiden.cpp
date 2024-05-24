@@ -12,8 +12,8 @@ const float EnemyShieldMaiden::ATTACKDMG{ 12.0f };
 const float EnemyShieldMaiden::SHIELDDMG{ 5.0f };
 const float EnemyShieldMaiden::POINTS{ 15.0f };
 
-EnemyShieldMaiden::EnemyShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) :
-	Enemy(levelManager, textureManager, player, x, y)
+EnemyShieldMaiden::EnemyShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
+	Enemy(levelManager, textureManager, soundManager, player, x, y)
 {
 	m_HitBox.height = 50.0f;
 	m_HitBox.width = 25.0f;

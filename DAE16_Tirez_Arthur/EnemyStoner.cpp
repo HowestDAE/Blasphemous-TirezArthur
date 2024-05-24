@@ -10,8 +10,8 @@ const float EnemyStoner::ATTACKDMG{ 8.0f };
 const float EnemyStoner::SPEED{ 500.0f };
 const float EnemyStoner::POINTS{ 10.0f };
 
-EnemyStoner::EnemyStoner(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y) : 
-	Enemy(levelManager, textureManager, player, x, y)
+EnemyStoner::EnemyStoner(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
+	Enemy(levelManager, textureManager, soundManager, player, x, y)
 {
 	m_HitBox.height = 40.0f;
 	m_HitBox.width = 75.0f;

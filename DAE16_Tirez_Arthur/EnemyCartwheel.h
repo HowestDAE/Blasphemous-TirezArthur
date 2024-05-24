@@ -5,7 +5,7 @@
 class EnemyCartwheel final : public Enemy
 {
 public:
-	explicit EnemyCartwheel(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y);
+	explicit EnemyCartwheel(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y);
 
 	virtual void Draw() override;
 	virtual void Update(float elapsedSec) override;

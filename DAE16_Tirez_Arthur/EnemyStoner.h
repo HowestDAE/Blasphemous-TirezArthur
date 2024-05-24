@@ -5,7 +5,7 @@
 class EnemyStoner final : public Enemy
 {
 public:
-	explicit EnemyStoner(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y);
+	explicit EnemyStoner(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y);
 
 	virtual void Draw() override;
 	virtual void Update(float elapsedSec) override;

@@ -36,10 +36,6 @@ void TextureManager::Draw(std::string path, Point2f pos, bool flipped)
 		{
 			Draw(path, pos, flipped);
 		}
-		else
-		{
-			std::cout << "Texture doesnt exist" << std::endl;
-		}
 	}
 }
 
@@ -87,7 +83,6 @@ void TextureManager::Animate(std::string path, Point2f pos, float animationDurat
 		}
 		else
 		{
-			std::cout << "Texture \"" + path + "\" does not have animation data." << std::endl;
 			Draw(path, pos, flipped);
 		}
 	}
@@ -96,10 +91,6 @@ void TextureManager::Animate(std::string path, Point2f pos, float animationDurat
 		if (LoadTexture(path))
 		{
 			Animate(path, pos, animationDuration, flipped);
-		}
-		else
-		{
-			std::cout << "Texture doesnt exist" << std::endl;
 		}
 	}
 }

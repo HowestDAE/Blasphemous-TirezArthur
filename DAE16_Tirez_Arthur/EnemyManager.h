@@ -5,6 +5,7 @@ class TextureManager;
 class LevelManager;
 class Enemy;
 class Player;
+class SoundManager;
 
 class EnemyManager final
 {
@@ -15,7 +16,7 @@ public:
 		stoner,
 		crucified
 	};
-	explicit EnemyManager(TextureManager* textureManager);
+	explicit EnemyManager(TextureManager* textureManager, SoundManager* soundManager);
 	~EnemyManager();
 
 	void SetLevelManager(LevelManager* levelManager);
@@ -29,6 +30,7 @@ private:
 	TextureManager* m_TextureManagerPtr;
 	LevelManager* m_LevelManagerPtr{ nullptr };
 	Player* m_PlayerPtr{ nullptr };
+	SoundManager* m_SoundManager;
 	std::vector<Enemy*> m_EnemyPtrVector{};
 };
 

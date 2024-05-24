@@ -7,6 +7,7 @@ class Player;
 class LevelManager;
 class UiManager;
 class EnemyManager;
+class SoundManager;
 
 class Game : public BaseGame
 {
@@ -36,6 +37,7 @@ private:
 	LevelManager* m_LevelManagerPtr{};
 	UiManager* m_UiManagerPtr{};
 	EnemyManager* m_EnemyManagerPtr{};
+	SoundManager* m_SoundManagerPtr{};
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );

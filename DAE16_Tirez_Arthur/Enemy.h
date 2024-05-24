@@ -4,11 +4,12 @@
 class TextureManager;
 class LevelManager;
 class Player;
+class SoundManager;
 
 class Enemy
 {
 public:
-	explicit Enemy(LevelManager* levelManager, TextureManager* textureManager, Player* player, float x, float y);
+	explicit Enemy(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y);
 	explicit Enemy(const Enemy& other) = delete;
 	explicit Enemy(const Enemy&& other) = delete;
 	virtual ~Enemy() = default;
@@ -41,6 +42,7 @@ protected:
 	LevelManager* m_LevelManagerPtr;
 	TextureManager* m_TextureManagerPtr;
 	Player* m_PlayerPtr;
+	SoundManager* m_SoundManager;
 	Vector2f m_Velocity{};
 	Rectf m_HitBox;
 	float m_Health{ -1.0f };

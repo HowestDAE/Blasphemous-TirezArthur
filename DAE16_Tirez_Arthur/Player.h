@@ -3,11 +3,12 @@
 class TextureManager;
 class LevelManager;
 class EnemyManager;
+class SoundManager;
 
 class Player final
 {
 public:
-	explicit Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager);
+	explicit Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager);
 
 	void Update(float elapsedSec);
 	void Draw();
@@ -62,6 +63,7 @@ private:
 	TextureManager* m_TextureManagerPtr;
 	EnemyManager* m_EnemyManagerPtr;
 	const LevelManager* m_LevelManagerPtr;
+	SoundManager* m_SoundManager;
 
 	Rectf m_HitBox;
 	State m_PlayerState{ State::idle };
