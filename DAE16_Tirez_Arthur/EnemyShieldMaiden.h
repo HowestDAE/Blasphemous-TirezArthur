@@ -14,6 +14,7 @@ private:
 	void PlayerHit();
 	void PlayerHitShield();
 	virtual void Attack() override;
+	virtual void Death() override;
 
 	float m_AttackCooldown{ 0.0f };
 

@@ -14,13 +14,20 @@ public:
 	SoundManager& operator=(const SoundManager& other) = delete;
 	SoundManager& operator=(SoundManager&& other) = delete;
 
-	void PlaySoundEffect(std::string path, bool loop = false);
+	int PlaySoundEffect(std::string path, bool loop = false);
 	void PreLoadSoundEffect(std::string path);
 
 	void SetVolume(int volume);
 	int GetVolume();
+	bool IsPlaying(std::string path, const int channel = -1);
+	void Stop(std::string path, const int channel = -1);
+	void Pause(std::string path, const int channel = -1);
+	void Resume(std::string path, const int channel = -1);
+	static void StopAll();
+	static void PauseAll();
+	static void ResumeAll();
 private:
-	void LoadSoundEffect(std::string path);
+	bool LoadSoundEffect(std::string path);
 
 	SoundStream* m_SoundStream;
 	std::map<std::string, SoundEffect*> m_SoundEffectMap;

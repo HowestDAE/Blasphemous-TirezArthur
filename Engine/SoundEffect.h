@@ -1,5 +1,6 @@
 #pragma once
 #include <string>
+#include <vector>
 class Mix_Chunk;
 class SoundEffect final
 {
@@ -12,13 +13,19 @@ public:
 	SoundEffect& operator=( SoundEffect&& rhs) = delete;
 
 	bool IsLoaded( ) const;
-	bool Play( const int loops ) const;
+	int Play( const int loops );
 	void SetVolume( const int value ); 
-	int GetVolume( ) const; 
+	int GetVolume( ) const;
+	bool IsPlaying( const int channel = -1 );
+	void Stop( const int channel = -1 );
+	void Pause( const int channel = -1 );
+	void Resume( const int channel = -1 );
 	static void StopAll( );
 	static void PauseAll( );
 	static void ResumeAll( );
 
 private:
+	void UpdateKnownChannels();
+	std::vector<int> m_Channels;
 	Mix_Chunk* m_pMixChunk;
 };

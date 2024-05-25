@@ -3,6 +3,7 @@
 #include "TextureManager.h"
 #include "Player.h"
 #include "LevelManager.h"
+#include "SoundManager.h"
 #include "utils.h"
 #include <iostream>
 
@@ -108,7 +109,10 @@ bool EnemyShieldMaiden::Hit(Rectf hitbox, float damage)
 		Rectf shieldBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 20.0f, m_HitBox.height };
 		if (m_LeftFacing)
 			shieldBox.left = m_HitBox.left - 20.0f;
-		if ((m_State == State::idle || m_State == State::walk) && utils::IsOverlapping(hitbox, shieldBox)) return false;
+		if ((m_State == State::idle || m_State == State::walk) && utils::IsOverlapping(hitbox, shieldBox)) {
+			m_SoundManager->PlaySoundEffect("shieldmaiden_hit_shield");
+			return false;
+		}
 		m_Health = std::max(0.0f, m_Health - damage);
 		return true;
 	}
@@ -163,5 +167,12 @@ void EnemyShieldMaiden::PlayerHitShield()
 void EnemyShieldMaiden::Attack()
 {
 	Enemy::Attack();
+	m_SoundManager->PlaySoundEffect("shieldmaiden_attack");
 	m_AttackCooldown = 0.6f;
+}
+
+void EnemyShieldMaiden::Death()
+{
+	Enemy::Death();
+	m_SoundManager->PlaySoundEffect("shieldmaiden_death");
 }

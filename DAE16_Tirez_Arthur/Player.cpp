@@ -77,9 +77,18 @@ void Player::Update(float elapsedSec)
 		m_HitBox.bottom -= 1.0f;
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
-		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 2) Attack3();
-		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 1) Attack2();
-		if (leftMouseHeld && m_AttackCooldown < 0.0f &&	 m_ComboTime < 0.0f) Attack1();
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 2) {
+			Attack3();
+			break;
+		}
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 1) {
+			Attack2();
+			break;
+		}
+		if (leftMouseHeld && m_AttackCooldown < 0.0f &&	 m_ComboTime < 0.0f) {
+			Attack1();
+			break;
+		}
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
 		if (m_Health < 0.0001f) Death();
@@ -87,15 +96,25 @@ void Player::Update(float elapsedSec)
 		break;
 	case State::run:
 		HorizontalMovement(leftHeld, rightHeld);
+		if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_run_stone", m_AudioChannel)) m_AudioChannel = m_SoundManager->PlaySoundEffect("penitent_run_stone");
 
 		if (FallCheck()) break;
 		if (!leftHeld && !rightHeld || leftHeld && rightHeld) Idle();
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (spaceHeld) Jump();
 		if (downHeld) Crouch();
-		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 2) Attack3();
-		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 1) Attack2();
-		if (leftMouseHeld && m_AttackCooldown < 0.0f && m_ComboCounter == 0) Attack1();
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 2) {
+			Attack3();
+			break;
+		}
+		if (leftMouseHeld && m_ComboTime >= 0.0f && m_ComboCounter == 1) {
+			Attack2();
+			break;
+		}
+		if (leftMouseHeld && m_AttackCooldown < 0.0f && m_ComboTime < 0.0f) {
+			Attack1();
+			break;
+		}
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
 		if (m_Health < 0.0001f) Death();
@@ -141,10 +160,12 @@ void Player::Update(float elapsedSec)
 		else if (!upHeld && downHeld) {
 			m_AnimationDuration -= elapsedSec;
 			m_Velocity.y = -SPEED * 0.6f;
+			if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_climb_ladder", m_AudioChannel)) m_AudioChannel = m_SoundManager->PlaySoundEffect("penitent_climb_ladder");
 		}
 		else {
 			m_AnimationDuration += elapsedSec;
 			m_Velocity.y = SPEED * 0.6f;
+			if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_climb_ladder", m_AudioChannel)) m_AudioChannel = m_SoundManager->PlaySoundEffect("penitent_climb_ladder");
 		}
 
 		if (!m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox)) Idle();
@@ -224,8 +245,23 @@ void Player::Update(float elapsedSec)
 	m_HitBox.left += m_Velocity.x * elapsedSec;
 	m_HitBox.bottom += m_Velocity.y * elapsedSec;
 	const bool verticalCollision{ m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity, downHeld && spaceHeld) && m_Velocity.y == 0.0f };
-	if ( verticalCollision && (m_PlayerState == State::fall || m_PlayerState == State::ladder || m_PlayerState == State::knockback || m_PlayerState == State::attack_jump) ) Idle();
-	if (verticalCollision && m_PlayerState == State::jump) m_PlayerState = State::fall;
+	if (verticalCollision) {
+		switch (m_PlayerState)
+		{
+		case State::fall:
+		case State::knockback:
+		case State::attack_jump:
+			m_SoundManager->PlaySoundEffect("penitent_land");
+		case State::ladder:
+			Idle();
+			break;
+		case State::jump:
+			m_PlayerState == State::fall;
+			break;
+		default:
+			break;
+		}
+	}
 }
 
 void Player::Draw()
@@ -335,11 +371,13 @@ bool Player::Attack(Rectf& hurtbox, float damage, bool direction)
 				if (!direction) m_Velocity.x = pushbackSpeed;
 				else m_Velocity.x = -pushbackSpeed;
 				m_AnimationDuration = pushbackDuration;
+				m_SoundManager->PlaySoundEffect("penitent_block");
 			}
 			return true;
 		}
 		m_Health -= damage;
 		m_LeftFacing = !direction;
+		m_SoundManager->PlaySoundEffect("penitent_hit");
 		KnockBack();
 	}
 	return false;
@@ -394,11 +432,13 @@ void Player::Jump()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.y = 2 * GRAVITY / 5;
 	m_HitBox.height = HITBOXHEIGHT;
+	m_SoundManager->PlaySoundEffect("penitent_jump");
 }
 
 void Player::Dodge()
 {
 	m_PlayerState = State::dodge;
+	m_SoundManager->PlaySoundEffect("penitent_dash");
 	m_AnimationDuration = 0.0f;
 	if (m_LeftFacing) m_Velocity.x = -SPEED * 1.35f;
 	else m_Velocity.x = SPEED * 1.35f;
@@ -438,6 +478,7 @@ void Player::Ledge()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
+	m_SoundManager->PlaySoundEffect("penitent_edge_grab");
 }
 
 void Player::LedgeClimb()
@@ -447,6 +488,7 @@ void Player::LedgeClimb()
 	m_HitBox.bottom += m_HitBox.height + 0.1f;
 	if (m_LeftFacing) m_HitBox.left -= m_HitBox.width;
 	else m_HitBox.left += m_HitBox.width;
+	m_SoundManager->PlaySoundEffect("penitent_edge_climb");
 }
 
 void Player::DeathSpike()
@@ -456,6 +498,7 @@ void Player::DeathSpike()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
+	m_SoundManager->PlaySoundEffect("penitent_death_spike");
 }
 
 void Player::Death()
@@ -465,6 +508,7 @@ void Player::Death()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
+	m_SoundManager->PlaySoundEffect("penitent_death");
 }
 
 void Player::Attack1()
@@ -479,10 +523,12 @@ void Player::Attack1()
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 1;
 		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1") + COMBOTIME;
+		m_SoundManager->PlaySoundEffect("penitent_hit_1");
 	}
 	else {
 		m_ComboCounter = 0;
 		m_ComboTime = 0.0f;
+		m_SoundManager->PlaySoundEffect("penitent_miss");
 	}
 }
 
@@ -498,10 +544,12 @@ void Player::Attack2()
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 2;
 		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part2") + COMBOTIME;
+		m_SoundManager->PlaySoundEffect("penitent_hit_2");
 	}
 	else {
 		m_ComboCounter = 0;
 		m_ComboTime = 0.0f;
+		m_SoundManager->PlaySoundEffect("penitent_miss");
 	}
 }
 
@@ -517,10 +565,12 @@ void Player::Attack3()
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 3;
 		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part3") + COMBOTIME;
+		m_SoundManager->PlaySoundEffect("penitent_hit_3");
 	}
 	else {
 		m_ComboCounter = 0;
 		m_ComboTime = 0.0f;
+		m_SoundManager->PlaySoundEffect("penitent_miss");
 	}
 }
 
@@ -531,7 +581,8 @@ void Player::AttackJump()
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 90.0f, 65.0f };
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 90.0f;
-	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG));
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) m_SoundManager->PlaySoundEffect("penitent_hit_1");
+	else m_SoundManager->PlaySoundEffect("penitent_miss");
 }
 
 void Player::AttackCrouch()
@@ -543,7 +594,8 @@ void Player::AttackCrouch()
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom - 4.0f, 63.0f, 41.0f };
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 63.0f;
-	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG));
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) m_SoundManager->PlaySoundEffect("penitent_hit_1");
+	else m_SoundManager->PlaySoundEffect("penitent_miss");
 }
 
 void Player::KnockBack()
@@ -553,6 +605,7 @@ void Player::KnockBack()
 	m_Velocity.y = GRAVITY * 0.2f;
 	if (m_LeftFacing)m_Velocity.x = SPEED * 1.5f;
 	else m_Velocity.x = -SPEED * 1.5;
+	m_SoundManager->PlaySoundEffect("penitent_knockback");
 }
 
 void Player::Block()
@@ -560,6 +613,7 @@ void Player::Block()
 	m_PlayerState = State::block;
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
+	m_SoundManager->PlaySoundEffect("penitent_guard");
 }
 
 void Player::Parry()
@@ -570,4 +624,5 @@ void Player::Parry()
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 82.0f;
 	if (m_EnemyManagerPtr->Attack(hurtBox, HEAVYDMG));
+	m_SoundManager->PlaySoundEffect("penitent_parry");
 }

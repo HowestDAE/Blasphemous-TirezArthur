@@ -78,6 +78,7 @@ private:
 	float m_AttackCooldown{ 0.0f };
 	float m_ComboTime{ 0.0f };
 	int m_ComboCounter{ 0 };
+	int m_AudioChannel{ -1 };
 	float m_Health{ MAXHEALTH };
 
 	static const float GRAVITY;
