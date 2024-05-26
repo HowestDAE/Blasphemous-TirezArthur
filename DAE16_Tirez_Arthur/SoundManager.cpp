@@ -17,16 +17,18 @@ SoundManager::~SoundManager()
 	}
 }
 
-int SoundManager::PlaySoundEffect(std::string path, bool loop)
+int SoundManager::Play(std::string path, bool loop)
 {
 	if (m_SoundEffectMap.find(path) != m_SoundEffectMap.end()) {
 		if (m_SoundEffectMap[path] != nullptr) {
 			m_SoundEffectMap[path]->SetVolume(m_SoundVolume);
 			return m_SoundEffectMap[path]->Play(loop);
 		}
+		else return -1;
 	}
 	else {
-		if (LoadSoundEffect(path)) return PlaySoundEffect(path, loop);
+		if (LoadSoundEffect(path)) return Play(path, loop);
+		else return -1;
 	}
 }
 

@@ -2,6 +2,7 @@
 #include "EnemyStoner.h"
 #include "TextureManager.h"
 #include "LevelManager.h"
+#include "SoundManager.h"
 #include "Player.h"
 #include "Utils.h"
 
@@ -146,6 +147,7 @@ void EnemyStoner::RockHit()
 {
 	m_RockActive = false;
 	m_RockAnimationDuration = 0.0f;
+	m_SoundManager->Play("stone_land");
 }
 
 void EnemyStoner::Idle()
@@ -157,7 +159,14 @@ void EnemyStoner::Idle()
 void EnemyStoner::Attack()
 {
 	Enemy::Attack();
+	m_SoundManager->Play("stoner_throw");
 	Rectf playerHitbox{ m_PlayerPtr->GetHitbox() };
 	m_RockHitbox.left = playerHitbox.left + playerHitbox.width * 0.5f;
 	m_RockHitbox.bottom = playerHitbox.bottom + playerHitbox.height * 0.5f;
+}
+
+void EnemyStoner::Death()
+{
+	Enemy::Death();
+	m_SoundManager->Play("stoner_death");
 }

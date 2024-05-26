@@ -1,5 +1,6 @@
 #include "pch.h"
 #include "EnemyCrucified.h"
+#include "SoundManager.h"
 #include "TextureManager.h"
 #include "Player.h"
 #include "LevelManager.h"
@@ -62,6 +63,7 @@ void EnemyCrucified::Update(float elapsedSec)
 		if (m_Health < 0.0001f) Death();
 		break;
 	case Enemy::State::walk:
+		if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("crucified_walk", m_AudioChannel)) m_AudioChannel = m_SoundManager->Play("crucified_walk");
 		if (m_LeftFacing) m_Velocity.x = -SPEED;
 		else m_Velocity.x = SPEED;
 
@@ -127,5 +129,12 @@ void EnemyCrucified::Attack()
 {
 	const float attackFrame{ 2.0f };
 	Enemy::Attack();
+	m_SoundManager->Play("crucified_attack");
 	m_AttackCooldown = attackFrame;
+}
+
+void EnemyCrucified::Death()
+{
+	Enemy::Death();
+	m_SoundManager->Play("crucified_death");
 }

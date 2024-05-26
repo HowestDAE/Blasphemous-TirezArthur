@@ -33,6 +33,7 @@ void EnemyShieldMaiden::Draw()
 		frameTimeModifier = 0.4f;
 		break;
 	case Enemy::State::walk:
+		if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("shieldmaiden_walk", m_AudioChannel)) m_AudioChannel = m_SoundManager->Play("shieldmaiden_walk");
 		animationPath = "shieldmaiden_walk";
 		frameTimeModifier = 0.4f;
 		break;
@@ -110,7 +111,7 @@ bool EnemyShieldMaiden::Hit(Rectf hitbox, float damage)
 		if (m_LeftFacing)
 			shieldBox.left = m_HitBox.left - 20.0f;
 		if ((m_State == State::idle || m_State == State::walk) && utils::IsOverlapping(hitbox, shieldBox)) {
-			m_SoundManager->PlaySoundEffect("shieldmaiden_hit_shield");
+			m_SoundManager->Play("shieldmaiden_hit_shield");
 			return false;
 		}
 		m_Health = std::max(0.0f, m_Health - damage);
@@ -167,12 +168,12 @@ void EnemyShieldMaiden::PlayerHitShield()
 void EnemyShieldMaiden::Attack()
 {
 	Enemy::Attack();
-	m_SoundManager->PlaySoundEffect("shieldmaiden_attack");
+	m_SoundManager->Play("shieldmaiden_attack");
 	m_AttackCooldown = 0.6f;
 }
 
 void EnemyShieldMaiden::Death()
 {
 	Enemy::Death();
-	m_SoundManager->PlaySoundEffect("shieldmaiden_death");
+	m_SoundManager->Play("shieldmaiden_death");
 }

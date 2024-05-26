@@ -1,6 +1,5 @@
 #pragma once
 #include "Enemy.h"
-#include "EnemyStonerRock.h"
 
 class EnemyStoner final : public Enemy
 {
@@ -16,6 +15,7 @@ private:
 
 	virtual void Idle() override;
 	virtual void Attack() override;
+	virtual void Death() override;
 
 	float m_RockAnimationDuration{ 10.0f };
 	bool m_RockActive{ false };

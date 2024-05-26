@@ -1,7 +1,8 @@
 #pragma once
 #include <string>
 #include <vector>
-class Mix_Chunk;
+struct Mix_Chunk;
+
 class SoundEffect final
 {
 public:

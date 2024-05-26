@@ -36,7 +36,8 @@ private:
 		attack_crouch,
 		block,
 		parry,
-		knockback
+		knockback,
+		heal
 	};
 
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
@@ -59,6 +60,7 @@ private:
 	void KnockBack();
 	void Block();
 	void Parry();
+	void Heal();
 
 	TextureManager* m_TextureManagerPtr;
 	EnemyManager* m_EnemyManagerPtr;
@@ -78,6 +80,7 @@ private:
 	float m_AttackCooldown{ 0.0f };
 	float m_ComboTime{ 0.0f };
 	int m_ComboCounter{ 0 };
+	int m_Flasks{ MAXFLASKS };
 	int m_AudioChannel{ -1 };
 	float m_Health{ MAXHEALTH };
 
@@ -89,5 +92,6 @@ private:
 	static const float ATTACKDMG;
 	static const float HEAVYDMG;
 	static const float COMBOTIME;
+	static const int MAXFLASKS;
 };
 

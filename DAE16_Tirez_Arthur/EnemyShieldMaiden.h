@@ -17,6 +17,7 @@ private:
 	virtual void Death() override;
 
 	float m_AttackCooldown{ 0.0f };
+	int m_AudioChannel{ -1 };
 
 	static const float MAXHEALTH;
 	static const float SPEED;

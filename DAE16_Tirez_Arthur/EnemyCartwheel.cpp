@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "EnemyCartwheel.h"
 #include "TextureManager.h"
+#include "SoundManager.h"
 #include "Player.h"
 #include "LevelManager.h"
 
@@ -68,6 +69,7 @@ void EnemyCartwheel::Update(float elapsedSec)
 		if (m_Health < 0.0001f) Death();
 		break;
 	case Enemy::State::walk:
+		if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("cartwheel_walk", m_AudioChannel)) m_AudioChannel = m_SoundManager->Play("cartwheel_walk");
 		if (m_LeftFacing) m_Velocity.x = -SPEED;
 		else m_Velocity.x = SPEED;
 
@@ -138,4 +140,11 @@ void EnemyCartwheel::Attack()
 	const float attackFrame{ 1.0f };
 	Enemy::Attack();
 	m_AttackCooldown = attackFrame;
+	m_SoundManager->Play("cartwheel_attack");
+}
+
+void EnemyCartwheel::Death()
+{
+	Enemy::Death();
+	m_SoundManager->Play("cartwheel_death");
 }

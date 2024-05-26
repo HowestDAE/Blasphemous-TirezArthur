@@ -15,6 +15,7 @@ const float Player::MAXHEALTH{ 100.0f };
 const float Player::ATTACKDMG{ 13.0f };
 const float Player::HEAVYDMG{ 30.0f };
 const float Player::COMBOTIME{ 1.0f };
+const int Player::MAXFLASKS{ 2 };
 
 Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager) :
 	m_TextureManagerPtr{ textureManager },
@@ -48,6 +49,7 @@ void Player::Update(float elapsedSec)
 	const bool upHeld{ (bool)keyBoardState[SDL_SCANCODE_W] };
 	const bool spaceHeld{ (bool)keyBoardState[SDL_SCANCODE_SPACE] };
 	const bool dodgeHeld{ (bool)keyBoardState[SDL_SCANCODE_LSHIFT] };
+	const bool flaskHeld{ (bool)keyBoardState[SDL_SCANCODE_F] };
 
 	switch (m_PlayerState)
 	{
@@ -91,12 +93,13 @@ void Player::Update(float elapsedSec)
 		}
 		if (dodgeHeld && m_DodgeCooldown < 0.0f) Dodge();
 		if (rightMouseHeld && m_BlockCooldown < 0.0f) Block();
+		if (flaskHeld && m_Health < MAXHEALTH && m_Flasks > 0) Heal();
 		if (m_Health < 0.0001f) Death();
 
 		break;
 	case State::run:
 		HorizontalMovement(leftHeld, rightHeld);
-		if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_run_stone", m_AudioChannel)) m_AudioChannel = m_SoundManager->PlaySoundEffect("penitent_run_stone");
+		if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_run_stone", m_AudioChannel)) m_AudioChannel = m_SoundManager->Play("penitent_run_stone");
 
 		if (FallCheck()) break;
 		if (!leftHeld && !rightHeld || leftHeld && rightHeld) Idle();
@@ -160,12 +163,12 @@ void Player::Update(float elapsedSec)
 		else if (!upHeld && downHeld) {
 			m_AnimationDuration -= elapsedSec;
 			m_Velocity.y = -SPEED * 0.6f;
-			if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_climb_ladder", m_AudioChannel)) m_AudioChannel = m_SoundManager->PlaySoundEffect("penitent_climb_ladder");
+			if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_climb_ladder", m_AudioChannel)) m_AudioChannel = m_SoundManager->Play("penitent_climb_ladder");
 		}
 		else {
 			m_AnimationDuration += elapsedSec;
 			m_Velocity.y = SPEED * 0.6f;
-			if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_climb_ladder", m_AudioChannel)) m_AudioChannel = m_SoundManager->PlaySoundEffect("penitent_climb_ladder");
+			if (m_AudioChannel == -1 || !m_SoundManager->IsPlaying("penitent_climb_ladder", m_AudioChannel)) m_AudioChannel = m_SoundManager->Play("penitent_climb_ladder");
 		}
 
 		if (!m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox)) Idle();
@@ -238,6 +241,10 @@ void Player::Update(float elapsedSec)
 		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
 
 		break;
+	case State::heal:
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_heal")) Idle();
+		if (m_Health < 0.0001f) Death();
+		break;
 	default:
 		break;
 	}
@@ -251,12 +258,12 @@ void Player::Update(float elapsedSec)
 		case State::fall:
 		case State::knockback:
 		case State::attack_jump:
-			m_SoundManager->PlaySoundEffect("penitent_land");
+			m_SoundManager->Play("penitent_land");
 		case State::ladder:
 			Idle();
 			break;
 		case State::jump:
-			m_PlayerState == State::fall;
+			m_PlayerState = State::fall;
 			break;
 		default:
 			break;
@@ -347,6 +354,10 @@ void Player::Draw()
 		animationPath = "penitent_parry";
 		loop = false;
 		break;
+	case State::heal:
+		animationPath = "penitent_heal";
+		loop = false;
+		break;
 	default:
 		break;
 	}
@@ -371,13 +382,13 @@ bool Player::Attack(Rectf& hurtbox, float damage, bool direction)
 				if (!direction) m_Velocity.x = pushbackSpeed;
 				else m_Velocity.x = -pushbackSpeed;
 				m_AnimationDuration = pushbackDuration;
-				m_SoundManager->PlaySoundEffect("penitent_block");
+				m_SoundManager->Play("penitent_block");
 			}
 			return true;
 		}
 		m_Health -= damage;
 		m_LeftFacing = !direction;
-		m_SoundManager->PlaySoundEffect("penitent_hit");
+		m_SoundManager->Play("penitent_hit");
 		KnockBack();
 	}
 	return false;
@@ -432,13 +443,13 @@ void Player::Jump()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.y = 2 * GRAVITY / 5;
 	m_HitBox.height = HITBOXHEIGHT;
-	m_SoundManager->PlaySoundEffect("penitent_jump");
+	m_SoundManager->Play("penitent_jump");
 }
 
 void Player::Dodge()
 {
 	m_PlayerState = State::dodge;
-	m_SoundManager->PlaySoundEffect("penitent_dash");
+	m_SoundManager->Play("penitent_dash");
 	m_AnimationDuration = 0.0f;
 	if (m_LeftFacing) m_Velocity.x = -SPEED * 1.35f;
 	else m_Velocity.x = SPEED * 1.35f;
@@ -478,7 +489,7 @@ void Player::Ledge()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
-	m_SoundManager->PlaySoundEffect("penitent_edge_grab");
+	m_SoundManager->Play("penitent_edge_grab");
 }
 
 void Player::LedgeClimb()
@@ -488,7 +499,7 @@ void Player::LedgeClimb()
 	m_HitBox.bottom += m_HitBox.height + 0.1f;
 	if (m_LeftFacing) m_HitBox.left -= m_HitBox.width;
 	else m_HitBox.left += m_HitBox.width;
-	m_SoundManager->PlaySoundEffect("penitent_edge_climb");
+	m_SoundManager->Play("penitent_edge_climb");
 }
 
 void Player::DeathSpike()
@@ -498,7 +509,7 @@ void Player::DeathSpike()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
-	m_SoundManager->PlaySoundEffect("penitent_death_spike");
+	m_SoundManager->Play("penitent_death_spike");
 }
 
 void Player::Death()
@@ -508,7 +519,7 @@ void Player::Death()
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
-	m_SoundManager->PlaySoundEffect("penitent_death");
+	m_SoundManager->Play("penitent_death");
 }
 
 void Player::Attack1()
@@ -523,12 +534,12 @@ void Player::Attack1()
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 1;
 		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part1") + COMBOTIME;
-		m_SoundManager->PlaySoundEffect("penitent_hit_1");
+		m_SoundManager->Play("penitent_hit_1");
 	}
 	else {
 		m_ComboCounter = 0;
 		m_ComboTime = 0.0f;
-		m_SoundManager->PlaySoundEffect("penitent_miss");
+		m_SoundManager->Play("penitent_miss");
 	}
 }
 
@@ -544,12 +555,12 @@ void Player::Attack2()
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 2;
 		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part2") + COMBOTIME;
-		m_SoundManager->PlaySoundEffect("penitent_hit_2");
+		m_SoundManager->Play("penitent_hit_2");
 	}
 	else {
 		m_ComboCounter = 0;
 		m_ComboTime = 0.0f;
-		m_SoundManager->PlaySoundEffect("penitent_miss");
+		m_SoundManager->Play("penitent_miss");
 	}
 }
 
@@ -565,12 +576,12 @@ void Player::Attack3()
 	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) {
 		m_ComboCounter = 3;
 		m_ComboTime = m_TextureManagerPtr->GetAnimationDuration("penitent_attack_part3") + COMBOTIME;
-		m_SoundManager->PlaySoundEffect("penitent_hit_3");
+		m_SoundManager->Play("penitent_hit_3");
 	}
 	else {
 		m_ComboCounter = 0;
 		m_ComboTime = 0.0f;
-		m_SoundManager->PlaySoundEffect("penitent_miss");
+		m_SoundManager->Play("penitent_miss");
 	}
 }
 
@@ -581,8 +592,8 @@ void Player::AttackJump()
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom, 90.0f, 65.0f };
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 90.0f;
-	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) m_SoundManager->PlaySoundEffect("penitent_hit_1");
-	else m_SoundManager->PlaySoundEffect("penitent_miss");
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) m_SoundManager->Play("penitent_hit_1");
+	else m_SoundManager->Play("penitent_miss");
 }
 
 void Player::AttackCrouch()
@@ -594,8 +605,8 @@ void Player::AttackCrouch()
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width, m_HitBox.bottom - 4.0f, 63.0f, 41.0f };
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 63.0f;
-	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) m_SoundManager->PlaySoundEffect("penitent_hit_1");
-	else m_SoundManager->PlaySoundEffect("penitent_miss");
+	if (m_EnemyManagerPtr->Attack(hurtBox, ATTACKDMG)) m_SoundManager->Play("penitent_hit_1");
+	else m_SoundManager->Play("penitent_miss");
 }
 
 void Player::KnockBack()
@@ -605,7 +616,7 @@ void Player::KnockBack()
 	m_Velocity.y = GRAVITY * 0.2f;
 	if (m_LeftFacing)m_Velocity.x = SPEED * 1.5f;
 	else m_Velocity.x = -SPEED * 1.5;
-	m_SoundManager->PlaySoundEffect("penitent_knockback");
+	m_SoundManager->Play("penitent_knockback");
 }
 
 void Player::Block()
@@ -613,7 +624,7 @@ void Player::Block()
 	m_PlayerState = State::block;
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
-	m_SoundManager->PlaySoundEffect("penitent_guard");
+	m_SoundManager->Play("penitent_guard");
 }
 
 void Player::Parry()
@@ -623,6 +634,16 @@ void Player::Parry()
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, 82.0f, 100.0f };
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 82.0f;
-	if (m_EnemyManagerPtr->Attack(hurtBox, HEAVYDMG));
-	m_SoundManager->PlaySoundEffect("penitent_parry");
+	if (m_EnemyManagerPtr->Attack(hurtBox, HEAVYDMG)) m_SoundManager->Play("penitent_parry");
+	else m_SoundManager->Play("penitent_block");
+}
+
+void Player::Heal()
+{
+	m_PlayerState = State::heal;
+	m_AnimationDuration = 0.0f;
+	const float heal{ 50.0f };
+	m_Flasks -= 1;
+	m_Health = std::min(MAXHEALTH, m_Health + heal);
+	m_SoundManager->Play("penitent_heal");
 }

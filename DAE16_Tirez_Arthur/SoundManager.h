@@ -14,7 +14,7 @@ public:
 	SoundManager& operator=(const SoundManager& other) = delete;
 	SoundManager& operator=(SoundManager&& other) = delete;
 
-	int PlaySoundEffect(std::string path, bool loop = false);
+	int Play(std::string path, bool loop = false);
 	void PreLoadSoundEffect(std::string path);
 
 	void SetVolume(int volume);
