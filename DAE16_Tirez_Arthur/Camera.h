@@ -4,13 +4,20 @@ class Camera final
 public:
 	explicit Camera(float screenwidth, float screenheight);
 
-	void Aim(float levelW, float levelH, Point2f center, float elapsedSec, bool instant = false);
-	void ApplyS();
-	void ApplyTS();
+	void Aim(Point2f center, float elapsedSec = -1.0f);
+	void SetLevelDimensions(float width, float height);
+	float getViewportWidth() const;
+	float getViewportHeight() const;
+	float getDisplayScale() const;
+	Point2f getAimPos() const;
+	void ApplyS() const;
+	void ApplyTS() const;
 	void Reset();
 private:
 	float m_ScreenDisplaceX;
 	float m_ScreenDisplaceY;
+	float m_levelW;
+	float m_levelH;
 	Point2f m_AimPosition;
 	const float DISPLAYSCALE{ 2.0f };
 	const float AIMFACTOR{ 7.0f };

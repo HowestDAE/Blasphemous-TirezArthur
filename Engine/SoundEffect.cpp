@@ -30,6 +30,7 @@ Plays this sound effect in the first free channel
 */
 int SoundEffect::Play( const int loops )
 {
+	UpdateKnownChannels();
 	if ( m_pMixChunk != nullptr )
 	{
 		const int channel{ Mix_PlayChannel( -1, m_pMixChunk, loops ) };

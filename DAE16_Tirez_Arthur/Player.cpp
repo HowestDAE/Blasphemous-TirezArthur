@@ -23,7 +23,7 @@ Player::Player(TextureManager* textureManager, LevelManager* levelManager, Enemy
 	m_EnemyManagerPtr{ enemyManager },
 	m_SoundManager{ soundManager }
 {
-	m_HitBox = Rectf{ -1.0f, -1.0f, HITBOXWIDTH, HITBOXHEIGHT };
+	m_HitBox = Rectf{ 200.0f, 100.0f, HITBOXWIDTH, HITBOXHEIGHT };
 }
 
 void Player::Update(float elapsedSec)
@@ -388,7 +388,7 @@ bool Player::Attack(Rectf& hurtbox, float damage, bool direction)
 		}
 		m_Health -= damage;
 		m_LeftFacing = !direction;
-		m_SoundManager->Play("penitent_hit");
+		m_SoundManager->Play("penitent_damage");
 		KnockBack();
 	}
 	return false;

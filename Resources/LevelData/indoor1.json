@@ -201,11 +201,11 @@
        "height": 217,
        "flipped": false,
        "texture": "tower_door",
-       "destination": {
-         "area": "outside1",
-         "left": 200,
-         "bottom": 130
-       }
+      "destination": {
+        "area": "outside1",
+        "left": 2488,
+        "bottom": 46
+      }
      },
      "1": {
        "left": 0,
@@ -214,11 +214,11 @@
        "height": 217,
        "flipped": false,
        "texture": "tower_door",
-       "destination": {
-         "area": "outside1",
-         "left": 350,
-         "bottom": 200
-       }
+      "destination": {
+        "area": "outside1",
+        "left": 2414,
+        "bottom": 303
+      }
      },
      "2": {
        "left": 1217,
@@ -227,11 +227,11 @@
        "height": 217,
        "flipped": true,
        "texture": "tower_door",
-       "destination": {
-         "area": "outside1",
-         "left": 350,
-         "bottom": 200
-       }
+      "destination": {
+        "area": "outside1",
+        "left": 176,
+        "bottom": 235
+      }
      }
    },
   "ladder": {

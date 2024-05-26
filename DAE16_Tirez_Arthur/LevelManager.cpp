@@ -3,18 +3,20 @@
 #include "LevelManager.h"
 #include "TextureManager.h"
 #include "EnemyManager.h"
+#include "Camera.h"
 #include "utils.h"
 #include <fstream>
 #include <iostream>
 
-LevelManager::LevelManager(TextureManager* textureManager, EnemyManager* enemyManager):
+LevelManager::LevelManager(TextureManager* textureManager, EnemyManager* enemyManager, Camera* camera):
 	m_TextureManagerPtr{textureManager},
-	m_EnemyManagerPtr{enemyManager}
+	m_EnemyManagerPtr{enemyManager},
+	m_CameraPtr{camera}
 {
 	
 }
 
-bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool ignorePlatforms) const
+bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool ignorePlatforms)
 {
 	bool collisionHappened{ false };
 	if (hitbox.left < 0.0f && hitbox.bottom < 0.0f && m_LevelDoors.size() > 0)
@@ -93,13 +95,16 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool 
 			hitbox.left <= door.hitbox.left + door.hitbox.width &&
 			hitbox.left + hitbox.width >= door.hitbox.left + door.hitbox.width))
 		{
-			std::cout << "travel to " << door.destination << std::endl;
+			hitbox.bottom = door.destinationPos.y;
+			hitbox.left = door.destinationPos.x;
+			LoadLevel(door.destination);
+			m_CameraPtr->Aim(utils::GetCenter(hitbox));
 		}
 	}
 	return collisionHappened;
 }
 
-bool LevelManager::CollisionCheck(Rectf& hitbox, const bool ignorePlatforms) const
+bool LevelManager::CollisionCheck(Rectf& hitbox, const bool ignorePlatforms)
 {
 	Vector2f velocity{-1.0f, -1.0f};
 	return CollisionCheck(hitbox, velocity, ignorePlatforms);
@@ -166,6 +171,23 @@ bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const
 
 void LevelManager::DrawBackGround()
 {
+	for (std::string& background : m_LevelBackground) {
+		const float displayScale{ m_CameraPtr->getDisplayScale() };
+		const float viewportSizeX{ m_CameraPtr->getViewportWidth() / displayScale };
+		const float viewportSizeY{ m_CameraPtr->getViewportHeight() / displayScale };
+		const float XtravelDistanceLevel{ (m_TextureManagerPtr->GetTextureWidth(m_CurrentLevel) - viewportSizeX) };
+		const float YtravelDistanceLevel{ (m_TextureManagerPtr->GetTextureHeight(m_CurrentLevel) - viewportSizeY) };
+		const float XtravelDistanceBackground{ (m_TextureManagerPtr->GetTextureWidth(background) - viewportSizeX) };
+		const float YtravelDistanceBackground{ (m_TextureManagerPtr->GetTextureHeight(background) - viewportSizeY) };
+		const float Xratio{ XtravelDistanceBackground / XtravelDistanceLevel  };
+		const float Yratio{ YtravelDistanceBackground / YtravelDistanceLevel  };
+		Point2f aimPos{ m_CameraPtr->getAimPos() };
+		aimPos.x -= viewportSizeX * 0.5;
+		aimPos.y -= viewportSizeY * 0.5;
+		const float Xtravel{ aimPos.x * Xratio };
+		const float Ytravel{ aimPos.y * Yratio };
+		m_TextureManagerPtr->Draw(background, aimPos.x - Xtravel, aimPos.y - Ytravel);
+	}
 	m_TextureManagerPtr->Draw(m_CurrentLevel, 0.0f, 0.0f);
 }
 
@@ -173,12 +195,8 @@ void LevelManager::DrawForeground()
 {
 	for (const Door& currentDoor : m_LevelDoors)
 	{
-		m_TextureManagerPtr->Draw(currentDoor.texture, currentDoor.hitbox.left, currentDoor.hitbox.bottom, currentDoor.flipped);
+		if (currentDoor.texture != "") m_TextureManagerPtr->Draw(currentDoor.texture, currentDoor.hitbox.left, currentDoor.hitbox.bottom, currentDoor.flipped);
 	}
-	//for (const Rectf& currentPlatform : m_LevelLadders)
-	//{
-	//	utils::DrawRect(currentPlatform);
-	//}
 }
 
 void LevelManager::LoadLevel(std::string path)
@@ -195,6 +213,11 @@ void LevelManager::LoadLevel(std::string path)
 	m_LevelPlatforms.clear();
 	m_LevelSpikes.clear();
 	m_LevelDoors.clear();
+	m_EnemyManagerPtr->Clear();
+	m_LevelBackground.clear();
+
+	m_TextureManagerPtr->PreLoadTexture(path);
+	m_CameraPtr->SetLevelDimensions(m_TextureManagerPtr->GetTextureWidth(path), m_TextureManagerPtr->GetTextureHeight(path));
 
 	Json::Value levelData;
 	levelDataFile >> levelData;
@@ -280,4 +303,10 @@ void LevelManager::LoadLevel(std::string path)
 		const float yPos{ levelData["enemies"][currentEnemy].get("y", -1).asFloat() };
 		m_EnemyManagerPtr->SpawnEnemy(enemyType, xPos, yPos);
 	}
+
+	for (int backgroundIndex{}; backgroundIndex < levelData["background"].size(); ++backgroundIndex) {
+		m_LevelBackground.push_back(levelData["background"][backgroundIndex].asString());
+		m_TextureManagerPtr->PreLoadTexture(m_LevelBackground.at(backgroundIndex));
+	}
+	std::reverse(m_LevelBackground.begin(), m_LevelBackground.end());
 }

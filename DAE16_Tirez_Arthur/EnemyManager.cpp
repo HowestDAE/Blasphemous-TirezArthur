@@ -18,15 +18,21 @@ EnemyManager::EnemyManager(TextureManager* textureManager, SoundManager* soundMa
 
 EnemyManager::~EnemyManager()
 {
-	for (Enemy* enemy : m_EnemyPtrVector)
-	{
-		delete enemy;
-	}
+	Clear();
 }
 
 void EnemyManager::SetLevelManager(LevelManager* levelManager)
 {
 	m_LevelManagerPtr = levelManager;
+}
+
+void EnemyManager::Clear()
+{
+	for (Enemy* enemy : m_EnemyPtrVector)
+	{
+		delete enemy;
+		m_EnemyPtrVector.clear();
+	}
 }
 
 void EnemyManager::SetTargetPlayer(Player* player)

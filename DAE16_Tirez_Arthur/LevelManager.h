@@ -5,6 +5,7 @@
 #include "Vector2f.h"
 class TextureManager;
 class EnemyManager;
+class Camera;
 
 struct Door {
 	Rectf hitbox;
@@ -23,7 +24,7 @@ struct Platform {
 class LevelManager final
 {
 public:
-	explicit LevelManager(TextureManager* textureManager, EnemyManager* enemyManager);
+	explicit LevelManager(TextureManager* textureManager, EnemyManager* enemyManager, Camera* camera);
 
 	enum class Interactions {
 		ladder,
@@ -32,8 +33,8 @@ public:
 	};
 
 	bool Interact(Interactions interaction, Rectf& hitbox, const Vector2f& velocity = Vector2f{ 0.0f, 0.0f }) const;
-	bool CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool ignorePlatforms = false) const;
-	bool CollisionCheck(Rectf& hitbox, const bool ignorePlatforms = false) const;
+	bool CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool ignorePlatforms = false);
+	bool CollisionCheck(Rectf& hitbox, const bool ignorePlatforms = false);
 
 	void DrawBackGround();
 	void DrawForeground();
@@ -42,11 +43,13 @@ private:
 
 	TextureManager* m_TextureManagerPtr{};
 	EnemyManager* m_EnemyManagerPtr{};
+	Camera* m_CameraPtr{};
 
 	std::vector<Rectf> m_LevelGeometry;
 	std::vector<Platform> m_LevelPlatforms;
 	std::vector<Door> m_LevelDoors;
 	std::vector<Rectf> m_LevelLadders;
 	std::vector<Rectf> m_LevelSpikes;
+	std::vector<std::string> m_LevelBackground;
 	std::string m_CurrentLevel;
 };

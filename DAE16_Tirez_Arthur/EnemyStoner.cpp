@@ -91,15 +91,13 @@ void EnemyStoner::Update(float elapsedSec)
 			m_PlayerPtr->Attack(m_RockHitbox, ATTACKDMG, m_Velocity.x < 0.0f);
 		}
 	}
-	if (m_LevelManagerPtr->CollisionCheck(m_RockHitbox, m_Velocity)) RockHit();
-	m_HitBox.bottom -= GRAVITY * elapsedSec;
-	m_LevelManagerPtr->CollisionCheck(m_HitBox);
+	if (m_LevelManagerPtr->CollisionCheck(m_RockHitbox, m_Velocity, true)) RockHit();
 }
 
 void EnemyStoner::CheckPlayerInteract()
 {
 	const float attackDistance{ 300.0f };
-	const float verticalDetectionMargin{ 50.0f };
+	const float verticalDetectionMargin{ 120.0f };
 
 	float leftDistance{};
 	float rightDistance{};

@@ -8,6 +8,7 @@
 #include "UiManager.h"
 #include "EnemyManager.h"
 #include "SoundManager.h"
+#include "utils.h"
 #include <iostream>
 
 Game::Game( const Window& window ) 
@@ -27,12 +28,12 @@ void Game::Initialize()
 	m_SoundManagerPtr = new SoundManager{};
 	m_CameraPtr = new Camera{ GetViewPort().width, GetViewPort().height };
 	m_EnemyManagerPtr = new EnemyManager{ m_TextureManagerPtr, m_SoundManagerPtr };
-	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr, m_EnemyManagerPtr };
+	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr, m_EnemyManagerPtr, m_CameraPtr };
 	m_EnemyManagerPtr->SetLevelManager(m_LevelManagerPtr);
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr, m_SoundManagerPtr };
 	m_EnemyManagerPtr->SetTargetPlayer(m_PlayerPtr);
 	m_UiManagerPtr = new UiManager{};
-	m_LevelManagerPtr->LoadLevel("indoor1");
+	m_LevelManagerPtr->LoadLevel("outside1");
 	ShowCursor(false);
 }
 
@@ -52,7 +53,7 @@ void Game::Update( float elapsedSec )
 {
 	m_PlayerPtr->Update(elapsedSec);
 	m_EnemyManagerPtr->Update(elapsedSec);
-	m_CameraPtr->Aim(m_TextureManagerPtr->GetTextureWidth("indoor1"), m_TextureManagerPtr->GetTextureHeight("indoor1"), Point2f{ m_PlayerPtr->GetHitbox().left, m_PlayerPtr->GetHitbox().bottom }, elapsedSec);
+	m_CameraPtr->Aim(utils::GetCenter(m_PlayerPtr->GetHitbox()), elapsedSec);
 }
 
 void Game::Draw( ) const
@@ -135,6 +136,6 @@ void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 
 void Game::ClearBackground( ) const
 {
-	glClearColor( 0.0f, 0.0f, 0.3f, 1.0f );
+	glClearColor( 0.0666f, 0.0313f, 0.0117f, 1.0f );
 	glClear( GL_COLOR_BUFFER_BIT );
 }

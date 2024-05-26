@@ -27,8 +27,10 @@ void TextureManager::Draw(std::string path, Point2f pos, bool flipped)
 {
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{
-		Texture* texture{ m_TextureMap.at(path) };
-		texture->Draw(Rectf{ pos.x, pos.y, texture->GetWidth(), texture->GetHeight() }, Rectf{ 0.f, 0.f, texture->GetWidth(), texture->GetHeight() }, flipped);
+		if (m_TextureMap.at(path) != nullptr) {
+			Texture* texture{ m_TextureMap.at(path) };
+			texture->Draw( pos, Rectf{ 0.f, 0.f, texture->GetWidth(), texture->GetHeight() }, flipped);
+		}
 	}
 	else
 	{
@@ -53,33 +55,35 @@ void TextureManager::Animate(std::string path, Point2f pos, float animationDurat
 	animationDuration *= frameTimeModifier;
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{
-		Texture* texture{ m_TextureMap.at(path) };
+		if (m_TextureMap.at(path) != nullptr){
+			Texture* texture{ m_TextureMap.at(path) };
 
-		if (m_AnimationMap.find(path) != m_AnimationMap.end())
-		{
-			Json::Value& animationData{ m_AnimationMap.at(path) };
-			const int animationFrames{ (int)animationData["frames"].size() };
-			const float secondsPerFrame{ 1.0f / ANIMATIONFRAMERATE };
-			int currentFrame{ (int)(animationDuration / secondsPerFrame) % animationFrames };
-			if (!loop && secondsPerFrame * animationFrames <= animationDuration) currentFrame = animationFrames - 1;
+			if (m_AnimationMap.find(path) != m_AnimationMap.end())
+			{
+				Json::Value& animationData{ m_AnimationMap.at(path) };
+				const int animationFrames{ (int)animationData["frames"].size() };
+				const float secondsPerFrame{ 1.0f / ANIMATIONFRAMERATE };
+				int currentFrame{ (int)(animationDuration / secondsPerFrame) % animationFrames };
+				if (!loop && secondsPerFrame * animationFrames <= animationDuration) currentFrame = animationFrames - 1;
 
-			Json::Value currentFrameData{ animationData["frames"][std::to_string(currentFrame)]};
-			Rectf sourceRect{	currentFrameData["frame"].get("x", -1.f).asFloat(),
-								currentFrameData["frame"].get("y", -1.f).asFloat() + currentFrameData["frame"].get("h", -1.f).asFloat(),
-								currentFrameData["frame"].get("w", -1.f).asFloat(),
-								currentFrameData["frame"].get("h", -1.f).asFloat() };
-			Point2f offset{		currentFrameData["offset"].get("left", 0.f).asFloat(),
-								currentFrameData["offset"].get("bottom", 0.f).asFloat() };
+				Json::Value currentFrameData{ animationData["frames"][std::to_string(currentFrame)] };
+				Rectf sourceRect{ currentFrameData["frame"].get("x", -1.f).asFloat(),
+									currentFrameData["frame"].get("y", -1.f).asFloat() + currentFrameData["frame"].get("h", -1.f).asFloat(),
+									currentFrameData["frame"].get("w", -1.f).asFloat(),
+									currentFrameData["frame"].get("h", -1.f).asFloat() };
+				Point2f offset{ currentFrameData["offset"].get("left", 0.f).asFloat(),
+									currentFrameData["offset"].get("bottom", 0.f).asFloat() };
 
-			if (flipped) offset.x = currentFrameData["offset"].get("right", 0.f).asFloat();
-			if (animationData["frames"][std::to_string(currentFrame)].get("flipped", false).asBool()) flipped = !flipped;
+				if (flipped) offset.x = currentFrameData["offset"].get("right", 0.f).asFloat();
+				if (animationData["frames"][std::to_string(currentFrame)].get("flipped", false).asBool()) flipped = !flipped;
 
-			texture->Draw(Rectf{	pos.x - offset.x,
-									pos.y - offset.y,
-									sourceRect.width,
-									sourceRect.height },
-									sourceRect,
-									flipped);
+				texture->Draw(Rectf{ pos.x - offset.x,
+										pos.y - offset.y,
+										sourceRect.width,
+										sourceRect.height },
+					sourceRect,
+					flipped);
+			}
 		}
 		else
 		{
@@ -102,19 +106,19 @@ void TextureManager::PreLoadTexture(std::string path)
 
 float TextureManager::GetTextureWidth(std::string path) const
 {
-	if (m_TextureMap.find(path) == m_TextureMap.end()) return -1.0f;
+	if (m_TextureMap.find(path) == m_TextureMap.end() || m_TextureMap.at(path) == nullptr) return -1.0f;
 	return m_TextureMap.at(path)->GetWidth();
 }
 
 float TextureManager::GetTextureHeight(std::string path) const
 {
-	if (m_TextureMap.find(path) == m_TextureMap.end()) return -1.0f;
+	if (m_TextureMap.find(path) == m_TextureMap.end() || m_TextureMap.at(path) == nullptr) return -1.0f;
 	return m_TextureMap.at(path)->GetHeight();
 }
 
 float TextureManager::GetAnimationDuration(std::string path) const
 {
-	if (m_AnimationMap.find(path) == m_AnimationMap.end()) return -1.0f;
+	if (m_AnimationMap.find(path) == m_AnimationMap.end() || m_TextureMap.at(path) == nullptr) return -1.0f;
 	return (float)m_AnimationMap.at(path)["frames"].size() / ANIMATIONFRAMERATE;
 }
 
@@ -124,6 +128,7 @@ bool TextureManager::LoadTexture(std::string path)
 	if (!texture->IsCreationOk())
 	{
 		delete texture;
+		m_TextureMap[path] = nullptr;
 		return false;
 	}
 	m_TextureMap[path] = texture;

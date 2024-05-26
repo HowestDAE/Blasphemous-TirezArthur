@@ -6,6 +6,11 @@
 #include "utils.h"
 
 
+Point2f utils::GetCenter(Rectf& rect)
+{
+	return Point2f{ rect.left + rect.width * 0.5f, rect.bottom + rect.height * 0.5f };
+}
+
 #pragma region OpenGLDrawFunctionality
 void utils::SetColor( const Color4f& color )
 {

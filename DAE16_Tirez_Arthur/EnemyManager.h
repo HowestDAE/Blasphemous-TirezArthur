@@ -21,6 +21,7 @@ public:
 
 	void SetLevelManager(LevelManager* levelManager);
 
+	void Clear();
 	void SetTargetPlayer(Player* player);
 	void Draw();
 	void Update(float elapsedSec);

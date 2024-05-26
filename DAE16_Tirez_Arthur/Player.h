@@ -64,7 +64,7 @@ private:
 
 	TextureManager* m_TextureManagerPtr;
 	EnemyManager* m_EnemyManagerPtr;
-	const LevelManager* m_LevelManagerPtr;
+	LevelManager* m_LevelManagerPtr;
 	SoundManager* m_SoundManager;
 
 	Rectf m_HitBox;
