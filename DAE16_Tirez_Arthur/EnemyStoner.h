@@ -25,6 +25,6 @@ private:
 	static const float MAXHEALTH;
 	static const float ATTACKDMG;
 	static const float SPEED;
-	static const float POINTS;
+	static const int POINTS;
 };
 

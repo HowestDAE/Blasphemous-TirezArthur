@@ -32,7 +32,7 @@ void Game::Initialize()
 	m_EnemyManagerPtr->SetLevelManager(m_LevelManagerPtr);
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr, m_SoundManagerPtr };
 	m_EnemyManagerPtr->SetTargetPlayer(m_PlayerPtr);
-	m_UiManagerPtr = new UiManager{};
+	m_UiManagerPtr = new UiManager{ m_TextureManagerPtr, m_PlayerPtr };
 	m_LevelManagerPtr->LoadLevel("outside1");
 	ShowCursor(false);
 }
@@ -53,6 +53,7 @@ void Game::Update( float elapsedSec )
 {
 	m_PlayerPtr->Update(elapsedSec);
 	m_EnemyManagerPtr->Update(elapsedSec);
+	m_UiManagerPtr->Update(elapsedSec);
 	m_CameraPtr->Aim(utils::GetCenter(m_PlayerPtr->GetHitbox()), elapsedSec);
 }
 
@@ -67,7 +68,7 @@ void Game::Draw( ) const
 	m_CameraPtr->Reset();
 
 	m_CameraPtr->ApplyS();
-	// Draw ui
+	m_UiManagerPtr->Draw();
 	m_CameraPtr->Reset();
 }
 

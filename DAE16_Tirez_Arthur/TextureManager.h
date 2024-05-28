@@ -15,15 +15,16 @@ public:
 	TextureManager& operator=(const TextureManager& textureManager) = delete;
 	TextureManager& operator=(const TextureManager&& textureManager) = delete;
 
-	void Draw(std::string path, float x = 0.0f, float y = 0.0f, bool flipped = false);
-	void Draw(std::string path, Point2f pos, bool flipped = false);
-	void Animate(std::string path, float x = 0.0, float y = 0.0f, float animationDuration = 0.0f, bool flipped = false, bool loop = true, float frameTimeModifier = 1.0f);
-	void Animate(std::string path, Point2f pos, float animationDuration, bool flipped = false, bool loop = true, float frameTimeModifier = 1.0f);
-	void PreLoadTexture(std::string path);
+	void Draw(const std::string& path, float x = 0.0f, float y = 0.0f, bool flipped = false);
+	void Draw(const std::string& path, Point2f pos, bool flipped = false);
+	void Animate(const std::string& path, float x = 0.0, float y = 0.0f, float animationDuration = 0.0f, bool flipped = false, bool loop = true, float frameTimeModifier = 1.0f);
+	void Animate(const std::string&, Point2f pos, float animationDuration, bool flipped = false, bool loop = true, float frameTimeModifier = 1.0f);
+	void PreLoadTexture(const std::string& path);
+	void MakeTextTexture(const std::string& Id, const std::string& font, const std::string& content, const Color4f& color, int size);
 
-	float GetTextureWidth(std::string path) const;
-	float GetTextureHeight(std::string path) const;
-	float GetAnimationDuration(std::string path) const;
+	float GetTextureWidth(const std::string& path) const;
+	float GetTextureHeight(const std::string& path) const;
+	float GetAnimationDuration(const std::string& path) const;
 private:
 	bool LoadTexture(std::string path);
 

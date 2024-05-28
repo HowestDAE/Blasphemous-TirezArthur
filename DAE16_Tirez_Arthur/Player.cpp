@@ -399,6 +399,36 @@ bool Player::IsDead()
 	return (m_PlayerState == State::death || m_PlayerState == State::death_spike);
 }
 
+void Player::SetTears(int tears)
+{
+	m_Tears = tears;
+}
+
+const float& Player::GetHealth() const
+{
+	return m_Health;
+}
+
+const float& Player::GetMaxHealth() const
+{
+	return MAXHEALTH;
+}
+
+const int& Player::GetFlask() const
+{
+	return m_Flasks;
+}
+
+const int& Player::GetMaxFlask() const
+{
+	return MAXFLASKS;
+}
+
+const int& Player::GetTears() const
+{
+	return m_Tears;
+}
+
 void Player::HorizontalMovement(bool leftHeld, bool rightHeld)
 {
 	if (leftHeld && !rightHeld)

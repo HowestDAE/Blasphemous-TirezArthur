@@ -23,6 +23,6 @@ private:
 	static const float SPEED;
 	static const float ATTACKDMG;
 	static const float SHIELDDMG;
-	static const float POINTS;
+	static const int POINTS;
 };
 

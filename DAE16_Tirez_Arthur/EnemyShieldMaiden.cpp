@@ -11,7 +11,7 @@ const float EnemyShieldMaiden::MAXHEALTH{ 50.0f };
 const float EnemyShieldMaiden::SPEED{ 25.0f };
 const float EnemyShieldMaiden::ATTACKDMG{ 12.0f };
 const float EnemyShieldMaiden::SHIELDDMG{ 5.0f };
-const float EnemyShieldMaiden::POINTS{ 15.0f };
+const int EnemyShieldMaiden::POINTS{ 15 };
 
 EnemyShieldMaiden::EnemyShieldMaiden(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
 	Enemy(levelManager, textureManager, soundManager, player, x, y)
@@ -176,4 +176,5 @@ void EnemyShieldMaiden::Death()
 {
 	Enemy::Death();
 	m_SoundManager->Play("shieldmaiden_death");
+	m_PlayerPtr->SetTears(m_PlayerPtr->GetTears() + POINTS);
 }

@@ -8,7 +8,7 @@
 const float EnemyCartwheel::MAXHEALTH{ 60.0f };
 const float EnemyCartwheel::SPEED{ 25.0f };
 const float EnemyCartwheel::ATTACKDMG{ 10.0f };
-const float EnemyCartwheel::POINTS{ 20.0f };
+const int EnemyCartwheel::POINTS{ 20 };
 
 EnemyCartwheel::EnemyCartwheel(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
 	Enemy(levelManager, textureManager, soundManager, player, x, y)
@@ -147,4 +147,5 @@ void EnemyCartwheel::Death()
 {
 	Enemy::Death();
 	m_SoundManager->Play("cartwheel_death");
+	m_PlayerPtr->SetTears(m_PlayerPtr->GetTears() + POINTS);
 }

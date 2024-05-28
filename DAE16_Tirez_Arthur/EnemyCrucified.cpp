@@ -8,7 +8,7 @@
 const float EnemyCrucified::MAXHEALTH{ 80.0f };
 const float EnemyCrucified::SPEED{ 25.0f };
 const float EnemyCrucified::ATTACKDMG{ 26.0f };
-const float EnemyCrucified::POINTS{ 20.0f };
+const int EnemyCrucified::POINTS{ 20 };
 
 EnemyCrucified::EnemyCrucified(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
 	Enemy(levelManager, textureManager, soundManager, player, x, y)
@@ -137,4 +137,5 @@ void EnemyCrucified::Death()
 {
 	Enemy::Death();
 	m_SoundManager->Play("crucified_death");
+	m_PlayerPtr->SetTears(m_PlayerPtr->GetTears() + POINTS);
 }

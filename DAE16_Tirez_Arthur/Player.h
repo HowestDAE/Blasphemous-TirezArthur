@@ -16,6 +16,12 @@ public:
 	Rectf& GetHitbox();
 	bool Attack(Rectf& hurtbox, float damage, bool direction);
 	bool IsDead();
+	void SetTears(int tears);
+	const float& GetHealth() const;
+	const float& GetMaxHealth() const;
+	const int& GetFlask() const;
+	const int& GetMaxFlask() const;
+	const int& GetTears() const;
 private:
 	enum class State {
 		idle,
@@ -82,6 +88,7 @@ private:
 	int m_ComboCounter{ 0 };
 	int m_Flasks{ MAXFLASKS };
 	int m_AudioChannel{ -1 };
+	int m_Tears{ 0 };
 	float m_Health{ MAXHEALTH };
 
 	static const float GRAVITY;

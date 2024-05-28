@@ -9,7 +9,7 @@
 const float EnemyStoner::MAXHEALTH{ 30.0f };
 const float EnemyStoner::ATTACKDMG{ 8.0f };
 const float EnemyStoner::SPEED{ 500.0f };
-const float EnemyStoner::POINTS{ 10.0f };
+const int EnemyStoner::POINTS{ 10 };
 
 EnemyStoner::EnemyStoner(LevelManager* levelManager, TextureManager* textureManager, SoundManager* soundManager, Player* player, float x, float y) :
 	Enemy(levelManager, textureManager, soundManager, player, x, y)
@@ -167,4 +167,5 @@ void EnemyStoner::Death()
 {
 	Enemy::Death();
 	m_SoundManager->Play("stoner_death");
+	m_PlayerPtr->SetTears(m_PlayerPtr->GetTears() + POINTS);
 }

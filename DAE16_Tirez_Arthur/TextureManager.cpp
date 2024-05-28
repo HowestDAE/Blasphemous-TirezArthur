@@ -18,12 +18,12 @@ TextureManager::~TextureManager()
 	}
 }
 
-void TextureManager::Draw(std::string path, float x, float y, bool flipped)
+void TextureManager::Draw(const std::string& path, float x, float y, bool flipped)
 {
 	Draw(path, Point2f{ x, y }, flipped);
 }
 
-void TextureManager::Draw(std::string path, Point2f pos, bool flipped)
+void TextureManager::Draw(const std::string& path, Point2f pos, bool flipped)
 {
 	if (m_TextureMap.find(path) != m_TextureMap.end())
 	{
@@ -41,12 +41,12 @@ void TextureManager::Draw(std::string path, Point2f pos, bool flipped)
 	}
 }
 
-void TextureManager::Animate(std::string path, float x, float y, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
+void TextureManager::Animate(const std::string& path, float x, float y, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
 {
 	Animate(path, Point2f{ x,y }, animationDuration, flipped, loop, frameTimeModifier);
 }
 
-void TextureManager::Animate(std::string path, Point2f pos, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
+void TextureManager::Animate(const std::string& path, Point2f pos, float animationDuration, bool flipped, bool loop, float frameTimeModifier)
 {
 	while (animationDuration < 0.0f)
 	{
@@ -99,24 +99,30 @@ void TextureManager::Animate(std::string path, Point2f pos, float animationDurat
 	}
 }
 
-void TextureManager::PreLoadTexture(std::string path)
+void TextureManager::PreLoadTexture(const std::string& path)
 {
 	if (m_TextureMap.find(path) == m_TextureMap.end()) LoadTexture(path);
 }
 
-float TextureManager::GetTextureWidth(std::string path) const
+void TextureManager::MakeTextTexture(const std::string& Id, const std::string& font, const std::string& content, const Color4f& color, int size)
+{
+	if (m_TextureMap.find(Id) != m_TextureMap.end() && m_TextureMap.at(Id) != nullptr) delete m_TextureMap.at(Id);
+	m_TextureMap[Id] = new Texture{ content, font, size, color};
+}
+
+float TextureManager::GetTextureWidth(const std::string& path) const
 {
 	if (m_TextureMap.find(path) == m_TextureMap.end() || m_TextureMap.at(path) == nullptr) return -1.0f;
 	return m_TextureMap.at(path)->GetWidth();
 }
 
-float TextureManager::GetTextureHeight(std::string path) const
+float TextureManager::GetTextureHeight(const std::string& path) const
 {
 	if (m_TextureMap.find(path) == m_TextureMap.end() || m_TextureMap.at(path) == nullptr) return -1.0f;
 	return m_TextureMap.at(path)->GetHeight();
 }
 
-float TextureManager::GetAnimationDuration(std::string path) const
+float TextureManager::GetAnimationDuration(const std::string& path) const
 {
 	if (m_AnimationMap.find(path) == m_AnimationMap.end() || m_TextureMap.at(path) == nullptr) return -1.0f;
 	return (float)m_AnimationMap.at(path)["frames"].size() / ANIMATIONFRAMERATE;

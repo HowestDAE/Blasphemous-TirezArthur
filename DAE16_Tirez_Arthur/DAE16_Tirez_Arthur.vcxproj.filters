@@ -13,6 +13,18 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Header Files\Enemies">
+      <UniqueIdentifier>{f26013d7-4ad9-4bf1-8716-faaa59c4d190}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Enemies">
+      <UniqueIdentifier>{f8475d51-1ef7-408a-9f23-63b835ef4c0f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\UiElements">
+      <UniqueIdentifier>{ff05b9da-80f8-4b23-b658-1fb0c7b8a38a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\UiElement">
+      <UniqueIdentifier>{a5ad61a3-724e-4d1d-9db3-d0924509a43a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -45,22 +57,43 @@
     <ClCompile Include="UiManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
+    <ClCompile Include="SoundManager.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="EnemyCartwheel.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyShieldMaiden.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="EnemyStoner.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
     <ClCompile Include="EnemyCrucified.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Enemies</Filter>
     </ClCompile>
-    <ClCompile Include="SoundManager.cpp">
+    <ClCompile Include="EnemyShieldMaiden.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyStoner.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>Source Files\Enemies</Filter>
+    </ClCompile>
+    <ClCompile Include="UiElement.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiStaticGraphic.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiAnimatedGraphic.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiBar.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiList.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiNumericDisplay.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiTextureBar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -95,22 +128,43 @@
     <ClInclude Include="UiManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="Enemy.h">
+    <ClInclude Include="SoundManager.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="EnemyCartwheel.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyShieldMaiden.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="EnemyStoner.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
     <ClInclude Include="EnemyCrucified.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\Enemies</Filter>
     </ClInclude>
-    <ClInclude Include="SoundManager.h">
+    <ClInclude Include="EnemyShieldMaiden.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyStoner.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="Enemy.h">
+      <Filter>Header Files\Enemies</Filter>
+    </ClInclude>
+    <ClInclude Include="UiElement.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiStaticGraphic.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiAnimatedGraphic.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiBar.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiList.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiNumericDisplay.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiTextureBar.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

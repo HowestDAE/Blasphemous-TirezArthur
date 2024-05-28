@@ -162,7 +162,14 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="EnemyShieldMaiden.cpp" />
     <ClCompile Include="SoundManager.cpp" />
     <ClCompile Include="TextureManager.cpp" />
+    <ClCompile Include="UiAnimatedGraphic.cpp" />
+    <ClCompile Include="UiBar.cpp" />
+    <ClCompile Include="UiElement.cpp" />
+    <ClCompile Include="UiList.cpp" />
     <ClCompile Include="UiManager.cpp" />
+    <ClCompile Include="UiNumericDisplay.cpp" />
+    <ClCompile Include="UiStaticGraphic.cpp" />
+    <ClCompile Include="UiTextureBar.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -180,7 +187,14 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="EnemyShieldMaiden.h" />
     <ClInclude Include="SoundManager.h" />
     <ClInclude Include="TextureManager.h" />
+    <ClInclude Include="UiAnimatedGraphic.h" />
+    <ClInclude Include="UiBar.h" />
+    <ClInclude Include="UiElement.h" />
+    <ClInclude Include="UiList.h" />
     <ClInclude Include="UiManager.h" />
+    <ClInclude Include="UiNumericDisplay.h" />
+    <ClInclude Include="UiStaticGraphic.h" />
+    <ClInclude Include="UiTextureBar.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
