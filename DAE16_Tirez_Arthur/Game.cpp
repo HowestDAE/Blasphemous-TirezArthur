@@ -51,21 +51,25 @@ void Game::Cleanup()
 
 void Game::Update( float elapsedSec )
 {
-	m_PlayerPtr->Update(elapsedSec);
-	m_EnemyManagerPtr->Update(elapsedSec);
+	if (!m_UiManagerPtr->GamePaused()){
+		m_PlayerPtr->Update(elapsedSec);
+		m_EnemyManagerPtr->Update(elapsedSec);
+		m_CameraPtr->Aim(utils::GetCenter(m_PlayerPtr->GetHitbox()), elapsedSec);
+	}
 	m_UiManagerPtr->Update(elapsedSec);
-	m_CameraPtr->Aim(utils::GetCenter(m_PlayerPtr->GetHitbox()), elapsedSec);
 }
 
 void Game::Draw( ) const
 {
 	ClearBackground( );
-	m_CameraPtr->ApplyTS();
-	m_LevelManagerPtr->DrawBackGround();
-	m_EnemyManagerPtr->Draw();
-	m_PlayerPtr->Draw();
-	m_LevelManagerPtr->DrawForeground();
-	m_CameraPtr->Reset();
+	if (!m_UiManagerPtr->GamePaused()) {
+		m_CameraPtr->ApplyTS();
+		m_LevelManagerPtr->DrawBackGround();
+		m_EnemyManagerPtr->Draw();
+		m_PlayerPtr->Draw();
+		m_LevelManagerPtr->DrawForeground();
+		m_CameraPtr->Reset();
+	}
 
 	m_CameraPtr->ApplyS();
 	m_UiManagerPtr->Draw();

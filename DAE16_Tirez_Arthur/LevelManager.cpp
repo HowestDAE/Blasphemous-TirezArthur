@@ -182,8 +182,8 @@ void LevelManager::DrawBackGround()
 		const float Xratio{ XtravelDistanceBackground / XtravelDistanceLevel  };
 		const float Yratio{ YtravelDistanceBackground / YtravelDistanceLevel  };
 		Point2f aimPos{ m_CameraPtr->getAimPos() };
-		aimPos.x -= viewportSizeX * 0.5;
-		aimPos.y -= viewportSizeY * 0.5;
+		aimPos.x -= viewportSizeX * 0.5f;
+		aimPos.y -= viewportSizeY * 0.5f;
 		const float Xtravel{ aimPos.x * Xratio };
 		const float Ytravel{ aimPos.y * Yratio };
 		m_TextureManagerPtr->Draw(background, aimPos.x - Xtravel, aimPos.y - Ytravel);

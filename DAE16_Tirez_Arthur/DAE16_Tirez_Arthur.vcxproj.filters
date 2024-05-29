@@ -94,7 +94,13 @@
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
     <ClCompile Include="UiTextureBar.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiCollection.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiStaticText.cpp">
+      <Filter>Source Files\UiElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -165,7 +171,13 @@
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
     <ClInclude Include="UiTextureBar.h">
-      <Filter>Header Files</Filter>
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiCollection.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiStaticText.h">
+      <Filter>Header Files\UiElement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

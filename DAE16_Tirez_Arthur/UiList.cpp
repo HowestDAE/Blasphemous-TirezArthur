@@ -1,14 +1,10 @@
 #include "pch.h"
 #include "UiList.h"
 
-UiList::UiList(float xPos, float yPos, bool vertical) :
-	UiList{ Point2f{xPos, yPos}, vertical }
-{
-}
-
-UiList::UiList(const Point2f& pos, bool vertical) :
-	UiElement{ pos },
-	m_Vertical{ vertical }
+UiList::UiList(SDL_Scancode cycleLeft, SDL_Scancode cycleRight) :
+	UiElement{ 0.0f, 0.0f },
+	m_CycleLeft{cycleLeft},
+	m_CycleRight{cycleRight}
 {
 }
 
@@ -22,21 +18,19 @@ UiList::~UiList()
 void UiList::Update(float elapsedSec)
 {
 	const Uint8* keyBoardState{ SDL_GetKeyboardState(nullptr) };
-	const bool leftHeld{ (bool)keyBoardState[SDL_SCANCODE_LEFT] };
-	const bool rightHeld{ (bool)keyBoardState[SDL_SCANCODE_RIGHT] };
+	const bool leftHeld{ (bool)keyBoardState[m_CycleLeft] };
+	const bool rightHeld{ (bool)keyBoardState[m_CycleRight] };
 
 	if ((leftHeld || rightHeld)) {
-		if (leftHeld && !rightHeld && !m_Vertical) m_SelectedIndex = (m_SelectedIndex - 1 + m_Elements.size()) % m_Elements.size();
-		if (!leftHeld && rightHeld && !m_Vertical) m_SelectedIndex = (m_SelectedIndex + 1) % m_Elements.size();
-		m_Vertical = true;
+		if (leftHeld && !rightHeld && !m_KeyProcessed) m_SelectedIndex = (m_SelectedIndex - 1 + (int)m_Elements.size()) % (int)m_Elements.size();
+		if (!leftHeld && rightHeld && !m_KeyProcessed) m_SelectedIndex = (m_SelectedIndex + 1) % (int)m_Elements.size();
+		m_KeyProcessed = true;
 	}
 	else {
-		m_Vertical = false;
+		m_KeyProcessed = false;
 	}
 
-	for (UiElement* element : m_Elements) {
-		if (element != nullptr) element->Update(elapsedSec);
-	}
+	m_Elements.at(m_SelectedIndex)->Update(elapsedSec);
 }
 
 void UiList::Draw(bool selected) const
@@ -48,5 +42,5 @@ void UiList::Draw(bool selected) const
 
 void UiList::AddElement(UiElement* element)
 {
-	m_Elements.push_back(element);
+	if (element != nullptr) m_Elements.push_back(element);
 }

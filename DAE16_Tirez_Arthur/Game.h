@@ -1,5 +1,5 @@
 #pragma once
-#include "json/forwards.h"
+#include "json/json-forwards.h"
 #include "BaseGame.h"
 class TextureManager;
 class Camera;

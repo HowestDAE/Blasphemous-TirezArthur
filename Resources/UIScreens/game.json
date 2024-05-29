@@ -1,0 +1,60 @@
+{
+  "gamePaused": false,
+  "elements": [
+    {
+      "type": "static_graphic",
+      "x": 66,
+      "y": 318,
+      "texture": "penitent_portrait_background"
+    },
+    {
+      "type": "bar",
+      "x": 66,
+      "y": 330,
+      "w": 87,
+      "h": 4,
+      "data": "health",
+      "color": {
+        "R": 0.8117,
+        "G": 0.1254,
+        "B": 0.1529,
+        "A": 1
+      }
+    },
+    {
+      "type": "static_graphic",
+      "x": 16,
+      "y": 287,
+      "texture": "penitent_portrait"
+    },
+    {
+      "type": "static_graphic",
+      "x": 529,
+      "y": 297,
+      "texture": "tears_display"
+    },
+    {
+      "type": "numeric_display",
+      "x": 578,
+      "y": 310,
+      "textureId": "tears_value",
+      "leftAligned": false,
+      "data": "tears",
+      "color": {
+        "R": 0.6705,
+        "G": 0.6039,
+        "B": 0.2470,
+        "A": 1
+      }
+    },
+    {
+      "type": "texture_bar",
+      "x": 77,
+      "y": 291,
+      "texture": "flask",
+      "spacingX": 17,
+      "spacingY": 0,
+      "data": "flask"
+    }
+  ]
+}
