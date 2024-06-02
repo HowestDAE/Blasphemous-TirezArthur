@@ -8,10 +8,11 @@
 #include <fstream>
 #include <iostream>
 
-LevelManager::LevelManager(TextureManager* textureManager, EnemyManager* enemyManager, Camera* camera):
+LevelManager::LevelManager(TextureManager* textureManager, EnemyManager* enemyManager, Camera* camera, SaveManager* saveManager):
 	m_TextureManagerPtr{textureManager},
 	m_EnemyManagerPtr{enemyManager},
-	m_CameraPtr{camera}
+	m_CameraPtr{camera},
+	m_SaveManagerPtr{saveManager}
 {
 	
 }
@@ -101,6 +102,14 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, Vector2f& velocity, const bool 
 			m_CameraPtr->Aim(utils::GetCenter(hitbox));
 		}
 	}
+
+	for (int roomIndex{}; roomIndex < m_HiddenAreas.size(); ++roomIndex)
+	{
+		if (utils::IsOverlapping(hitbox, m_HiddenAreas.at(roomIndex))) {
+			m_HiddenAreas.erase(m_HiddenAreas.begin() + roomIndex);
+		}
+	}
+
 	return collisionHappened;
 }
 
@@ -110,7 +119,7 @@ bool LevelManager::CollisionCheck(Rectf& hitbox, const bool ignorePlatforms)
 	return CollisionCheck(hitbox, velocity, ignorePlatforms);
 }
 
-bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const Vector2f& velocity) const
+bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const Vector2f& velocity)
 {
 	switch (interaction)
 	{
@@ -163,10 +172,27 @@ bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const
 		}
 		return false;
 		break;
+	case Interactions::pickup:
+		for (int itemIndex{}; itemIndex < m_Items.size(); ++itemIndex) {
+			const Object& item{ m_Items.at(itemIndex) };
+			if (utils::IsOverlapping(playerHitbox, Rectf{ item.pos.x, item.pos.y, 12.0f, 12.0f })) {
+				m_SaveManagerPtr->CollectItem(item.item);
+				playerHitbox.left = utils::GetCenter(Rectf{ item.pos.x, item.pos.y, 12.0f, 12.0f }).x - playerHitbox.width * 0.5f;
+				m_Items.erase(m_Items.begin() + itemIndex);
+				return true;
+			}
+		}
+		return false;
+		break;
 	default:
 		return false;
 		break;
 	}
+}
+
+void LevelManager::Update(float elapsedSec)
+{
+	m_AnimationDuration += elapsedSec;
 }
 
 void LevelManager::DrawBackGround()
@@ -189,6 +215,11 @@ void LevelManager::DrawBackGround()
 		m_TextureManagerPtr->Draw(background, aimPos.x - Xtravel, aimPos.y - Ytravel);
 	}
 	m_TextureManagerPtr->Draw(m_CurrentLevel, 0.0f, 0.0f);
+
+	for (const Object& currentItem : m_Items)
+	{
+		m_TextureManagerPtr->Animate("item", currentItem.pos.x, currentItem.pos.y, m_AnimationDuration);
+	}
 }
 
 void LevelManager::DrawForeground()
@@ -196,6 +227,12 @@ void LevelManager::DrawForeground()
 	for (const Door& currentDoor : m_LevelDoors)
 	{
 		if (currentDoor.texture != "") m_TextureManagerPtr->Draw(currentDoor.texture, currentDoor.hitbox.left, currentDoor.hitbox.bottom, currentDoor.flipped);
+	}
+
+	for (const Rectf& currentRoom : m_HiddenAreas)
+	{
+		utils::SetColor(Color4f{ 0.118f, 0.102f, 0.11f, 1.0f });
+		utils::FillRect(currentRoom);
 	}
 }
 
@@ -302,6 +339,30 @@ void LevelManager::LoadLevel(std::string path)
 		const float xPos{ levelData["enemies"][currentEnemy].get("x", -1).asFloat() };
 		const float yPos{ levelData["enemies"][currentEnemy].get("y", -1).asFloat() };
 		m_EnemyManagerPtr->SpawnEnemy(enemyType, xPos, yPos);
+	}
+
+	const Json::Value::Members& items{ levelData["items"].getMemberNames() };
+
+	for (const std::string& currentItem : items)
+	{
+		const Point2f itemPos{	levelData["items"][currentItem].get("x", -1).asFloat(),
+								levelData["items"][currentItem].get("y", -1).asFloat() };
+		const CategoryId category{ (CategoryId)levelData["items"][currentItem].get("category", 0).asInt() };
+		const ItemId id{ (ItemId)levelData["items"][currentItem].get("id", 0).asInt() };
+		const std::string name{ levelData["items"][currentItem].get("name", "").asString() };
+		const std::string description{ levelData["items"][currentItem].get("description", "").asString() };
+		if (!m_SaveManagerPtr->IsItemCollected(category, id)) m_Items.push_back(Object{ itemPos, Item{category, id, name, description} });
+	}
+
+	const Json::Value::Members& hiddenRooms{ levelData["hiddenRooms"].getMemberNames() };
+
+	for (const std::string& currentRoom : hiddenRooms)
+	{
+		const Rectf hitbox{ levelData["hiddenRooms"][currentRoom].get("x", -1).asFloat(),
+							levelData["hiddenRooms"][currentRoom].get("y", -1).asFloat(),
+							levelData["hiddenRooms"][currentRoom].get("w", -1).asFloat(),
+							levelData["hiddenRooms"][currentRoom].get("h", -1).asFloat() };
+		m_HiddenAreas.push_back(hitbox);
 	}
 
 	for (int backgroundIndex{}; backgroundIndex < levelData["background"].size(); ++backgroundIndex) {

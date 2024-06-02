@@ -6,7 +6,7 @@
 #include "utils.h"
 
 
-Point2f utils::GetCenter(Rectf& rect)
+Point2f utils::GetCenter(const Rectf& rect)
 {
 	return Point2f{ rect.left + rect.width * 0.5f, rect.bottom + rect.height * 0.5f };
 }

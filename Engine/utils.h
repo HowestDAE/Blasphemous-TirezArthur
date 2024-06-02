@@ -5,7 +5,7 @@
 namespace utils
 {
 	const float g_Pi{ 3.1415926535f };
-	Point2f GetCenter(Rectf& rect);
+	Point2f GetCenter(const Rectf& rect);
 
 #pragma region OpenGLDrawFunctionality
 

@@ -80,15 +80,15 @@
     },
     "13": {
       "left": 704,
-      "bottom": 568,
+      "bottom": 711,
       "width": 255,
-      "height": 181
+      "height": 38
     },
     "14": {
       "left": 959,
-      "bottom": 568,
+      "bottom": 636,
       "width": 65,
-      "height": 283
+      "height": 215
     },
     "15": {
       "left": 1150,
@@ -101,6 +101,12 @@
       "bottom": 851,
       "width": 65,
       "height": 245
+    },
+    "17": {
+      "left": 704,
+      "bottom": 568,
+      "width": 320,
+      "height": 28
     }
   },
   "platform": {
@@ -193,47 +199,47 @@
       "grabLeft": true
     }
   },
-   "door": {
-     "0": {
-       "left": 0,
-       "bottom": 103,
-       "width": 63,
-       "height": 217,
-       "flipped": false,
-       "texture": "tower_door",
+  "door": {
+    "0": {
+      "left": 0,
+      "bottom": 103,
+      "width": 63,
+      "height": 217,
+      "flipped": false,
+      "texture": "tower_door",
       "destination": {
         "area": "outside1",
         "left": 2488,
         "bottom": 46
       }
-     },
-     "1": {
-       "left": 0,
-       "bottom": 358,
-       "width": 63,
-       "height": 217,
-       "flipped": false,
-       "texture": "tower_door",
+    },
+    "1": {
+      "left": 0,
+      "bottom": 358,
+      "width": 63,
+      "height": 217,
+      "flipped": false,
+      "texture": "tower_door",
       "destination": {
         "area": "outside1",
         "left": 2414,
         "bottom": 303
       }
-     },
-     "2": {
-       "left": 1217,
-       "bottom": 391,
-       "width": 63,
-       "height": 217,
-       "flipped": true,
-       "texture": "tower_door",
+    },
+    "2": {
+      "left": 1217,
+      "bottom": 391,
+      "width": 63,
+      "height": 217,
+      "flipped": true,
+      "texture": "tower_door",
       "destination": {
         "area": "outside1",
         "left": 176,
         "bottom": 235
       }
-     }
-   },
+    }
+  },
   "ladder": {
     "0": {
       "left": 176,
@@ -292,6 +298,24 @@
       "type": "cartwheel",
       "x": 367,
       "y": 85
+    }
+  },
+  "items": {
+    "0": {
+      "category": 5,
+      "id": 2,
+      "name": "Navicular of Kahnnyhoo, Murderer",
+      "description": "Kahnnyhoo, although clumsy, took#advantage of his cheerful and jovial#demeanor to trick merchants and#clergymen, with the intention of killing#them and stealing their belongings",
+      "x": 783,
+      "y": 598
+    }
+  },
+  "hiddenRooms": {
+    "0": {
+      "x": 663,
+      "y": 578,
+      "h": 139,
+      "w": 334
     }
   }
 }

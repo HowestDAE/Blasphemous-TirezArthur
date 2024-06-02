@@ -4,11 +4,12 @@ class TextureManager;
 class LevelManager;
 class EnemyManager;
 class SoundManager;
+class InputManager;
 
 class Player final
 {
 public:
-	explicit Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager);
+	explicit Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager, InputManager* inputManager);
 
 	void Update(float elapsedSec);
 	void Draw();
@@ -43,7 +44,8 @@ private:
 		block,
 		parry,
 		knockback,
-		heal
+		heal,
+		pickup
 	};
 
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
@@ -67,11 +69,13 @@ private:
 	void Block();
 	void Parry();
 	void Heal();
+	void Pickup();
 
 	TextureManager* m_TextureManagerPtr;
 	EnemyManager* m_EnemyManagerPtr;
 	LevelManager* m_LevelManagerPtr;
-	SoundManager* m_SoundManager;
+	SoundManager* m_SoundManagerPtr;
+	InputManager* m_InputManagerPtr;
 
 	Rectf m_HitBox;
 	State m_PlayerState{ State::idle };

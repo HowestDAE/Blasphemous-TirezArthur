@@ -8,6 +8,8 @@
 #include "UiManager.h"
 #include "EnemyManager.h"
 #include "SoundManager.h"
+#include "SaveManager.h"
+#include "InputManager.h"
 #include "utils.h"
 #include <iostream>
 
@@ -24,21 +26,24 @@ Game::~Game( )
 
 void Game::Initialize()
 {
+	m_InputManagerPtr = new InputManager{};
+	m_SaveManagerPtr = new SaveManager{};
 	m_TextureManagerPtr = new TextureManager{ };
 	m_SoundManagerPtr = new SoundManager{};
 	m_CameraPtr = new Camera{ GetViewPort().width, GetViewPort().height };
 	m_EnemyManagerPtr = new EnemyManager{ m_TextureManagerPtr, m_SoundManagerPtr };
-	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr, m_EnemyManagerPtr, m_CameraPtr };
+	m_LevelManagerPtr = new LevelManager{ m_TextureManagerPtr, m_EnemyManagerPtr, m_CameraPtr, m_SaveManagerPtr };
 	m_EnemyManagerPtr->SetLevelManager(m_LevelManagerPtr);
-	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr, m_SoundManagerPtr };
+	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr, m_SoundManagerPtr, m_InputManagerPtr };
 	m_EnemyManagerPtr->SetTargetPlayer(m_PlayerPtr);
-	m_UiManagerPtr = new UiManager{ m_TextureManagerPtr, m_PlayerPtr };
+	m_UiManagerPtr = new UiManager{ m_TextureManagerPtr, m_PlayerPtr, m_SoundManagerPtr, m_InputManagerPtr };
 	m_LevelManagerPtr->LoadLevel("outside1");
 	ShowCursor(false);
 }
 
 void Game::Cleanup()
 {
+	delete m_SaveManagerPtr;
 	delete m_TextureManagerPtr;
 	delete m_SoundManagerPtr;
 	delete m_CameraPtr;
@@ -46,12 +51,14 @@ void Game::Cleanup()
 	delete m_LevelManagerPtr;
 	delete m_UiManagerPtr;
 	delete m_EnemyManagerPtr;
+	delete m_InputManagerPtr;
 	ShowCursor(true);
 }
 
 void Game::Update( float elapsedSec )
 {
 	if (!m_UiManagerPtr->GamePaused()){
+		m_LevelManagerPtr->Update(elapsedSec);
 		m_PlayerPtr->Update(elapsedSec);
 		m_EnemyManagerPtr->Update(elapsedSec);
 		m_CameraPtr->Aim(utils::GetCenter(m_PlayerPtr->GetHitbox()), elapsedSec);
@@ -78,65 +85,26 @@ void Game::Draw( ) const
 
 void Game::ProcessKeyDownEvent( const SDL_KeyboardEvent & e )
 {
-	//std::cout << "KEYDOWN event: " << e.keysym.sym << std::endl;
+	m_InputManagerPtr->ProcessKeyDownEvent(e);
 }
 
 void Game::ProcessKeyUpEvent( const SDL_KeyboardEvent& e )
 {
-	//std::cout << "KEYUP event: " << e.keysym.sym << std::endl;
-	//switch ( e.keysym.sym )
-	//{
-	//case SDLK_LEFT:
-	//	//std::cout << "Left arrow key released\n";
-	//	break;
-	//case SDLK_RIGHT:
-	//	//std::cout << "`Right arrow key released\n";
-	//	break;
-	//case SDLK_1:
-	//case SDLK_KP_1:
-	//	//std::cout << "Key 1 released\n";
-	//	break;
-	//}
+	m_InputManagerPtr->ProcessKeyUpEvent(e);
 }
 
 void Game::ProcessMouseMotionEvent( const SDL_MouseMotionEvent& e )
 {
-	//std::cout << "MOUSEMOTION event: " << e.x << ", " << e.y << std::endl;
 }
 
 void Game::ProcessMouseDownEvent( const SDL_MouseButtonEvent& e )
 {
-	//std::cout << "MOUSEBUTTONDOWN event: ";
-	//switch ( e.button )
-	//{
-	//case SDL_BUTTON_LEFT:
-	//	std::cout << " left button " << std::endl;
-	//	break;
-	//case SDL_BUTTON_RIGHT:
-	//	std::cout << " right button " << std::endl;
-	//	break;
-	//case SDL_BUTTON_MIDDLE:
-	//	std::cout << " middle button " << std::endl;
-	//	break;
-	//}
-	
+	m_InputManagerPtr->ProcessMouseDownEvent(e);
 }
 
 void Game::ProcessMouseUpEvent( const SDL_MouseButtonEvent& e )
 {
-	//std::cout << "MOUSEBUTTONUP event: ";
-	//switch ( e.button )
-	//{
-	//case SDL_BUTTON_LEFT:
-	//	std::cout << " left button " << std::endl;
-	//	break;
-	//case SDL_BUTTON_RIGHT:
-	//	std::cout << " right button " << std::endl;
-	//	break;
-	//case SDL_BUTTON_MIDDLE:
-	//	std::cout << " middle button " << std::endl;
-	//	break;
-	//}
+	m_InputManagerPtr->ProcessMouseUpEvent(e);
 }
 
 void Game::ClearBackground( ) const

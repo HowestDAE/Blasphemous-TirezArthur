@@ -2,6 +2,38 @@
   "gamePaused": true,
   "elements": [
     {
+      "type": "rectf",
+      "x": 0,
+      "y": 271,
+      "w": 1280,
+      "h": 26,
+      "color": {
+        "R": 0.086,
+        "G": 0.059,
+        "B": 0.039,
+        "A": 1
+      }
+    },
+    {
+      "type": "static_text",
+      "x": 175,
+      "y": 277,
+      "text": "Options",
+      "textureId": "options_title",
+      "color": {
+        "R": 0.565,
+        "G": 0.384,
+        "B": 0.31,
+        "A": 1
+      },
+      "selectedColor": {
+        "R": 0.565,
+        "G": 0.384,
+        "B": 0.31,
+        "A": 1
+      }
+    },
+    {
       "type": "static_graphic",
       "x": 23,
       "y": 63,
@@ -21,8 +53,8 @@
     },
     {
       "type": "list",
-      "cycleLeft": 82,
-      "cycleRight": 81,
+      "cycleLeft": 6,
+      "cycleRight": 7,
       "elements": [
         {
           "type": "collection",

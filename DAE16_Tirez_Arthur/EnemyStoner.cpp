@@ -165,7 +165,8 @@ void EnemyStoner::Attack()
 
 void EnemyStoner::Death()
 {
-	Enemy::Death();
+	m_State = State::death;
+	m_AnimationDuration = 0.0f;
 	m_SoundManager->Play("stoner_death");
 	m_PlayerPtr->SetTears(m_PlayerPtr->GetTears() + POINTS);
 }

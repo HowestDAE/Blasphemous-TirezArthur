@@ -8,6 +8,8 @@ class LevelManager;
 class UiManager;
 class EnemyManager;
 class SoundManager;
+class SaveManager;
+class InputManager;
 
 class Game : public BaseGame
 {
@@ -38,6 +40,8 @@ private:
 	UiManager* m_UiManagerPtr{};
 	EnemyManager* m_EnemyManagerPtr{};
 	SoundManager* m_SoundManagerPtr{};
+	SaveManager* m_SaveManagerPtr{};
+	InputManager* m_InputManagerPtr{};
 	// FUNCTIONS
 	void Initialize();
 	void Cleanup( );

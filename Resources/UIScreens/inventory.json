@@ -1,0 +1,385 @@
+{
+  "gamePaused": true,
+  "elements": [
+    {
+      "type": "rectf",
+      "x": 0,
+      "y": 27,
+      "w": 1280,
+      "h": 281,
+      "color": {
+        "R": 0.071,
+        "G": 0.039,
+        "B": 0.059,
+        "A": 1
+      }
+    },
+    {
+      "type": "static_graphic",
+      "x": 0,
+      "y": 27,
+      "texture": "inventory_bar_bottom"
+    },
+    {
+      "type": "static_graphic",
+      "x": 0,
+      "y": 300,
+      "texture": "inventory_bar_top"
+    },
+    {
+      "type": "static_graphic",
+      "x": 571,
+      "y": 332,
+      "texture": "tears_icon"
+    },
+    {
+      "type": "numeric_display",
+      "x": 566,
+      "y": 332,
+      "textureId": "tears_value_inventory",
+      "leftAligned": false,
+      "data": "tears",
+      "color": {
+        "R": 0.6705,
+        "G": 0.6039,
+        "B": 0.2470,
+        "A": 1
+      }
+    },
+    {
+      "type": "list",
+      "cycleLeft": 0,
+      "cycleRight": 1,
+      "elements": [
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_graphic",
+              "x": 128,
+              "y": 306,
+              "texture": "inventory_cat_border"
+            },
+            {
+              "type": "static_graphic",
+              "x": 137,
+              "y": 309,
+              "texture": "inventory_cat_0"
+            },
+            {
+              "type": "collection",
+              "alwaysDisplay": false,
+              "elements": [
+                {
+                  "type": "static_graphic",
+                  "x": 89,
+                  "y": 143,
+                  "texture": "inventory_text_background"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 394,
+                  "y": 106,
+                  "texture": "inventory_background_art0"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 388,
+                  "y": 61,
+                  "texture": "inventory_background_art01"
+                },
+                {
+                  "type": "static_text",
+                  "x": 268,
+                  "y": 334,
+                  "text": "Rosary Beads",
+                  "textureId": "inventory_cat_text0",
+                  "color": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "grid",
+                  "cycleUp": 7,
+                  "cycleDown": 6,
+                  "cycleLeft": 4,
+                  "cycleRight": 5,
+                  "elements": [
+                    [
+                      {
+                        "type": "static_graphic",
+                        "x": 92,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 126,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 160,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 194,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 228,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 262,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 296,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 330,
+                        "y": 37,
+                        "texture": "inventory_slot_empty"
+                      }
+                    ],
+                    [
+                      {
+                        "type": "static_graphic",
+                        "x": 92,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 126,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 160,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 194,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 228,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 262,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 296,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 330,
+                        "y": 70,
+                        "texture": "inventory_slot_empty"
+                      }
+                    ],
+                    [
+                      {
+                        "type": "static_graphic",
+                        "x": 92,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 126,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 160,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 194,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 228,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 262,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 296,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      },
+                      {
+                        "type": "static_graphic",
+                        "x": 330,
+                        "y": 103,
+                        "texture": "inventory_slot_empty"
+                      }
+                    ]
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_graphic",
+              "x": 179,
+              "y": 306,
+              "texture": "inventory_cat_border"
+            },
+            {
+              "type": "static_graphic",
+              "x": 188,
+              "y": 308,
+              "texture": "inventory_cat_1"
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_graphic",
+              "x": 230,
+              "y": 306,
+              "texture": "inventory_cat_border"
+            },
+            {
+              "type": "static_graphic",
+              "x": 238,
+              "y": 312,
+              "texture": "inventory_cat_2"
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_graphic",
+              "x": 281,
+              "y": 306,
+              "texture": "inventory_cat_border"
+            },
+            {
+              "type": "static_graphic",
+              "x": 297,
+              "y": 308,
+              "texture": "inventory_cat_3"
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_graphic",
+              "x": 332,
+              "y": 306,
+              "texture": "inventory_cat_border"
+            },
+            {
+              "type": "static_graphic",
+              "x": 344,
+              "y": 310,
+              "texture": "inventory_cat_4"
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_graphic",
+              "x": 383,
+              "y": 306,
+              "texture": "inventory_cat_border"
+            },
+            {
+              "type": "static_graphic",
+              "x": 394,
+              "y": 312,
+              "texture": "inventory_cat_5"
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_graphic",
+              "x": 431,
+              "y": 306,
+              "texture": "inventory_cat_border"
+            },
+            {
+              "type": "static_graphic",
+              "x": 438,
+              "y": 309,
+              "texture": "inventory_cat_6"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
