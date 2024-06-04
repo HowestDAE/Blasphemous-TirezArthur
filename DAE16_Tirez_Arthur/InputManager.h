@@ -3,6 +3,7 @@ class InputManager
 {
 public:
 	InputManager();
+	~InputManager();
 
 	void ProcessKeyDownEvent(const SDL_KeyboardEvent& e);
 	void ProcessKeyUpEvent(const SDL_KeyboardEvent& e);
@@ -22,13 +23,14 @@ public:
 		jump = 9,
 		interact = 10,
 		dodge = 11,
-		block = 12,
-		flask = 13,
-		attack = 14,
-		escape = 15
+		flask = 12,
+		escape = 13,
+		block = 14,
+		attack = 15,
 	};
 
 	bool GetKeyState(Keybind key, const bool reset = true);
+	void ChangeKeyBind(Keybind key, SDL_KeyCode keyCode);
 private:
 	enum class keyState {
 		pressed = 2,
@@ -36,36 +38,8 @@ private:
 		off = 0
 	};
 
-	SDL_Keycode m_MoveLeft{ SDLK_a };
-	SDL_Keycode m_MoveRight{ SDLK_d };
-	SDL_Keycode m_MoveUp{ SDLK_w };
-	SDL_Keycode m_MoveDown{ SDLK_s };
-	SDL_Keycode m_UiLeft{ SDLK_LEFT };
-	SDL_Keycode m_UiRight{ SDLK_RIGHT };
-	SDL_Keycode m_UiUp{ SDLK_UP };
-	SDL_Keycode m_UiDown{ SDLK_DOWN };
-	SDL_Keycode m_Inventory{ SDLK_i };
-	SDL_Keycode m_Jump{ SDLK_SPACE };
-	SDL_Keycode m_Interact{ SDLK_e };
-	SDL_Keycode m_Dodge{ SDLK_LSHIFT };
-	SDL_Keycode m_Flask{ SDLK_f };
-
-	keyState m_MoveLeftHeld{};
-	keyState m_MoveRightHeld{};
-	keyState m_MoveUpHeld{};
-	keyState m_MoveDownHeld{};
-	keyState m_UiLeftHeld{};
-	keyState m_UiRightHeld{};
-	keyState m_UiUpHeld{};
-	keyState m_UiDownHeld{};
-	keyState m_InventoryHeld{};
-	keyState m_JumpHeld{};
-	keyState m_InteractHeld{};
-	keyState m_DodgeHeld{};
-	keyState m_FlaskHeld{};
-	keyState m_EscapeHeld{};
-
-	keyState m_LeftMouseHeld{};
-	keyState m_RightMouseHeld{};
+	static const int ENUMSIZE{ 16 };
+	SDL_Keycode m_Keybinds[ENUMSIZE]{ SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_LEFT,SDLK_RIGHT,SDLK_UP,SDLK_DOWN,SDLK_i,SDLK_SPACE,SDLK_e,SDLK_LSHIFT,SDLK_f,SDLK_ESCAPE,SDLK_UNKNOWN,SDLK_UNKNOWN };
+	keyState m_KeyStates[ENUMSIZE]{ keyState::off };
 };
 

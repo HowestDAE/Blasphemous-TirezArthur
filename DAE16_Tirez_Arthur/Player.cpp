@@ -356,6 +356,7 @@ void Player::Draw()
 	case State::heal:
 		animationPath = "penitent_heal";
 		loop = false;
+		break;
 	case State::pickup:
 		animationPath = "penitent_pickup";
 		loop = false;
