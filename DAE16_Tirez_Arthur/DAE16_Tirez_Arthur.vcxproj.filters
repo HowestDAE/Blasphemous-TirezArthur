@@ -90,7 +90,7 @@
     <ClCompile Include="UiList.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
-    <ClCompile Include="UiNumericDisplay.cpp">
+    <ClCompile Include="UiDynamicText.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
     <ClCompile Include="UiTextureBar.cpp">
@@ -113,6 +113,12 @@
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UiButton.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
+    <ClCompile Include="UiVolumeSlider.cpp">
+      <Filter>Source Files\UiElements</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -179,7 +185,7 @@
     <ClInclude Include="UiList.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
-    <ClInclude Include="UiNumericDisplay.h">
+    <ClInclude Include="UiDynamicText.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
     <ClInclude Include="UiTextureBar.h">
@@ -202,6 +208,12 @@
     </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="UiButton.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiVolumeSlider.h">
+      <Filter>Header Files\UiElement</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

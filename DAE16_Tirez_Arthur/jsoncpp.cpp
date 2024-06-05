@@ -1130,8 +1130,8 @@ public:
   using Char = char;
   using Location = const Char*;
   struct StructuredError {
-    ptrdiff_t offset_start;
-    ptrdiff_t offset_limit;
+    ptrdiff_t offset_start{};
+    ptrdiff_t offset_limit{};
     String message;
   };
 
@@ -1174,9 +1174,9 @@ private:
 
   class ErrorInfo {
   public:
-    Token token_;
-    String message_;
-    Location extra_;
+      Token token_{};
+      String message_;
+      Location extra_{};
   };
 
   using Errors = std::deque<ErrorInfo>;

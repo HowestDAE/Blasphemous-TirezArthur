@@ -33,12 +33,15 @@
       "texture": "tears_icon"
     },
     {
-      "type": "numeric_display",
+      "type": "dynamic_text",
       "x": 566,
       "y": 332,
       "textureId": "tears_value_inventory",
       "leftAligned": false,
-      "data": "tears",
+      "data": {
+        "souce": "tears",
+        "type": 0
+      },
       "color": {
         "R": 0.6705,
         "G": 0.6039,

@@ -36,7 +36,7 @@ void UiList::Update(float elapsedSec)
 		m_KeyProcessed = false;
 	}
 
-	m_Elements.at(m_SelectedIndex)->Update(elapsedSec);
+	if (m_Elements.size() > 0) m_Elements.at(m_SelectedIndex)->Update(elapsedSec);
 }
 
 void UiList::Draw(bool selected) const
@@ -59,5 +59,5 @@ int UiList::GetSelectedIndex() const
 void UiList::SetSelectedIndex(int index)
 {
 	if (index < m_Elements.size() - 1) m_SelectedIndex = index;
-	else m_SelectedIndex = m_Elements.size() - 1;
+	else m_SelectedIndex = (int)m_Elements.size() - 1;
 }

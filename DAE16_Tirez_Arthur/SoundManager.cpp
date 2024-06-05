@@ -5,7 +5,6 @@ SoundManager::SoundManager()
 {
 	m_SoundStream = new SoundStream{ "Sounds/buried_church_master_calm.wav" };
 	m_SoundStream->Play(true);
-	m_SoundStream->SetVolume(m_SoundVolume / 2);
 }
 
 SoundManager::~SoundManager()
@@ -21,7 +20,7 @@ int SoundManager::Play(std::string path, bool loop)
 {
 	if (m_SoundEffectMap.find(path) != m_SoundEffectMap.end()) {
 		if (m_SoundEffectMap[path] != nullptr) {
-			m_SoundEffectMap[path]->SetVolume(m_SoundVolume);
+			m_SoundEffectMap[path]->SetVolume(m_EffectVolume);
 			return m_SoundEffectMap[path]->Play(loop);
 		}
 		else return -1;
@@ -52,15 +51,42 @@ bool SoundManager::LoadSoundEffect(std::string path)
 	}
 }
 
-void SoundManager::SetVolume(int volume)
+int SoundManager::GetMaxVolume()
 {
-	m_SoundVolume = volume;
-	m_SoundStream->SetVolume(m_SoundVolume);
+	return MIX_MAX_VOLUME;
 }
 
-int SoundManager::GetVolume()
+void SoundManager::SetMasterVolume(int volume)
 {
-	return m_SoundVolume;
+	Mix_MasterVolume(volume);
+	m_MasterVolume = volume;
+	SetMusicVolume(m_MusicVolume);
+}
+
+int SoundManager::GetMasterVolume()
+{
+	return Mix_MasterVolume(-1);
+}
+
+void SoundManager::SetMusicVolume(int volume)
+{
+	m_SoundStream->SetVolume(volume * m_MasterVolume / MIX_MAX_VOLUME);
+	m_MusicVolume = volume;
+}
+
+int SoundManager::GetMusicVolume()
+{
+	return m_SoundStream->GetVolume();
+}
+
+void SoundManager::SetEffectVolume(int volume)
+{
+	m_EffectVolume = volume;
+}
+
+int& SoundManager::GetEffectVolume()
+{
+	return m_EffectVolume;
 }
 
 bool SoundManager::IsPlaying(std::string path, const int channel)

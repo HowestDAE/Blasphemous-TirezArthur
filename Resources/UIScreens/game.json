@@ -34,12 +34,15 @@
       "texture": "tears_display"
     },
     {
-      "type": "numeric_display",
+      "type": "dynamic_text",
       "x": 578,
       "y": 310,
       "textureId": "tears_value",
       "leftAligned": false,
-      "data": "tears",
+      "data": {
+        "source": "tears",
+        "type": 0
+      },
       "color": {
         "R": 0.6705,
         "G": 0.6039,

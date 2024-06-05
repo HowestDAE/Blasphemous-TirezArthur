@@ -2,8 +2,13 @@
 class InputManager
 {
 public:
-	InputManager();
+	explicit InputManager();
+	explicit InputManager(const InputManager& other) = delete;
+	explicit InputManager(InputManager&& other) = delete;
 	~InputManager();
+
+	InputManager& operator=(const InputManager& other) = delete;
+	InputManager& operator=(InputManager&& other) = delete;
 
 	void ProcessKeyDownEvent(const SDL_KeyboardEvent& e);
 	void ProcessKeyUpEvent(const SDL_KeyboardEvent& e);
@@ -25,12 +30,15 @@ public:
 		dodge = 11,
 		flask = 12,
 		escape = 13,
-		block = 14,
-		attack = 15,
+		enter = 14,
+		block = 15,
+		attack = 16,
 	};
 
+	const SDL_Keycode& GetKeybind(Keybind key) const;
 	bool GetKeyState(Keybind key, const bool reset = true);
-	void ChangeKeyBind(Keybind key, SDL_KeyCode keyCode);
+	void ChangeKeybind(Keybind key, SDL_KeyCode keyCode);
+	void ChangeKeybindEvent(Keybind key);
 private:
 	enum class keyState {
 		pressed = 2,
@@ -38,8 +46,10 @@ private:
 		off = 0
 	};
 
-	static const int ENUMSIZE{ 16 };
-	SDL_Keycode m_Keybinds[ENUMSIZE]{ SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_LEFT,SDLK_RIGHT,SDLK_UP,SDLK_DOWN,SDLK_i,SDLK_SPACE,SDLK_e,SDLK_LSHIFT,SDLK_f,SDLK_ESCAPE,SDLK_UNKNOWN,SDLK_UNKNOWN };
+	Keybind m_ChangingKeybind{};
+	bool m_KeyChange{false};
+	static const int ENUMSIZE{ 17 };
+	SDL_Keycode m_Keybinds[ENUMSIZE]{ SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_LEFT,SDLK_RIGHT,SDLK_UP,SDLK_DOWN,SDLK_i,SDLK_SPACE,SDLK_e,SDLK_LSHIFT,SDLK_f,SDLK_ESCAPE,SDLK_KP_ENTER,SDLK_j,SDLK_k };
 	keyState m_KeyStates[ENUMSIZE]{ keyState::off };
 };
 

@@ -251,6 +251,8 @@ void LevelManager::LoadLevel(std::string path)
 	m_LevelSpikes.clear();
 	m_LevelDoors.clear();
 	m_EnemyManagerPtr->Clear();
+	m_Items.clear();
+	m_HiddenAreas.clear();
 	m_LevelBackground.clear();
 
 	m_TextureManagerPtr->PreLoadTexture(path);

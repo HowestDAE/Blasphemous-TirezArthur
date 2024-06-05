@@ -24,6 +24,10 @@ InputManager::~InputManager()
 void InputManager::ProcessKeyDownEvent(const SDL_KeyboardEvent& e)
 {
 	SDL_Keycode keyPressed{ e.keysym.sym };
+	if (m_KeyChange) {
+		m_Keybinds[(int)m_ChangingKeybind] = keyPressed;
+		return;
+	}
 	for (int keyIndex{}; keyIndex < ENUMSIZE; ++keyIndex) {
 		if (m_Keybinds[keyIndex] == keyPressed && m_KeyStates[keyIndex] == keyState::off) m_KeyStates[keyIndex] = keyState::pressed;
 	}
@@ -32,6 +36,7 @@ void InputManager::ProcessKeyDownEvent(const SDL_KeyboardEvent& e)
 void InputManager::ProcessKeyUpEvent(const SDL_KeyboardEvent& e)
 {
 	SDL_Keycode keyPressed{ e.keysym.sym };
+	if (m_KeyChange && keyPressed == m_Keybinds[(int)m_ChangingKeybind]) m_KeyChange = false;
 	for (int keyIndex{}; keyIndex < ENUMSIZE; ++keyIndex) {
 		if (m_Keybinds[keyIndex] == keyPressed) m_KeyStates[keyIndex] = keyState::off;
 	}
@@ -63,13 +68,25 @@ void InputManager::ProcessMouseUpEvent(const SDL_MouseButtonEvent& e)
 	}
 }
 
+const SDL_Keycode& InputManager::GetKeybind(Keybind key) const
+{
+	return m_Keybinds[(int)key];
+}
+
 bool InputManager::GetKeyState(Keybind key, const bool reset)
 {
 	const bool state{ m_KeyStates[(int)key] == keyState::pressed };
-	if (state && reset) m_KeyStates[(int)key] = keyState::used;return state;
+	if (state && reset) m_KeyStates[(int)key] = keyState::used;
+	return state;
 }
 
-void InputManager::ChangeKeyBind(Keybind key, SDL_KeyCode keyCode)
+void InputManager::ChangeKeybind(Keybind key, SDL_KeyCode keyCode)
 {
 	m_Keybinds[(int)key] = keyCode;
+}
+
+void InputManager::ChangeKeybindEvent(Keybind key)
+{
+	m_KeyChange = true;
+	m_ChangingKeybind = key;
 }

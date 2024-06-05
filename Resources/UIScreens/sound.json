@@ -18,8 +18,8 @@
       "type": "static_text",
       "x": 175,
       "y": 277,
-      "text": "Options",
-      "textureId": "options_title",
+      "text": "Sound",
+      "textureId": "sound_title",
       "color": {
         "R": 0.565,
         "G": 0.384,
@@ -70,8 +70,8 @@
               "type": "static_text",
               "x": 186,
               "y": 243,
-              "text": "Controls",
-              "textureId": "options_controls",
+              "text": "Master Volume",
+              "textureId": "sound_master",
               "color": {
                 "R": 0.525,
                 "G": 0.463,
@@ -86,9 +86,28 @@
               }
             },
             {
-              "type": "button",
-              "functionData": "controls",
-              "functionId": 0
+              "type": "volume_slider",
+              "x": 431,
+              "y": 237,
+              "w": 100,
+              "h": 3,
+              "cycleLeft": 4,
+              "cycleRight": 5,
+              "steps": 10,
+              "sliderTexture": "volume_slider",
+              "soundType": 0,
+              "color": {
+                "R": 0.529,
+                "G": 0.463,
+                "B": 0.208,
+                "A": 1
+              },
+              "borderColor": {
+                "R": 0.353,
+                "G": 0.235,
+                "B": 0.2,
+                "A": 1
+              }
             }
           ]
         },
@@ -106,8 +125,8 @@
               "type": "static_text",
               "x": 186,
               "y": 214,
-              "text": "Sound",
-              "textureId": "options_sound",
+              "text": "Effects Volume",
+              "textureId": "sound_effect",
               "color": {
                 "R": 0.525,
                 "G": 0.463,
@@ -122,9 +141,28 @@
               }
             },
             {
-              "type": "button",
-              "functionData": "sound",
-              "functionId": 0
+              "type": "volume_slider",
+              "x": 431,
+              "y": 213,
+              "w": 100,
+              "h": 3,
+              "cycleLeft": 4,
+              "cycleRight": 5,
+              "steps": 10,
+              "sliderTexture": "volume_slider",
+              "soundType": 1,
+              "color": {
+                "R": 0.529,
+                "G": 0.463,
+                "B": 0.208,
+                "A": 1
+              },
+              "borderColor": {
+                "R": 0.353,
+                "G": 0.235,
+                "B": 0.2,
+                "A": 1
+              }
             }
           ]
         },
@@ -142,39 +180,8 @@
               "type": "static_text",
               "x": 186,
               "y": 185,
-              "text": "Exit to Main Menu",
-              "textureId": "options_main_menu",
-              "color": {
-                "R": 0.525,
-                "G": 0.463,
-                "B": 0.4,
-                "A": 1
-              },
-              "selectedColor": {
-                "R": 0.996,
-                "G": 0.827,
-                "B": 0.067,
-                "A": 1
-              }
-            }
-          ]
-        },
-        {
-          "type": "collection",
-          "alwaysDisplay": true,
-          "elements": [
-            {
-              "type": "static_graphic",
-              "x": 166,
-              "y": 154,
-              "texture": "options_cursor"
-            },
-            {
-              "type": "static_text",
-              "x": 186,
-              "y": 156,
-              "text": "Resume Game",
-              "textureId": "options_resume",
+              "text": "Music Volume",
+              "textureId": "sound_music",
               "color": {
                 "R": 0.525,
                 "G": 0.463,
@@ -189,9 +196,28 @@
               }
             },
             {
-              "type": "button",
-              "functionData": "game",
-              "functionId": 0
+              "type": "volume_slider",
+              "x": 431,
+              "y": 188,
+              "w": 100,
+              "h": 3,
+              "cycleLeft": 4,
+              "cycleRight": 5,
+              "steps": 10,
+              "sliderTexture": "volume_slider",
+              "soundType": 2,
+              "color": {
+                "R": 0.529,
+                "G": 0.463,
+                "B": 0.208,
+                "A": 1
+              },
+              "borderColor": {
+                "R": 0.353,
+                "G": 0.235,
+                "B": 0.2,
+                "A": 1
+              }
             }
           ]
         }

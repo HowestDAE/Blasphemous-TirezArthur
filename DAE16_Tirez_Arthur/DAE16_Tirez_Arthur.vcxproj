@@ -166,16 +166,18 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="TextureManager.cpp" />
     <ClCompile Include="UiAnimatedGraphic.cpp" />
     <ClCompile Include="UiBar.cpp" />
+    <ClCompile Include="UiButton.cpp" />
     <ClCompile Include="UiCollection.cpp" />
     <ClCompile Include="UiElement.cpp" />
     <ClCompile Include="UIGrid.cpp" />
     <ClCompile Include="UiList.cpp" />
     <ClCompile Include="UiManager.cpp" />
-    <ClCompile Include="UiNumericDisplay.cpp" />
+    <ClCompile Include="UiDynamicText.cpp" />
     <ClCompile Include="UiRectf.cpp" />
     <ClCompile Include="UiStaticGraphic.cpp" />
     <ClCompile Include="UiStaticText.cpp" />
     <ClCompile Include="UiTextureBar.cpp" />
+    <ClCompile Include="UiVolumeSlider.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Camera.h" />
@@ -197,16 +199,18 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="TextureManager.h" />
     <ClInclude Include="UiAnimatedGraphic.h" />
     <ClInclude Include="UiBar.h" />
+    <ClInclude Include="UiButton.h" />
     <ClInclude Include="UiCollection.h" />
     <ClInclude Include="UiElement.h" />
     <ClInclude Include="UIGrid.h" />
     <ClInclude Include="UiList.h" />
     <ClInclude Include="UiManager.h" />
-    <ClInclude Include="UiNumericDisplay.h" />
+    <ClInclude Include="UiDynamicText.h" />
     <ClInclude Include="UiRectf.h" />
     <ClInclude Include="UiStaticGraphic.h" />
     <ClInclude Include="UiStaticText.h" />
     <ClInclude Include="UiTextureBar.h" />
+    <ClInclude Include="UiVolumeSlider.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

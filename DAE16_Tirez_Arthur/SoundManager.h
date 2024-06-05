@@ -17,8 +17,14 @@ public:
 	int Play(std::string path, bool loop = false);
 	void PreLoadSoundEffect(std::string path);
 
-	void SetVolume(int volume);
-	int GetVolume();
+	int GetMaxVolume();
+	void SetMasterVolume(int volume);
+	int GetMasterVolume();
+	void SetMusicVolume(int volume);
+	int GetMusicVolume();
+	void SetEffectVolume(int volume);
+	int& GetEffectVolume();
+
 	bool IsPlaying(std::string path, const int channel = -1);
 	void Stop(std::string path, const int channel = -1);
 	void Pause(std::string path, const int channel = -1);
@@ -31,6 +37,8 @@ private:
 
 	SoundStream* m_SoundStream;
 	std::map<std::string, SoundEffect*> m_SoundEffectMap;
-	int m_SoundVolume{ 128 };
+	int m_EffectVolume{ 128 };
+	int m_MasterVolume{ 128 };
+	int m_MusicVolume{ 128 };
 };
 

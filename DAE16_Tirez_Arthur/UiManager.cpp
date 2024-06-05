@@ -6,10 +6,12 @@
 #include "UiAnimatedGraphic.h"
 #include "UiList.h"
 #include "UiBar.h"
-#include "UiNumericDisplay.h"
+#include "UiDynamicText.h"
 #include "UiTextureBar.h"
 #include "UiCollection.h"
+#include "UiVolumeSlider.h"
 #include "UiStaticText.h"
+#include "UiButton.h"
 #include "UIGrid.h"
 #include "Player.h"
 #include "json/json.h"
@@ -54,6 +56,12 @@ void UiManager::Update(float elapsedSec)
 	else if (m_CurrentScreen == "inventory") {
 		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("game");
 	}
+	else if (m_CurrentScreen == "controls") {
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("options");
+	}
+	else if (m_CurrentScreen == "sound") {
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("options");
+	}
 }
 
 void UiManager::Draw() const
@@ -96,6 +104,21 @@ void UiManager::LoadScreen(const std::string& path)
 	if (m_ScreenMap.at(path) != nullptr) m_CurrentScreen = path;
 }
 
+void UiManager::UiButtonFunction(int functionId, const std::string& data)
+{
+	switch (functionId)
+	{
+	case 0:
+		LoadScreen(data);
+		break;
+	case 1:
+		m_InputManagerPtr->ChangeKeybindEvent((InputManager::Keybind)std::stoi(data));
+		break;
+	default:
+		break;
+	}
+}
+
 UiElement* UiManager::GetElement(const Json::Value& data)
 {
 	const std::string type{ data.get("type", "").asString() };
@@ -104,10 +127,12 @@ UiElement* UiManager::GetElement(const Json::Value& data)
 	else if (type == "collection") return GetCollection(data);
 	else if (type == "static_text") return GetStaticText(data);
 	else if (type == "bar") return GetBar(data);
-	else if (type == "numeric_display") return GetNumericDisplay(data);
+	else if (type == "dynamic_text") return GetDynamicText(data);
 	else if (type == "texture_bar") return GetTextureBar(data);
 	else if (type == "rectf") return GetRectf(data);
 	else if (type == "grid") return GetGrid(data);
+	else if (type == "button") return GetButton(data);
+	else if (type == "volume_slider") return GetVolumeSlider(data);
 	else return nullptr;
 }
 
@@ -155,7 +180,8 @@ UiElement* UiManager::GetStaticText(const Json::Value& data)
 								data["selectedColor"].get("B", 1.0f).asFloat(),
 								data["selectedColor"].get("A", 1.0f).asFloat() };
 	const bool leftAligned{	data.get("leftAligned", true).asBool() };
-	return new UiStaticText{ pos, m_TextureManager, textColor, selectedColor, textureId, text, leftAligned };
+	const bool centerAligned{ data.get("centerAligned", false).asBool() };
+	return new UiStaticText{ pos, m_TextureManager, textColor, selectedColor, textureId, text, leftAligned, centerAligned };
 }
 
 UiElement* UiManager::GetBar(const Json::Value& data)
@@ -172,17 +198,24 @@ UiElement* UiManager::GetBar(const Json::Value& data)
 	else return nullptr;
 }
 
-UiElement* UiManager::GetNumericDisplay(const Json::Value& data)
+UiElement* UiManager::GetDynamicText(const Json::Value& data)
 {
 	const Point2f pos{ data.get("x", 0.0f).asFloat(), data.get("y", 0.0f).asFloat() };
 	const std::string textureId{ data.get("textureId", "").asString() };
 	const bool leftAligned{ data.get("leftAligned", true).asBool() };
+	const bool centerAligned{ data.get("centerAligned", false).asBool() };
 	const Color4f textColor{ data["color"].get("R", 1.0f).asFloat(),
 								data["color"].get("G", 1.0f).asFloat(),
 								data["color"].get("B", 1.0f).asFloat(),
 								data["color"].get("A", 1.0f).asFloat() };
-	const std::string dataSource{ data.get("data", "").asString() };
-	if (dataSource == "tears") return new UiNumericDisplay{ pos,m_TextureManager,m_PlayerPtr->GetTears(),textColor,textureId,leftAligned };
+	const std::string dataSource{ data["data"].get("source", "").asString()};
+	const UiDynamicText::DataType dataType{ (UiDynamicText::DataType)data["data"].get("type", "").asInt() };
+	if (dataSource == "tears") return new UiDynamicText{ pos,m_TextureManager,m_PlayerPtr->GetTears(),dataType,textColor,textureId,leftAligned,centerAligned };
+	else if (dataSource == "keybind") {
+		InputManager::Keybind keybind{ (InputManager::Keybind)data["data"].get("key", 0).asInt() };
+		const int& intRef{ m_InputManagerPtr->GetKeybind(keybind) };
+		return new UiDynamicText{ pos,m_TextureManager,m_InputManagerPtr->GetKeybind(keybind),dataType,textColor,textureId,leftAligned,centerAligned };
+	}
 	else return nullptr;
 }
 
@@ -223,4 +256,32 @@ UiElement* UiManager::GetGrid(const Json::Value& data)
 		}
 	}
 	return grid;
+}
+
+UiElement* UiManager::GetButton(const Json::Value& data)
+{
+	const std::string functionData{ data.get("functionData", "").asString() };
+	const int functionId{ data.get("functionId", -1).asInt() };
+	return new UiButton{ m_InputManagerPtr, this, m_SoundManagerPtr, functionId, functionData };
+}
+
+UiElement* UiManager::GetVolumeSlider(const Json::Value& data)
+{
+	const Point2f pos{ data.get("x", 0.0f).asFloat(), data.get("y", 0.0f).asFloat() };
+	const std::string sliderTexture{ data.get("sliderTexture", "").asString() };
+	const float width{ data.get("w", 0.0f).asFloat() };
+	const float height{ data.get("h", 0.0f).asFloat() };
+	const int steps{ data.get("steps", 0.0f).asInt() };
+	const InputManager::Keybind cycleLeft{ (InputManager::Keybind)data.get("cycleLeft", 0).asInt() };
+	const InputManager::Keybind cycleRight{ (InputManager::Keybind)data.get("cycleRight", 0).asInt() };
+	const int soundType{ data.get("soundType", 0.0f).asInt() };
+	const Color4f color{ data["color"].get("R", 1.0f).asFloat(),
+							data["color"].get("G", 1.0f).asFloat(),
+							data["color"].get("B", 1.0f).asFloat(),
+							data["color"].get("A", 1.0f).asFloat() };
+	const Color4f borderColor{ data["borderColor"].get("R", 1.0f).asFloat(),
+							data["borderColor"].get("G", 1.0f).asFloat(),
+							data["borderColor"].get("B", 1.0f).asFloat(),
+							data["borderColor"].get("A", 1.0f).asFloat() };
+	return new UiVolumeSlider{ pos, m_SoundManagerPtr, m_TextureManager, m_InputManagerPtr, cycleLeft, cycleRight, width, height, steps, soundType, color, borderColor, sliderTexture };
 }
