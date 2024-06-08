@@ -20,7 +20,7 @@ UiRectf::UiRectf(const Rectf& rect, const Color4f& color) :
 {
 }
 
-void UiRectf::Update(float elapsedSec)
+void UiRectf::Update(float elapsedSec, bool selected)
 {
 }
 

@@ -16,7 +16,7 @@ public:
 	UiList& operator=(const UiList& other) = delete;
 	UiList& operator=(UiList&& other) = delete;
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = true) override;
 	virtual void Draw(bool selected = false) const override;
 
 	void AddElement(UiElement* element);

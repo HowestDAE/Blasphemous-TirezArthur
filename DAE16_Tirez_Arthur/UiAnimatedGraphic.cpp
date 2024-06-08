@@ -16,7 +16,7 @@ UiAnimatedGraphic::UiAnimatedGraphic(const Point2f& pos, std::string texture, Te
 {
 }
 
-void UiAnimatedGraphic::Update(float elapsedSec)
+void UiAnimatedGraphic::Update(float elapsedSec, bool selected)
 {
 	m_AnimationDuration += elapsedSec;
 }

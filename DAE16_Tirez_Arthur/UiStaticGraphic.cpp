@@ -15,13 +15,18 @@ UiStaticGraphic::UiStaticGraphic(const Point2f& pos, std::string texture, Textur
 {
 }
 
-void UiStaticGraphic::Update(float elapsedSec)
+void UiStaticGraphic::Update(float elapsedSec, bool selected)
 {
 
 }
 
+void UiStaticGraphic::Draw(const Point2f& pos, bool selected) const
+{
+	if (!selected) m_TextureManager->Draw(m_Texture, pos, m_Flipped);
+	else m_TextureManager->Draw(m_Texture + "_selected", pos, m_Flipped);
+}
+
 void UiStaticGraphic::Draw(bool selected) const
 {
-	if (!selected) m_TextureManager->Draw(m_Texture, m_Position, m_Flipped);
-	else m_TextureManager->Draw(m_Texture + "_selected", m_Position, m_Flipped);
+	Draw(m_Position, selected);
 }

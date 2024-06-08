@@ -14,11 +14,13 @@ UiButton::UiButton(InputManager* inputManager, UiManager* uiManager, SoundManage
 {
 }
 
-void UiButton::Update(float elapsedSec)
+void UiButton::Update(float elapsedSec, bool selected)
 {
-	if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::enter)) {
-		m_UiManagerPtr->UiButtonFunction(m_FunctionId, m_FunctionData);
-		m_SoundManagerPtr->Play("button_click");
+	if (selected) {
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::enter)) {
+			m_UiManagerPtr->UiButtonFunction(m_FunctionId, m_FunctionData);
+			m_SoundManagerPtr->Play("button_click");
+		}
 	}
 }
 

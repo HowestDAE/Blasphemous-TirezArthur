@@ -115,7 +115,7 @@ void Texture::CreateFromString( const std::string& text, TTF_Font *pFont, const 
 	textColor.b = Uint8( color.b * 255 );
 	textColor.a = Uint8( color.a * 255 );
 
-	SDL_Surface* pLoadedSurface = TTF_RenderText_Blended( pFont, text.c_str( ), textColor );
+	SDL_Surface* pLoadedSurface = TTF_RenderText_Blended_Wrapped(pFont, text.c_str(), textColor, SHRT_MAX);
 	if ( pLoadedSurface == nullptr )
 	{
 		std::cerr << "Texture::CreateFromString, error when calling TTF_RenderText_Blended: " << TTF_GetError( ) << std::endl;

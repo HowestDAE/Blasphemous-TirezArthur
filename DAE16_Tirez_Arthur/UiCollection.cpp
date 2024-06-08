@@ -14,10 +14,17 @@ UiCollection::~UiCollection()
 	}
 }
 
-void UiCollection::Update(float elapsedSec)
+void UiCollection::Update(float elapsedSec, bool selected)
 {
-	for (UiElement* element : m_Elements) {
-		if (element != nullptr) element->Update(elapsedSec);
+	if (!m_AlwaysDisplay && selected) {
+		for (UiElement* element : m_Elements) {
+			if (element != nullptr) element->Update(elapsedSec);
+		}
+	}
+	else if (m_AlwaysDisplay) {
+		for (UiElement* element : m_Elements) {
+			if (element != nullptr) element->Update(elapsedSec, selected);
+		}
 	}
 }
 

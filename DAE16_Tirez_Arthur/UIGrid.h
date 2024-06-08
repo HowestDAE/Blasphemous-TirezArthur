@@ -17,7 +17,7 @@ public:
 	UIGrid& operator=(const UIGrid& other) = delete;
 	UIGrid& operator=(UIGrid&& other) = delete;
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = false) override;
 	virtual void Draw(bool selected = false) const override;
 
 	void AddElement(UiElement* element, int row = -1);

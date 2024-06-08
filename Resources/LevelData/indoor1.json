@@ -302,10 +302,10 @@
   },
   "items": {
     "0": {
-      "category": 5,
+      "category": 6,
       "id": 2,
       "name": "Navicular of Kahnnyhoo, Murderer",
-      "description": "Kahnnyhoo, although clumsy, took#advantage of his cheerful and jovial#demeanor to trick merchants and#clergymen, with the intention of killing#them and stealing their belongings",
+      "description": "Kahnnyhoo, although clumsy, took\nadvantage of his cheerful and jovial\ndemeanor to trick merchants and\nclergymen, with the intention of killing\nthem and stealing their belongings",
       "x": 783,
       "y": 598
     }

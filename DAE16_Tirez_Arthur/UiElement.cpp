@@ -15,7 +15,7 @@ UiElement::~UiElement()
 {
 }
 
-void UiElement::Update(float elapsedSec)
+void UiElement::Update(float elapsedSec, bool selected)
 {
 }
 

@@ -170,6 +170,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClCompile Include="UiCollection.cpp" />
     <ClCompile Include="UiElement.cpp" />
     <ClCompile Include="UIGrid.cpp" />
+    <ClCompile Include="UiInventorySlot.cpp" />
     <ClCompile Include="UiList.cpp" />
     <ClCompile Include="UiManager.cpp" />
     <ClCompile Include="UiDynamicText.cpp" />
@@ -203,6 +204,7 @@ xcopy "$(SolutionDir)Resources\*.*" "$(TargetDir)" /y /d /s</Command>
     <ClInclude Include="UiCollection.h" />
     <ClInclude Include="UiElement.h" />
     <ClInclude Include="UIGrid.h" />
+    <ClInclude Include="UiInventorySlot.h" />
     <ClInclude Include="UiList.h" />
     <ClInclude Include="UiManager.h" />
     <ClInclude Include="UiDynamicText.h" />

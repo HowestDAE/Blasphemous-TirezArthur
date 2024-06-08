@@ -9,7 +9,7 @@ public:
 	explicit UiAnimatedGraphic(float xPos, float yPos, std::string texture, TextureManager* textureManager, float frameModifier = 1.0f, bool flipped = false);
 	explicit UiAnimatedGraphic(const Point2f & pos, std::string texture, TextureManager * textureManager, float frameModifier = 1.0f, bool flipped = false);
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = false) override;
 	virtual void Draw(bool selected = false) const override;
 private:
 	std::string m_Texture;

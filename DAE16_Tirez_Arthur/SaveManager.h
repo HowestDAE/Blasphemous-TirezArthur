@@ -7,8 +7,8 @@ enum class CategoryId {
 	relics = 2,
 	quest_items = 3,
 	mae_culpa_hearts = 4,
-	collectibles = 5,
-	prayers = 6
+	prayers = 5,
+	collectibles = 6
 };
 
 enum class ItemId {
@@ -18,6 +18,7 @@ enum class ItemId {
 };
 
 struct Item {
+	explicit Item(CategoryId category, ItemId id, std::string name, std::string description);
 	CategoryId category;
 	ItemId id;
 	std::string name;
@@ -31,6 +32,8 @@ public:
 
 	void CollectItem(const Item& item);
 	bool IsItemCollected(CategoryId category, ItemId id);
+	Item GetItem(CategoryId category, int index) const;
+	int GetCollectedAmount();
 private:
 	std::vector<Item> m_CollectedItems;
 };

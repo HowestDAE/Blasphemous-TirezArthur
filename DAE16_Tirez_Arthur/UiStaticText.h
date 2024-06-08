@@ -6,15 +6,24 @@ class TextureManager;
 class UiStaticText final : public UiElement
 {
 public:
-	explicit UiStaticText(float xPos, float yPos, TextureManager* texureManager, const Color4f& textColor, const Color4f& selectedColor, const std::string& textureId, const std::string& text, bool leftAligned = true, bool centerAligned = false);
-	explicit UiStaticText(const Point2f& pos, TextureManager* texureManager, const Color4f& textColor, const Color4f& selectedColor, const std::string& textureId, const std::string& text, bool leftAligned = true, bool centerAligned = false);
+	enum class Alignment {
+		left,
+		topleft,
+		top,
+		topright,
+		right,
+		bottomright,
+		bottom,
+		bottomleft
+	};
+	explicit UiStaticText(float xPos, float yPos, TextureManager* texureManager, const Color4f& textColor, const Color4f& selectedColor, const std::string& textureId, const std::string& text, Alignment alignment = Alignment::bottomleft);
+	explicit UiStaticText(const Point2f& pos, TextureManager* texureManager, const Color4f& textColor, const Color4f& selectedColor, const std::string& textureId, const std::string& text, Alignment alignment = Alignment::bottomleft);
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = false) override;
 	virtual void Draw(bool selected = false) const override;
 private:
 	TextureManager* m_TextureManagerPtr;
-	const bool m_LeftAligned;
-	const bool m_CenterAligned;
+	const Alignment m_Alignment;
 	std::string m_TextureId;
 };
 

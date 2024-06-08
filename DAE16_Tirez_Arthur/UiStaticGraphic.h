@@ -9,7 +9,8 @@ public:
 	explicit UiStaticGraphic(float xPos, float yPos, std::string texture, TextureManager* textureManager, bool flipped = false);
 	explicit UiStaticGraphic(const Point2f& pos, std::string texture, TextureManager* textureManager, bool flipped = false);
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = false) override;
+	void Draw(const Point2f& pos, bool selected = false) const;
 	virtual void Draw(bool selected = false) const override;
 private:
 	std::string m_Texture;

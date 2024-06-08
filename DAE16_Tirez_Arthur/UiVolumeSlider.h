@@ -11,7 +11,7 @@ public:
 	explicit UiVolumeSlider(float x, float y, SoundManager* soundManager, TextureManager* textureManager, InputManager* inputManager, InputManager::Keybind cycleLeft, InputManager::Keybind cycleRight, float width, float height, int steps, int volumeType, const Color4f& barColor, const Color4f& borderColor, const std::string sliderTexture);
 	explicit UiVolumeSlider(Point2f pos, SoundManager* soundManager, TextureManager* textureManager, InputManager* inputManager, InputManager::Keybind cycleLeft, InputManager::Keybind cycleRight, float width, float height, int steps, int volumeType, const Color4f& barColor, const Color4f& borderColor, const std::string sliderTexture);
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = true) override;
 	virtual void Draw(bool selected = false) const override;
 private:
 	TextureManager* m_TextureManagerPtr;

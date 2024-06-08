@@ -367,7 +367,7 @@ void LevelManager::LoadLevel(std::string path)
 		m_HiddenAreas.push_back(hitbox);
 	}
 
-	for (int backgroundIndex{}; backgroundIndex < levelData["background"].size(); ++backgroundIndex) {
+	for (int backgroundIndex{}; backgroundIndex < static_cast<int>(levelData["background"].size()); ++backgroundIndex) {
 		m_LevelBackground.push_back(levelData["background"][backgroundIndex].asString());
 		m_TextureManagerPtr->PreLoadTexture(m_LevelBackground.at(backgroundIndex));
 	}

@@ -33,13 +33,39 @@
       "texture": "tears_icon"
     },
     {
+      "type": "static_graphic",
+      "x": 560,
+      "y": 6,
+      "texture": "controls_esc"
+    },
+    {
+      "type": "static_text",
+      "x": 584,
+      "y": 8,
+      "alignment": 7,
+      "text": "Exit",
+      "textureId": "inventory_exit",
+      "color": {
+        "R": 0.533,
+        "G": 0.498,
+        "B": 0.302,
+        "A": 1
+      },
+      "selectedColor": {
+        "R": 0.533,
+        "G": 0.498,
+        "B": 0.302,
+        "A": 1
+      }
+    },
+    {
       "type": "dynamic_text",
       "x": 566,
       "y": 332,
       "textureId": "tears_value_inventory",
-      "leftAligned": false,
+      "alignment": 5,
       "data": {
-        "souce": "tears",
+        "source": "tears",
         "type": 0
       },
       "color": {
@@ -94,8 +120,9 @@
                 },
                 {
                   "type": "static_text",
-                  "x": 268,
-                  "y": 334,
+                  "x": 304,
+                  "y": 333,
+                  "alignment": 6,
                   "text": "Rosary Beads",
                   "textureId": "inventory_cat_text0",
                   "color": {
@@ -113,159 +140,329 @@
                 },
                 {
                   "type": "grid",
-                  "cycleUp": 7,
-                  "cycleDown": 6,
+                  "cycleUp": 6,
+                  "cycleDown": 7,
                   "cycleLeft": 4,
                   "cycleRight": 5,
                   "elements": [
                     [
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 92,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 0
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 126,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 1
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 160,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 2
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 194,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 3
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 228,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 4
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 262,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 5
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 296,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 6
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 330,
-                        "y": 37,
-                        "texture": "inventory_slot_empty"
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 7
                       }
                     ],
                     [
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 92,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 8
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 126,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 9
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 160,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 10
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 194,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 11
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 228,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 12
+
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 262,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 13
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 296,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 14
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 330,
                         "y": 70,
-                        "texture": "inventory_slot_empty"
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 15
                       }
                     ],
+
                     [
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 92,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 16
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 126,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 17
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 160,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 18
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 194,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 19
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 228,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 20
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 262,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 21
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 296,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 22
                       },
                       {
-                        "type": "static_graphic",
+                        "type": "inventory_slot",
                         "x": 330,
-                        "y": 103,
-                        "texture": "inventory_slot_empty"
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 1,
+                        "index": 23
                       }
                     ]
                   ]
@@ -289,6 +486,379 @@
               "x": 188,
               "y": 308,
               "texture": "inventory_cat_1"
+            },
+            {
+              "type": "collection",
+              "alwaysDisplay": false,
+              "elements": [
+                {
+                  "type": "static_graphic",
+                  "x": 89,
+                  "y": 143,
+                  "texture": "inventory_text_background"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 445,
+                  "y": 40,
+                  "texture": "inventory_background_art1"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 395,
+                  "y": 98,
+                  "texture": "inventory_background_art11"
+                },
+                {
+                  "type": "static_text",
+                  "x": 304,
+                  "y": 333,
+                  "alignment": 6,
+                  "text": "Relics",
+                  "textureId": "inventory_cat_text1",
+                  "color": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "grid",
+                  "cycleUp": 6,
+                  "cycleDown": 7,
+                  "cycleLeft": 4,
+                  "cycleRight": 5,
+                  "elements": [
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 0
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 1
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 2
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 3
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 4
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 5
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 6
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 7
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 8
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 9
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 10
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 11
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 12
+
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 13
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 14
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 15
+                      }
+                    ],
+
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 16
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 17
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 18
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 19
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 20
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 21
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 22
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 23
+                      }
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -307,6 +877,516 @@
               "x": 238,
               "y": 312,
               "texture": "inventory_cat_2"
+            },
+            {
+              "type": "collection",
+              "alwaysDisplay": false,
+              "elements": [
+                {
+                  "type": "static_graphic",
+                  "x": 89,
+                  "y": 60,
+                  "texture": "inventory_text_background_long"
+                },
+                {
+                  "type": "static_text",
+                  "x": 304,
+                  "y": 333,
+                  "alignment": 6,
+                  "text": "Quest Items",
+                  "textureId": "inventory_cat_text2",
+                  "color": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "grid",
+                  "cycleUp": 6,
+                  "cycleDown": 7,
+                  "cycleLeft": 4,
+                  "cycleRight": 5,
+                  "elements": [
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 372,
+                        "y": 259,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 0
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 406,
+                        "y": 259,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 1
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 440,
+                        "y": 259,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 2
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 474,
+                        "y": 259,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 3
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 508,
+                        "y": 259,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 4
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 372,
+                        "y": 225,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 5
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 406,
+                        "y": 225,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 6
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 440,
+                        "y": 225,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 7
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 474,
+                        "y": 225,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 8
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 508,
+                        "y": 225,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 9
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 372,
+                        "y": 191,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 10
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 406,
+                        "y": 191,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 11
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 440,
+                        "y": 191,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 12
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 474,
+                        "y": 191,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 13
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 508,
+                        "y": 191,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 14
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 372,
+                        "y": 157,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 15
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 406,
+                        "y": 157,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 16
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 440,
+                        "y": 157,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 17
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 474,
+                        "y": 157,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 18
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 508,
+                        "y": 157,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 19
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 372,
+                        "y": 123,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 20
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 406,
+                        "y": 123,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 21
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 440,
+                        "y": 123,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 22
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 474,
+                        "y": 123,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 23
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 508,
+                        "y": 123,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 24
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 372,
+                        "y": 89,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 25
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 406,
+                        "y": 89,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 26
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 440,
+                        "y": 89,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 27
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 474,
+                        "y": 89,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 28
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 508,
+                        "y": 89,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 29
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 372,
+                        "y": 55,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 30
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 406,
+                        "y": 55,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 31
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 440,
+                        "y": 55,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 32
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 474,
+                        "y": 55,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 33
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 508,
+                        "y": 55,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 2,
+                        "index": 34
+                      }
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -325,6 +1405,398 @@
               "x": 297,
               "y": 308,
               "texture": "inventory_cat_3"
+            },
+            {
+              "type": "collection",
+              "alwaysDisplay": false,
+              "elements": [
+                {
+                  "type": "static_graphic",
+                  "x": 89,
+                  "y": 143,
+                  "texture": "inventory_text_background"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 436,
+                  "y": 29,
+                  "texture": "inventory_background_art3"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 382,
+                  "y": 159,
+                  "texture": "inventory_background_art31"
+                },
+                {
+                  "type": "static_text",
+                  "x": 304,
+                  "y": 333,
+                  "alignment": 6,
+                  "text": "Mea Culpa Hearts",
+                  "textureId": "inventory_cat_text3",
+                  "color": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "static_text",
+                  "x": 136,
+                  "y": 16,
+                  "alignment": 0,
+                  "text": "Kneel in sacred ground to reforge Mea Culpa's Heart",
+                  "textureId": "inventory_cat_text31",
+                  "color": {
+                    "R": 0.353,
+                    "G": 0.235,
+                    "B": 0.2,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.353,
+                    "G": 0.235,
+                    "B": 0.2,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "grid",
+                  "cycleUp": 6,
+                  "cycleDown": 7,
+                  "cycleLeft": 4,
+                  "cycleRight": 5,
+                  "elements": [
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 0
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 1
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 2
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 3
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 4
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 5
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 6
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 7
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 8
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 9
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 10
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 11
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 12
+
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 13
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 14
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 15
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 16
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 17
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 18
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 19
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 20
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 21
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 22
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 3,
+                        "index": 23
+                      }
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -343,6 +1815,379 @@
               "x": 344,
               "y": 310,
               "texture": "inventory_cat_4"
+            },
+            {
+              "type": "collection",
+              "alwaysDisplay": false,
+              "elements": [
+                {
+                  "type": "static_graphic",
+                  "x": 89,
+                  "y": 143,
+                  "texture": "inventory_text_background"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 409,
+                  "y": 83,
+                  "texture": "inventory_background_art4"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 384,
+                  "y": 167,
+                  "texture": "inventory_background_art41"
+                },
+                {
+                  "type": "static_text",
+                  "x": 304,
+                  "y": 333,
+                  "alignment": 6,
+                  "text": "Prayers",
+                  "textureId": "inventory_cat_text4",
+                  "color": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "grid",
+                  "cycleUp": 6,
+                  "cycleDown": 7,
+                  "cycleLeft": 4,
+                  "cycleRight": 5,
+                  "elements": [
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 0
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 1
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 2
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 3
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 4
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 5
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 6
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 7
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 8
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 9
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 10
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 11
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 12
+
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 13
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 14
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 15
+                      }
+                    ],
+
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 16
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 17
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 18
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 19
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 20
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 21
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 22
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 4,
+                        "index": 23
+                      }
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -361,6 +2206,989 @@
               "x": 394,
               "y": 312,
               "texture": "inventory_cat_5"
+            },
+            {
+              "type": "collection",
+              "alwaysDisplay": false,
+              "elements": [
+                {
+                  "type": "static_graphic",
+                  "x": 272,
+                  "y": 35,
+                  "texture": "inventory_text_background_wide"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 73,
+                  "y": 83,
+                  "texture": "inventory_background_art5"
+                },
+                {
+                  "type": "static_text",
+                  "x": 304,
+                  "y": 333,
+                  "alignment": 6,
+                  "text": "Abilities",
+                  "textureId": "inventory_cat_text5",
+                  "color": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "static_text",
+                  "x": 175,
+                  "y": 16,
+                  "alignment": 0,
+                  "text": "Go to the Mea Culpa altar to unlock new abilities",
+                  "textureId": "inventory_cat_text51",
+                  "color": {
+                    "R": 0.353,
+                    "G": 0.235,
+                    "B": 0.2,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.353,
+                    "G": 0.235,
+                    "B": 0.2,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "static_text",
+                  "x": 135,
+                  "y": 268,
+                  "alignment": 6,
+                  "text": "Mea Culpa",
+                  "textureId": "inventory_cat_text52",
+                  "color": {
+                    "R": 0.671,
+                    "G": 0.604,
+                    "B": 0.141,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.671,
+                    "G": 0.604,
+                    "B": 0.141,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "static_text",
+                  "x": 135,
+                  "y": 247,
+                  "alignment": 6,
+                  "text": "2",
+                  "textureId": "inventory_cat_text53",
+                  "color": {
+                    "R": 0.671,
+                    "G": 0.604,
+                    "B": 0.141,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.671,
+                    "G": 0.604,
+                    "B": 0.141,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "grid",
+                  "cycleUp": 6,
+                  "cycleDown": 7,
+                  "cycleLeft": 4,
+                  "cycleRight": 5,
+                  "elements": [
+                    [
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 61,
+                            "y": 208,
+                            "texture": "inventory_ability_1"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_1"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Last Words",
+                                "textureId": "inventory_ability_text_1",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "The Penitent One performs a fourth finish attack.",
+                                "textureId": "inventory_ability_text_1_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 91,
+                            "y": 208,
+                            "texture": "inventory_ability_2"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_2"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Sinful Wrath",
+                                "textureId": "inventory_ability_text_2",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Concentrates the power of the Mea Culpa on the\nblade, allowing the Penitent One to release its full\npotential in a single but incredible devestating\nattack.",
+                                "textureId": "inventory_ability_text_2_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 121,
+                            "y": 208,
+                            "texture": "inventory_ability_3"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_3"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Fervorous Blood",
+                                "textureId": "inventory_ability_text_3",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Sacred technique that allows the bearer of Mae\nCulpa to use the cut of its blade to bless his own\nblood and turn it into a throwing weapon. It\nconsumes fervour.",
+                                "textureId": "inventory_ability_text_3_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 151,
+                            "y": 208,
+                            "texture": "inventory_ability_4"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_4"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Weight of Sin",
+                                "textureId": "inventory_ability_text_4",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "It takes advantage of the speed of a fall to perform\na powerfull plunge attack.",
+                                "textureId": "inventory_ability_text_4_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 181,
+                            "y": 208,
+                            "texture": "inventory_ability_5"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_5"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Sacred Thrust",
+                                "textureId": "inventory_ability_text_5",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "The Penitent One takes advantage of the dodge\nimpulse to thrust Mae Culpa at the enemies\nfurthest away.",
+                                "textureId": "inventory_ability_text_5_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    [
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 61,
+                            "y": 149,
+                            "texture": "inventory_ability_locked_2"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_1"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Ascending Edge",
+                                "textureId": "inventory_ability_text_6",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "The Penitent One performs an upwards slash as combo\nfinisher.",
+                                "textureId": "inventory_ability_text_6_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 91,
+                            "y": 179,
+                            "texture": "inventory_ability_locked_3"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_2"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Holy Wrath",
+                                "textureId": "inventory_ability_text_7",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Optimises the way Mae Culpa concentrates its\npower, using its sharp thorns instead of the blade,\nand allowing The Penitent One to perform a\ndevastating attack much faster",
+                                "textureId": "inventory_ability_text_7_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 121,
+                            "y": 149,
+                            "texture": "inventory_ability_locked_5"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_3"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Sacred Blood",
+                                "textureId": "inventory_ability_text_8",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Perfects the technique of throwing blessed blood,\naltering the trajectory of the blood at its furthest\npoint and making it return to its point of\norigin. It consumes fervour.",
+                                "textureId": "inventory_ability_text_8_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 151,
+                            "y": 179,
+                            "texture": "inventory_ability_locked_3"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_4"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Weight of Justice",
+                                "textureId": "inventory_ability_text_9",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Perfects the technique of the plunged attack by\nconcentrating power on Mea Culpa during the fall,\nwhich causes an explosion around the point of\nimpact that pushes and damages the enemies\naround.",
+                                "textureId": "inventory_ability_text_9_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 181,
+                            "y": 149,
+                            "texture": "inventory_ability_locked_2"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_5"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Sacred Lunge",
+                                "textureId": "inventory_ability_text_10",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "It perfects the lunge technique and makes even\nbetter use of the dodge impulse, making it reach\nfarther.",
+                                "textureId": "inventory_ability_text_10_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ],
+                    [
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 61,
+                            "y": 120,
+                            "texture": "inventory_ability_locked_4"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_1"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Azure Cyclone",
+                                "textureId": "inventory_ability_text_11",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "The Penitent One performs a spinning attack as combo\nfinisher.",
+                                "textureId": "inventory_ability_text_11_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 91,
+                            "y": 90,
+                            "texture": "inventory_ability_locked_6"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_2"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Wrath of The Twisted Edge",
+                                "textureId": "inventory_ability_text_12",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Increases the power of Mea Culpa over its\ncapabilities, releasing the excess further away\nfrom the blade and damaging everything on its path.",
+                                "textureId": "inventory_ability_text_12_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 121,
+                            "y": 58,
+                            "texture": "inventory_ability_locked_7"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_3"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Bleeding Miracle",
+                                "textureId": "inventory_ability_text_13",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Reaches mastry in the technique of casting\nblessed blood. After launching, the projectile\ncauses a sacred explosion at the furthest point\nfrom its trajectory, causing additional damage. It\nconsumes fervour.",
+                                "textureId": "inventory_ability_text_13_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 151,
+                            "y": 90,
+                            "texture": "inventory_ability_locked_6"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_4"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Concentration",
+                                "textureId": "inventory_ability_text_14",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "Achieves mastery in the technique of the plunged\nattack. During the fall, Mae Culpa concentrates so\nmuch sacred power that, from its point of impact,\na large column of divine light emerges, damaging\neverything in its path.",
+                                "textureId": "inventory_ability_text_14_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      },
+                      {
+                        "type": "collection",
+                        "alwaysDisplay": true,
+                        "elements": [
+                          {
+                            "type": "static_graphic",
+                            "x": 181,
+                            "y": 120,
+                            "texture": "inventory_ability_locked_4"
+                          },
+                          {
+                            "type": "collection",
+                            "alwaysDisplay": false,
+                            "elements": [
+                              {
+                                "type": "static_graphic",
+                                "x": 289,
+                                "y": 183,
+                                "texture": "ability_preview_5"
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 288,
+                                "y": 187,
+                                "alignment": 7,
+                                "text": "Sacred Onslaught",
+                                "textureId": "inventory_ability_text_15",
+                                "color": {
+                                  "R": 0.671,
+                                  "G": 0.604,
+                                  "B": 0.247,
+                                  "A": 1
+                                }
+                              },
+                              {
+                                "type": "static_text",
+                                "x": 291,
+                                "y": 171,
+                                "alignment": 1,
+                                "text": "It reaches the maximum level of mastry in the art\nof lunge. Mae Culpa cuts the air in such a way that\nit manages to produce a wave that also produces\ndamage above and below the blade.",
+                                "textureId": "inventory_ability_text_15_1",
+                                "color": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                },
+                                "selectedColor": {
+                                  "R": 0.545,
+                                  "G": 0.522,
+                                  "B": 0.376,
+                                  "A": 1
+                                }
+                              }
+                            ]
+                          }
+                        ]
+                      }
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         },
@@ -379,6 +3207,373 @@
               "x": 438,
               "y": 309,
               "texture": "inventory_cat_6"
+            },
+            {
+              "type": "collection",
+              "alwaysDisplay": false,
+              "elements": [
+                {
+                  "type": "static_graphic",
+                  "x": 89,
+                  "y": 143,
+                  "texture": "inventory_text_background"
+                },
+                {
+                  "type": "static_graphic",
+                  "x": 409,
+                  "y": 83,
+                  "texture": "inventory_background_art6"
+                },
+                {
+                  "type": "static_text",
+                  "x": 304,
+                  "y": 333,
+                  "alignment": 6,
+                  "text": "Collectibles",
+                  "textureId": "inventory_cat_text6",
+                  "color": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  },
+                  "selectedColor": {
+                    "R": 0.6705,
+                    "G": 0.6039,
+                    "B": 0.2470,
+                    "A": 1
+                  }
+                },
+                {
+                  "type": "grid",
+                  "cycleUp": 6,
+                  "cycleDown": 7,
+                  "cycleLeft": 4,
+                  "cycleRight": 5,
+                  "elements": [
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 0
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 1
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 2
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 3
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 4
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 5
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 6
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 103,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 7
+                      }
+                    ],
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 8
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 9
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 10
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 11
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 12
+
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 13
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 14
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 70,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 15
+                      }
+                    ],
+
+                    [
+                      {
+                        "type": "inventory_slot",
+                        "x": 92,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 16
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 126,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 17
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 160,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 18
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 194,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 19
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 228,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 20
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 262,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 21
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 296,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 22
+                      },
+                      {
+                        "type": "inventory_slot",
+                        "x": 330,
+                        "y": 37,
+                        "dispX": 104,
+                        "dispY": 250,
+                        "nameX": 142,
+                        "nameY": 259,
+                        "descX": 108,
+                        "descY": 246,
+                        "category": 6,
+                        "index": 23
+                      }
+                    ]
+                  ]
+                }
+              ]
             }
           ]
         }

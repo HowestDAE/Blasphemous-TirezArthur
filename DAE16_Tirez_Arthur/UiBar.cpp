@@ -17,7 +17,7 @@ UiBar::UiBar(const Point2f& pos, float width, float height, const Color4f& color
 {
 }
 
-void UiBar::Update(float elapsedSec)
+void UiBar::Update(float elapsedSec, bool selected)
 {
 }
 

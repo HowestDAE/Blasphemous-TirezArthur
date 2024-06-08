@@ -16,9 +16,12 @@ UIGrid::UIGrid(InputManager::Keybind cycleLeft, InputManager::Keybind cycleRight
 
 UIGrid::~UIGrid()
 {
+	for (UiList* list : m_Lists) {
+		if (list != nullptr) delete list;
+	}
 }
 
-void UIGrid::Update(float elapsedSec)
+void UIGrid::Update(float elapsedSec, bool selected)
 {
 	const bool upHeld{ m_InputManagerPtr->GetKeyState(m_CycleUp) };
 	const bool downHeld{ m_InputManagerPtr->GetKeyState(m_CycleDown) };
@@ -35,7 +38,9 @@ void UIGrid::Update(float elapsedSec)
 		m_KeyProcessed = false;
 	}
 
-	m_Lists.at(m_SelectedIndex)->Update(elapsedSec);
+	for (UiElement* element : m_Lists) {
+		if (element != nullptr) element->Update(elapsedSec, element == m_Lists.at(m_SelectedIndex));
+	}
 
 	for (UiList* list : m_Lists) {
 		list->SetSelectedIndex(m_Lists.at(m_SelectedIndex)->GetSelectedIndex());

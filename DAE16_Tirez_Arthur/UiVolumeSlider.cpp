@@ -40,8 +40,9 @@ UiVolumeSlider::UiVolumeSlider(Point2f pos, SoundManager* soundManager, TextureM
 	}
 }
 
-void UiVolumeSlider::Update(float elapsedSec)
+void UiVolumeSlider::Update(float elapsedSec, bool selected)
 {
+	if (!selected) return;
 	if (m_InputManagerPtr->GetKeyState(m_CycleLeft)) {
 		m_CurrentVolume = std::max(m_CurrentVolume - m_MaxVolume / m_Steps, 0);
 		m_SoundManagerPtr->Play("button_click");

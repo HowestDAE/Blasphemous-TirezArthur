@@ -13,7 +13,7 @@ public:
 	UiCollection& operator=(const UiCollection& other) = delete;
 	UiCollection& operator=(UiCollection&& other) = delete;
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = false) override;
 	virtual void Draw(bool selected = false) const override;
 
 	void AddElement(UiElement* element);

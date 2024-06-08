@@ -38,7 +38,7 @@
       "x": 578,
       "y": 310,
       "textureId": "tears_value",
-      "leftAligned": false,
+      "alignment": 5,
       "data": {
         "source": "tears",
         "type": 0

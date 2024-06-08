@@ -120,6 +120,9 @@
     <ClCompile Include="UiVolumeSlider.cpp">
       <Filter>Source Files\UiElements</Filter>
     </ClCompile>
+    <ClCompile Include="UiInventorySlot.cpp">
+      <Filter>Source Files\UiElements</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Game.h">
@@ -213,6 +216,9 @@
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
     <ClInclude Include="UiVolumeSlider.h">
+      <Filter>Header Files\UiElement</Filter>
+    </ClInclude>
+    <ClInclude Include="UiInventorySlot.h">
       <Filter>Header Files\UiElement</Filter>
     </ClInclude>
   </ItemGroup>

@@ -11,7 +11,7 @@ public:
 	UiElement& operator=(const UiElement&) = delete;
 	UiElement& operator=(UiElement&&) = delete;
 
-	virtual void Update(float elapsedSec) = 0;
+	virtual void Update(float elapsedSec, bool selected = true) = 0;
 	virtual void Draw(bool selected = false) const = 0;
 protected:
 	Point2f m_Position;

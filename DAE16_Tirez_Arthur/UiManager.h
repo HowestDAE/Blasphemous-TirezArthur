@@ -8,12 +8,13 @@ class SoundManager;
 class TextureManager;
 class UiElement;
 class Player;
+class SaveManager;
 class InputManager;
 
 class UiManager final
 {
 public:
-	explicit UiManager(TextureManager* textureManager, Player* player, SoundManager* soundManager, InputManager* inputManager);
+	explicit UiManager(TextureManager* textureManager, Player* player, SoundManager* soundManager, InputManager* inputManager, SaveManager* saveManager);
 	~UiManager();
 
 	void Update(float elapsedSec);
@@ -41,9 +42,11 @@ private:
 	UiElement* GetGrid(const Json::Value& data);
 	UiElement* GetButton(const Json::Value& data);
 	UiElement* GetVolumeSlider(const Json::Value& data);
+	UiElement* GetInventorySlot(const Json::Value& data);
 
 	SoundManager* m_SoundManagerPtr;
 	InputManager* m_InputManagerPtr;
+	SaveManager* m_SaveManagerPtr;
 	std::map<std::string, Screen*> m_ScreenMap;
 	std::vector<UiElement*> m_ScreenVector;
 	std::string m_CurrentScreen;

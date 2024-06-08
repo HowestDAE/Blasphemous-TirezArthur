@@ -7,7 +7,7 @@ public:
 	explicit UiBar(float xPos, float yPos, float width, float height, const Color4f& color, const float& max, const float& current);
 	explicit UiBar(const Point2f& pos, float width, float height, const Color4f& color, const float& max, const float& current);
 
-	virtual void Update(float elapsedSec);
+	virtual void Update(float elapsedSec, bool selected = false);
 	virtual void Draw(bool selected) const;
 private:
 	const float& m_MaxValue;

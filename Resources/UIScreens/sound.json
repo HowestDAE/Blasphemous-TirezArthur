@@ -15,6 +15,32 @@
       }
     },
     {
+      "type": "static_graphic",
+      "x": 560,
+      "y": 38,
+      "texture": "controls_esc"
+    },
+    {
+      "type": "static_text",
+      "x": 584,
+      "y": 40,
+      "alignment": 7,
+      "text": "Back",
+      "textureId": "sound_back",
+      "color": {
+        "R": 0.533,
+        "G": 0.498,
+        "B": 0.302,
+        "A": 1
+      },
+      "selectedColor": {
+        "R": 0.533,
+        "G": 0.498,
+        "B": 0.302,
+        "A": 1
+      }
+    },
+    {
       "type": "static_text",
       "x": 175,
       "y": 277,

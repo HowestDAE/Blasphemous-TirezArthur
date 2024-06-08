@@ -10,7 +10,7 @@ class UiButton final : public UiElement
 public:
 	explicit UiButton(InputManager* inputManager, UiManager* uiManager, SoundManager* soundManager, int functionId, const std::string& functionData);
 
-	virtual void Update(float elapsedSec) override;
+	virtual void Update(float elapsedSec, bool selected = true) override;
 	virtual void Draw(bool selected = false) const override;
 private:
 	InputManager* m_InputManagerPtr;

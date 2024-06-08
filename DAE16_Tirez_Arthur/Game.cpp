@@ -36,7 +36,7 @@ void Game::Initialize()
 	m_EnemyManagerPtr->SetLevelManager(m_LevelManagerPtr);
 	m_PlayerPtr = new Player{ m_TextureManagerPtr, m_LevelManagerPtr, m_EnemyManagerPtr, m_SoundManagerPtr, m_InputManagerPtr };
 	m_EnemyManagerPtr->SetTargetPlayer(m_PlayerPtr);
-	m_UiManagerPtr = new UiManager{ m_TextureManagerPtr, m_PlayerPtr, m_SoundManagerPtr, m_InputManagerPtr };
+	m_UiManagerPtr = new UiManager{ m_TextureManagerPtr, m_PlayerPtr, m_SoundManagerPtr, m_InputManagerPtr, m_SaveManagerPtr };
 	m_LevelManagerPtr->LoadLevel("outside1");
 	ShowCursor(false);
 }

@@ -15,7 +15,7 @@ const float Player::HITBOXWIDTH{ 18.0f };
 const float Player::MAXHEALTH{ 100.0f };
 const float Player::ATTACKDMG{ 13.0f };
 const float Player::HEAVYDMG{ 30.0f };
-const float Player::COMBOTIME{ 4.0f };
+const float Player::COMBOTIME{ 2.0f };
 const int Player::MAXFLASKS{ 2 };
 
 Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager, InputManager* inputManager) :
@@ -250,7 +250,7 @@ void Player::Update(float elapsedSec)
 
 	m_HitBox.left += m_Velocity.x * elapsedSec;
 	m_HitBox.bottom += m_Velocity.y * elapsedSec;
-	const bool verticalCollision{ m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity, downHeld && m_InputManagerPtr->GetKeyState(InputManager::Keybind::jump)) && m_Velocity.y == 0.0f };
+	const bool verticalCollision{ m_LevelManagerPtr->CollisionCheck(m_HitBox, m_Velocity, downHeld && m_InputManagerPtr->GetKeyState(InputManager::Keybind::jump, false)) && m_Velocity.y == 0.0f };
 	if (verticalCollision) {
 		switch (m_PlayerState)
 		{

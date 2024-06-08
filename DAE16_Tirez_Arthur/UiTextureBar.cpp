@@ -18,7 +18,7 @@ UiTextureBar::UiTextureBar(const Point2f& pos, const std::string& texture, Textu
 {
 }
 
-void UiTextureBar::Update(float elapsedSec)
+void UiTextureBar::Update(float elapsedSec, bool selected)
 {
 }
 

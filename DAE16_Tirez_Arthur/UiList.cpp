@@ -1,6 +1,7 @@
 #include "pch.h"
 #include "UiList.h"
 #include "SoundManager.h"
+#include <iostream>
 
 UiList::UiList(InputManager::Keybind cycleLeft, InputManager::Keybind cycleRight, SoundManager* soundManager, InputManager* inputManager, bool selectable) :
 	UiElement{ 0.0f, 0.0f },
@@ -19,24 +20,28 @@ UiList::~UiList()
 	}
 }
 
-void UiList::Update(float elapsedSec)
+void UiList::Update(float elapsedSec, bool selected)
 {
-	const bool leftHeld{ m_InputManagerPtr->GetKeyState(m_CycleLeft) };
-	const bool rightHeld{ m_InputManagerPtr->GetKeyState(m_CycleRight) };
+	if (selected) {
+		const bool leftHeld{ m_InputManagerPtr->GetKeyState(m_CycleLeft) };
+		const bool rightHeld{ m_InputManagerPtr->GetKeyState(m_CycleRight) };
 
-	if ((leftHeld || rightHeld)) {
-		if (!m_KeyProcessed){
-			if (leftHeld && !rightHeld) m_SelectedIndex = (m_SelectedIndex - 1 + (int)m_Elements.size()) % (int)m_Elements.size();
-			if (!leftHeld && rightHeld) m_SelectedIndex = (m_SelectedIndex + 1) % (int)m_Elements.size();
-			m_SoundManagerPtr->Play("menu_select");
+		if ((leftHeld || rightHeld)) {
+			if (!m_KeyProcessed) {
+				if (leftHeld && !rightHeld) m_SelectedIndex = (m_SelectedIndex - 1 + (int)m_Elements.size()) % (int)m_Elements.size();
+				if (!leftHeld && rightHeld) m_SelectedIndex = (m_SelectedIndex + 1) % (int)m_Elements.size();
+				m_SoundManagerPtr->Play("menu_select");
+			}
+			m_KeyProcessed = true;
 		}
-		m_KeyProcessed = true;
-	}
-	else {
-		m_KeyProcessed = false;
+		else {
+			m_KeyProcessed = false;
+		}
 	}
 
-	if (m_Elements.size() > 0) m_Elements.at(m_SelectedIndex)->Update(elapsedSec);
+	for (UiElement* element : m_Elements) {
+		if (element != nullptr) element->Update(elapsedSec, element == m_Elements.at(m_SelectedIndex) && !(m_Selectable && !selected));
+	}
 }
 
 void UiList::Draw(bool selected) const
