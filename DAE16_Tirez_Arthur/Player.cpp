@@ -78,7 +78,8 @@ void Player::Update(float elapsedSec)
 		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact, false) && m_LevelManagerPtr->Interact(LevelManager::Interactions::pickup, m_HitBox)) Pickup();
 		m_HitBox.bottom -= 1.0f;
 		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::jump)) Jump();
-		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact) && m_LevelManagerPtr->Interact(LevelManager::Interactions::shrine, m_HitBox, m_Velocity)) ActivateShrine();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact, false) && m_LevelManagerPtr->Interact(LevelManager::Interactions::shrine, m_HitBox, m_Velocity)) ActivateShrine();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact) && m_LevelManagerPtr->Interact(LevelManager::Interactions::guilt, m_HitBox, m_Velocity)) Idle();
 		if (downHeld) Crouch();
 		if (m_ComboTime >= 0.0f && m_ComboCounter == 2 && m_InputManagerPtr->GetKeyState(InputManager::Keybind::attack)) {
 			Attack3();
@@ -107,6 +108,8 @@ void Player::Update(float elapsedSec)
 		if (!leftHeld && !rightHeld || leftHeld && rightHeld) Idle();
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::jump)) Jump();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact, false) && m_LevelManagerPtr->Interact(LevelManager::Interactions::shrine, m_HitBox, m_Velocity)) ActivateShrine();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact) && m_LevelManagerPtr->Interact(LevelManager::Interactions::guilt, m_HitBox, m_Velocity)) Idle();
 		if (downHeld) Crouch();
 		if (m_ComboTime >= 0.0f && m_ComboCounter == 2 && m_InputManagerPtr->GetKeyState(InputManager::Keybind::attack)) {
 			Attack3();
@@ -691,6 +694,7 @@ void Player::Parry()
 {
 	m_PlayerState = State::parry;
 	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
 	Rectf hurtBox{ m_HitBox.left + m_HitBox.width * 0.5f, m_HitBox.bottom, 82.0f, 100.0f };
 	if (m_LeftFacing)
 		hurtBox.left = m_HitBox.left - 82.0f;
@@ -704,6 +708,7 @@ void Player::Heal()
 	m_AnimationDuration = 0.0f;
 	const float heal{ 50.0f };
 	m_Flasks -= 1;
+	m_Velocity.x = 0.0f;
 	m_Health = std::min(MAXHEALTH, m_Health + heal);
 	m_SoundManagerPtr->Play("penitent_heal");
 }
@@ -731,6 +736,7 @@ void Player::Respawn()
 	m_Velocity.x = 0.0f;
 	m_SoundManagerPtr->Play("penitent_respawn");
 	m_Health = MAXHEALTH;
+	m_Flasks = MAXFLASKS;
 	m_HitBox.left = m_SaveManagerPtr->GetSavePosition().x;
 	m_HitBox.bottom = m_SaveManagerPtr->GetSavePosition().y;
 	m_LevelManagerPtr->LoadLevel(m_SaveManagerPtr->GetSaveArea());

@@ -43,6 +43,7 @@ public:
 	void SetSaveLocation(const std::string& area, const Point2f& pos);
 	void SetSaveRegion(const std::string& region);
 	void AddGuilt(const Point2f& pos, const std::string& area);
+	void RemoveGuilt(const Point2f& pos, const std::string& area);
 	void CollectItem(const Item& item);
 
 	void LoadSave(int index);

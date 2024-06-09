@@ -60,6 +60,13 @@ void SaveManager::AddGuilt(const Point2f& pos, const std::string& area)
 	m_GuiltLocations.emplace_back(std::pair<Point2f, std::string>{pos, area});
 }
 
+void SaveManager::RemoveGuilt(const Point2f& pos, const std::string& area)
+{
+	for (int guiltIndex{}; guiltIndex < m_GuiltLocations.size(); ++guiltIndex) {
+		if (m_GuiltLocations.at(guiltIndex).second == area && abs(m_GuiltLocations.at(guiltIndex).first.x - pos.x) < FLT_EPSILON && abs(m_GuiltLocations.at(guiltIndex).first.y - pos.y) < FLT_EPSILON) m_GuiltLocations.erase(m_GuiltLocations.begin() + guiltIndex);
+	}
+}
+
 std::string SaveManager::GetSaveArea()
 {
 	return m_SavedArea;
@@ -165,8 +172,8 @@ void SaveManager::LoadSave(int index)
 		m_CollectedItems.emplace_back(Item{category, id, name, description});
 	}
 	for (int guiltIndex{}; guiltIndex < static_cast<int>(saveData["guilt"].size()); ++guiltIndex) {
-		const Point2f	pos{ saveData["guilt"][guiltIndex].get("x", 0).asFloat(),
-						saveData["guilt"][guiltIndex].get("y", 0).asFloat() };
+		const Point2f	pos{ saveData["guilt"][guiltIndex]["pos"].get("x", 0).asFloat(),
+						saveData["guilt"][guiltIndex]["pos"].get("y", 0).asFloat()};
 		const std::string area{ saveData["guilt"][guiltIndex].get("area", "").asString() };
 		AddGuilt(pos, area);
 	}

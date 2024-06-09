@@ -187,9 +187,19 @@ bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const
 	case Interactions::shrine:
 		for (Shrine& shrine : m_RespawnShrines) {
 			if (utils::IsOverlapping(playerHitbox, shrine.hitbox)) {
-				m_SaveManagerPtr->SetSaveLocation(m_CurrentLevel, Point2f{ shrine.hitbox.left + shrine.hitbox.width * 0.5f - playerHitbox.width * 0.5f, shrine.hitbox.bottom + 1.0f });
+				m_SaveManagerPtr->SetSaveLocation(m_CurrentLevel, Point2f{ shrine.hitbox.left + shrine.hitbox.width * 0.5f - playerHitbox.width * 0.5f, shrine.hitbox.bottom });
 				shrine.enabled = true;
 				playerHitbox.left = shrine.hitbox.left + shrine.hitbox.width * 0.5f - playerHitbox.width * 0.5f;
+				return true;
+			}
+		}
+		return false;
+		break;
+	case Interactions::guilt:
+		for (int guiltIndex{}; guiltIndex < m_Guilt.size(); ++guiltIndex) {
+			if (utils::IsOverlapping(playerHitbox, m_Guilt.at(guiltIndex))) {
+				m_SaveManagerPtr->RemoveGuilt(Point2f{ m_Guilt.at(guiltIndex).left, m_Guilt.at(guiltIndex).bottom }, m_CurrentLevel);
+				m_Guilt.erase(m_Guilt.begin() + guiltIndex);
 				return true;
 			}
 		}
@@ -237,6 +247,9 @@ void LevelManager::DrawBackGround()
 		(currentShrine.enabled) ? texture = "respawn_shrine_on" : texture = "respawn_shrine_off";
 		m_TextureManagerPtr->Animate(texture, currentShrine.hitbox.left, currentShrine.hitbox.bottom, m_AnimationDuration, false, true, 0.5f);
 	}
+	for (const Rectf& currentGuilt : m_Guilt) {
+		m_TextureManagerPtr->Animate("guilt_idle", currentGuilt.left, currentGuilt.bottom, m_AnimationDuration, true, 0.3f);
+	}
 }
 
 void LevelManager::DrawForeground()
@@ -272,6 +285,7 @@ void LevelManager::LoadLevel(std::string path)
 	m_HiddenAreas.clear();
 	m_LevelBackground.clear();
 	m_RespawnShrines.clear();
+	m_Guilt.clear();
 
 	m_TextureManagerPtr->PreLoadTexture(path);
 	m_CameraPtr->SetLevelDimensions(m_TextureManagerPtr->GetTextureWidth(path), m_TextureManagerPtr->GetTextureHeight(path));
@@ -396,6 +410,11 @@ void LevelManager::LoadLevel(std::string path)
 							66.0f,
 							145.0f };
 		m_RespawnShrines.push_back(Shrine{ hitbox, utils::IsPointInRect(m_SaveManagerPtr->GetSavePosition(), hitbox) });
+	}
+
+	std::vector<Point2f> guiltPosition{ m_SaveManagerPtr->GetGuiltPositions(m_CurrentLevel) };
+	for (const Point2f& guiltPos : guiltPosition) {
+		m_Guilt.push_back(Rectf{ guiltPos.x, guiltPos.y, 20.0f, 80.0f });
 	}
 
 	for (int backgroundIndex{}; backgroundIndex < static_cast<int>(levelData["background"].size()); ++backgroundIndex) {

@@ -43,7 +43,8 @@ public:
 		ledge,
 		spike,
 		pickup,
-		shrine
+		shrine,
+		guilt
 	};
 
 	bool Interact(Interactions interaction, Rectf& hitbox, const Vector2f& velocity = Vector2f{ 0.0f, 0.0f });
@@ -72,6 +73,7 @@ private:
 	std::vector<Object> m_Items;
 	std::vector<Rectf> m_HiddenAreas;
 	std::vector<Shrine> m_RespawnShrines;
+	std::vector<Rectf> m_Guilt;
 	std::vector<std::string> m_LevelBackground;
 	std::string m_CurrentLevel;
 };
