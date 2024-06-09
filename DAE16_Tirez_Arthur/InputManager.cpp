@@ -25,7 +25,14 @@ void InputManager::ProcessKeyDownEvent(const SDL_KeyboardEvent& e)
 {
 	SDL_Keycode keyPressed{ e.keysym.sym };
 	if (m_KeyChange) {
+		for (int index{}; index < ENUMSIZE; ++index) {
+			if (m_Keybinds[(int)index] == keyPressed) {
+				m_KeyChange = false;
+				return;
+			}
+		}
 		m_Keybinds[(int)m_ChangingKeybind] = keyPressed;
+		m_KeyChange = false;
 		return;
 	}
 	for (int keyIndex{}; keyIndex < ENUMSIZE; ++keyIndex) {
@@ -82,6 +89,9 @@ bool InputManager::GetKeyState(Keybind key, const bool reset)
 
 void InputManager::ChangeKeybind(Keybind key, SDL_KeyCode keyCode)
 {
+	for (int index{}; index < ENUMSIZE; ++index) {
+		if (m_Keybinds[(int)key] = keyCode) return;
+	}
 	m_Keybinds[(int)key] = keyCode;
 }
 

@@ -76,6 +76,9 @@ void UiManager::Update(float elapsedSec)
 	else if (m_CurrentScreen == "saves") {
 		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("main");
 	}
+	else if (m_CurrentScreen == "main_options") {
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("main");
+	}
 }
 
 void UiManager::Draw() const
