@@ -46,10 +46,10 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-TODO: add screenshot 
+![Screenshot of the main menu] (/Images/menu.png)
+![Screenshot of the game itself] (/Images/game.png)
 
 Here's why:
-TODO: describe why you chose this game 
 * I wanted a game that I enjoyed myself to keep motivation to work on the project.
 * I wanted a fairly recent game instead of an nes game or similar games from that era
 
@@ -101,17 +101,19 @@ Build and run the latest version with a compiler that supports at least C++17
 <!-- HOW TO PLAY -->
 ## How to play
 
-These are the currently implemented controls.
-
 ### Controls
 * A to move left
 * D to move right
-* S to crouch
-* W to climb a ladder or S while standing above a ladder
-* Space to jump
+* S to move down or use ladders
+* W to move up or use ladders
+* Space to jump or go trough platforms while crouching
 * Shift to dodge
-* Left click to attack
-* Right click to parry
+* Left click or K to attack
+* Right click or J to parry
+* E to interact
+* F to heal
+* I to open the inventory
+* esc to open the settings
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
@@ -121,17 +123,19 @@ These are the currently implemented controls.
 ## Class structure 
 
 ### Object composition 
-The player class knows about the texture manager, enemy manager and the level manager. 
-The level manager knows about the texture manager and enemy manager. 
-The enemy manager knows about the player and level manager. 
+The player class knows about the texture manager, sound manager, enemy manager, input manager, save manager and the level manager. 
+The level manager knows about the texture manager, save manager, camera and enemy manager. 
+The enemy manager knows about the player, soundmanager, texture manager and level manager. 
 
 The game class has all the manager classes.
 
 The level manager owns multiple vectors of level objects such as the collision, the platforms, the ledges, ...
 The enemy manager owns a vector of enemies.
+The ui manager has a vector of ui elements
 
 ### Inheritance 
 Different enemy types all inherit from the enemy baseclass.
+Different ui elements all inherit from the uiElement baseclass
 
 ### ..
 
@@ -150,7 +154,7 @@ Different enemy types all inherit from the enemy baseclass.
 - [X] week 03 topics applied
 - [X] week 04 topics applied
 - [ ] week 05 topics applied
-- [ ] week 06 topics applied
+- [X] week 06 topics applied
 - [X] week 07 topics applied
 - [X] week 08 topics applied
 - [X] week 09 topics applied (optional)

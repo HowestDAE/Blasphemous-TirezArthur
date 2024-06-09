@@ -248,7 +248,7 @@ void LevelManager::DrawBackGround()
 		m_TextureManagerPtr->Animate(texture, currentShrine.hitbox.left, currentShrine.hitbox.bottom, m_AnimationDuration, false, true, 0.5f);
 	}
 	for (const Rectf& currentGuilt : m_Guilt) {
-		m_TextureManagerPtr->Animate("guilt_idle", currentGuilt.left, currentGuilt.bottom, m_AnimationDuration, true, 0.3f);
+		m_TextureManagerPtr->Animate("guilt_idle", currentGuilt.left, currentGuilt.bottom, m_AnimationDuration, false, true, 0.3f);
 	}
 }
 

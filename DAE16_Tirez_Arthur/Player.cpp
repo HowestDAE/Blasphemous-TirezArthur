@@ -135,6 +135,7 @@ void Player::Update(float elapsedSec)
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (m_AttackCooldown < 0.0f && m_InputManagerPtr->GetKeyState(InputManager::Keybind::attack)) AttackJump();
 		if (m_Health < 0.0001f) Death();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact)) m_LevelManagerPtr->Interact(LevelManager::Interactions::guilt, m_HitBox, m_Velocity);
 		if (FallCheck()) break;
 
 		break;
@@ -144,6 +145,7 @@ void Player::Update(float elapsedSec)
 		if ((leftHeld || rightHeld) && m_LedgeCooldown < 0.0f && m_LevelManagerPtr->Interact(LevelManager::Interactions::ledge, m_HitBox, m_Velocity)) Ledge();
 		if ((upHeld || downHeld) && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
 		if (m_Health < 0.0001f) Death();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact)) m_LevelManagerPtr->Interact(LevelManager::Interactions::guilt, m_HitBox, m_Velocity);
 		if (m_LevelManagerPtr->Interact(LevelManager::Interactions::spike, m_HitBox)) DeathSpike();
 		if (m_AttackCooldown < 0.0f && m_InputManagerPtr->GetKeyState(InputManager::Keybind::attack)) AttackJump();
 
@@ -264,7 +266,7 @@ void Player::Update(float elapsedSec)
 		break;
 	case State::death:
 	case State::death_spike:
-		if (m_AnimationDuration > 10.0f) Respawn();
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_death_spike") * 2.0f) Respawn();
 	default:
 		break;
 	}
