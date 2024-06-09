@@ -1,0 +1,148 @@
+{
+  "gamePaused": true,
+  "elements": [
+    {
+      "type": "static_graphic",
+      "x": 0,
+      "y": 0,
+      "texture": "main_menu_background"
+    },
+    {
+      "type": "animated_graphic",
+      "x": 0,
+      "y": 0,
+      "frameModifier": 0.3,
+      "texture": "penitent_main_menu"
+    },
+    {
+      "type": "static_graphic",
+      "x": 322,
+      "y": 243,
+      "texture": "main_menu_title"
+    },
+    {
+      "type": "list",
+      "cycleLeft": 6,
+      "cycleRight": 7,
+      "elements": [
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_text",
+              "x": 582,
+              "y": 134,
+              "alignment": 4,
+              "text": "Pilgrimage",
+              "textureId": "main_start",
+              "color": {
+                "R": 0.612,
+                "G": 0.306,
+                "B": 0.306,
+                "A": 1
+              },
+              "selectedColor": {
+                "R": 0.855,
+                "G": 0.796,
+                "B": 0.533,
+                "A": 1
+              }
+            },
+            {
+              "type": "animated_graphic",
+              "x": 588,
+              "y": 126,
+              "flipped": true,
+              "frameModifier": 0.3,
+              "texture": "cherub_cursor"
+            },
+            {
+              "type": "button",
+              "functionData": "saves",
+              "functionId": 0
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_text",
+              "x": 582,
+              "y": 111,
+              "alignment": 4,
+              "text": "Options",
+              "textureId": "main_options",
+              "color": {
+                "R": 0.612,
+                "G": 0.306,
+                "B": 0.306,
+                "A": 1
+              },
+              "selectedColor": {
+                "R": 0.855,
+                "G": 0.796,
+                "B": 0.533,
+                "A": 1
+              }
+            },
+            {
+              "type": "animated_graphic",
+              "x": 588,
+              "y": 103,
+              "flipped": true,
+              "frameModifier": 0.3,
+              "texture": "cherub_cursor"
+            },
+            {
+              "type": "button",
+              "functionData": "main_options",
+              "functionId": 0
+            }
+          ]
+        },
+        {
+          "type": "collection",
+          "alwaysDisplay": true,
+          "elements": [
+            {
+              "type": "static_text",
+              "x": 582,
+              "y": 88,
+              "alignment": 4,
+              "text": "Exit",
+              "textureId": "main_exit",
+              "color": {
+                "R": 0.612,
+                "G": 0.306,
+                "B": 0.306,
+                "A": 1
+              },
+              "selectedColor": {
+                "R": 0.855,
+                "G": 0.796,
+                "B": 0.533,
+                "A": 1
+              }
+            },
+            {
+              "type": "animated_graphic",
+              "x": 588,
+              "y": 80,
+              "flipped": true,
+              "frameModifier": 0.3,
+              "texture": "cherub_cursor"
+            },
+            {
+              "type": "button",
+              "functionData": 0,
+              "functionId": 2
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

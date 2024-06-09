@@ -33,6 +33,7 @@ public:
 		enter = 14,
 		block = 15,
 		attack = 16,
+		saveWipe = 17
 	};
 
 	const SDL_Keycode& GetKeybind(Keybind key) const;
@@ -48,8 +49,8 @@ private:
 
 	Keybind m_ChangingKeybind{};
 	bool m_KeyChange{false};
-	static const int ENUMSIZE{ 17 };
-	SDL_Keycode m_Keybinds[ENUMSIZE]{ SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_LEFT,SDLK_RIGHT,SDLK_UP,SDLK_DOWN,SDLK_i,SDLK_SPACE,SDLK_e,SDLK_LSHIFT,SDLK_f,SDLK_ESCAPE,SDLK_KP_ENTER,SDLK_j,SDLK_k };
+	static const int ENUMSIZE{ 18 };
+	SDL_Keycode m_Keybinds[ENUMSIZE]{ SDLK_a,SDLK_d,SDLK_w,SDLK_s,SDLK_LEFT,SDLK_RIGHT,SDLK_UP,SDLK_DOWN,SDLK_i,SDLK_SPACE,SDLK_e,SDLK_LSHIFT,SDLK_f,SDLK_ESCAPE,SDLK_KP_ENTER,SDLK_j,SDLK_k,SDLK_k };
 	keyState m_KeyStates[ENUMSIZE]{ keyState::off };
 };
 

@@ -184,6 +184,17 @@ bool LevelManager::Interact(Interactions interaction, Rectf& playerHitbox, const
 		}
 		return false;
 		break;
+	case Interactions::shrine:
+		for (Shrine& shrine : m_RespawnShrines) {
+			if (utils::IsOverlapping(playerHitbox, shrine.hitbox)) {
+				m_SaveManagerPtr->SetSaveLocation(m_CurrentLevel, Point2f{ shrine.hitbox.left + shrine.hitbox.width * 0.5f - playerHitbox.width * 0.5f, shrine.hitbox.bottom + 1.0f });
+				shrine.enabled = true;
+				playerHitbox.left = shrine.hitbox.left + shrine.hitbox.width * 0.5f - playerHitbox.width * 0.5f;
+				return true;
+			}
+		}
+		return false;
+		break;
 	default:
 		return false;
 		break;
@@ -220,6 +231,12 @@ void LevelManager::DrawBackGround()
 	{
 		m_TextureManagerPtr->Animate("item", currentItem.pos.x, currentItem.pos.y, m_AnimationDuration);
 	}
+	for (const Shrine& currentShrine : m_RespawnShrines)
+	{
+		std::string texture{};
+		(currentShrine.enabled) ? texture = "respawn_shrine_on" : texture = "respawn_shrine_off";
+		m_TextureManagerPtr->Animate(texture, currentShrine.hitbox.left, currentShrine.hitbox.bottom, m_AnimationDuration, false, true, 0.5f);
+	}
 }
 
 void LevelManager::DrawForeground()
@@ -254,12 +271,15 @@ void LevelManager::LoadLevel(std::string path)
 	m_Items.clear();
 	m_HiddenAreas.clear();
 	m_LevelBackground.clear();
+	m_RespawnShrines.clear();
 
 	m_TextureManagerPtr->PreLoadTexture(path);
 	m_CameraPtr->SetLevelDimensions(m_TextureManagerPtr->GetTextureWidth(path), m_TextureManagerPtr->GetTextureHeight(path));
 
 	Json::Value levelData;
 	levelDataFile >> levelData;
+
+	m_SaveManagerPtr->SetSaveRegion(levelData.get("region", "").asString());
 
 	const Json::Value::Members& collisionBoxes{ levelData["collision"].getMemberNames() };
 	m_LevelGeometry.reserve(collisionBoxes.size());
@@ -367,9 +387,25 @@ void LevelManager::LoadLevel(std::string path)
 		m_HiddenAreas.push_back(hitbox);
 	}
 
+	const Json::Value::Members& respawnShrines{ levelData["respawn_shrine"].getMemberNames() };
+
+	for (const std::string& currentShrine : respawnShrines)
+	{
+		const Rectf hitbox{ levelData["respawn_shrine"][currentShrine].get("x", -1).asFloat(),
+							levelData["respawn_shrine"][currentShrine].get("y", -1).asFloat(),
+							66.0f,
+							145.0f };
+		m_RespawnShrines.push_back(Shrine{ hitbox, utils::IsPointInRect(m_SaveManagerPtr->GetSavePosition(), hitbox) });
+	}
+
 	for (int backgroundIndex{}; backgroundIndex < static_cast<int>(levelData["background"].size()); ++backgroundIndex) {
 		m_LevelBackground.push_back(levelData["background"][backgroundIndex].asString());
 		m_TextureManagerPtr->PreLoadTexture(m_LevelBackground.at(backgroundIndex));
 	}
 	std::reverse(m_LevelBackground.begin(), m_LevelBackground.end());
+}
+
+std::string LevelManager::GetCurrentArea() const
+{
+	return m_CurrentLevel;
 }

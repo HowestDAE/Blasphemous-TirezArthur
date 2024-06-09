@@ -4,6 +4,7 @@
 #include "LevelManager.h"
 #include "SoundManager.h"
 #include "InputManager.h"
+#include "SaveManager.h"
 #include <iostream>
 #include "utils.h"
 #include "EnemyManager.h"
@@ -18,12 +19,14 @@ const float Player::HEAVYDMG{ 30.0f };
 const float Player::COMBOTIME{ 2.0f };
 const int Player::MAXFLASKS{ 2 };
 
-Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager, InputManager* inputManager) :
+Player::Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager, InputManager* inputManager, SaveManager* saveManager) :
 	m_TextureManagerPtr{ textureManager },
 	m_LevelManagerPtr{ levelManager },
 	m_EnemyManagerPtr{ enemyManager },
 	m_SoundManagerPtr{ soundManager },
-	m_InputManagerPtr{inputManager}
+	m_InputManagerPtr{inputManager},
+	m_SaveManagerPtr{saveManager},
+	m_Tears{ saveManager->GetTears() }
 {
 	m_HitBox = Rectf{ 200.0f, 100.0f, HITBOXWIDTH, HITBOXHEIGHT };
 }
@@ -67,13 +70,15 @@ void Player::Update(float elapsedSec)
 
 		break;
 	case State::idle:
+		m_GuiltLocation = Point2f{ m_HitBox.left, m_HitBox.bottom };
 		if (FallCheck()) break;
 		if (leftHeld && !rightHeld || !leftHeld && rightHeld) Run();
 		m_HitBox.bottom += 1.0f;
 		if (upHeld && m_LevelManagerPtr->Interact(LevelManager::Interactions::ladder, m_HitBox) && m_LadderCooldown < 0.0f) Ladder();
-		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact) && m_LevelManagerPtr->Interact(LevelManager::Interactions::pickup, m_HitBox)) Pickup();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact, false) && m_LevelManagerPtr->Interact(LevelManager::Interactions::pickup, m_HitBox)) Pickup();
 		m_HitBox.bottom -= 1.0f;
 		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::jump)) Jump();
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::interact) && m_LevelManagerPtr->Interact(LevelManager::Interactions::shrine, m_HitBox, m_Velocity)) ActivateShrine();
 		if (downHeld) Crouch();
 		if (m_ComboTime >= 0.0f && m_ComboCounter == 2 && m_InputManagerPtr->GetKeyState(InputManager::Keybind::attack)) {
 			Attack3();
@@ -94,6 +99,7 @@ void Player::Update(float elapsedSec)
 
 		break;
 	case State::run:
+		m_GuiltLocation = Point2f{ m_HitBox.left, m_HitBox.bottom };
 		HorizontalMovement(leftHeld, rightHeld);
 		if (m_AudioChannel == -1 || !m_SoundManagerPtr->IsPlaying("penitent_run_stone", m_AudioChannel)) m_AudioChannel = m_SoundManagerPtr->Play("penitent_run_stone");
 
@@ -244,6 +250,18 @@ void Player::Update(float elapsedSec)
 	case State::pickup:
 		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_pickup")) Idle();
 		if (m_Health < 0.0001f) Death();
+		break;
+	case State::shrine_activate:
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_shrine_activate")) Idle();
+		if (m_Health < 0.0001f) Death();
+		break;
+	case State::respawn:
+		m_Velocity.y = 0.0f;
+		if (m_AnimationDuration > m_TextureManagerPtr->GetAnimationDuration("penitent_respawn")) Idle();
+		break;
+	case State::death:
+	case State::death_spike:
+		if (m_AnimationDuration > 10.0f) Respawn();
 	default:
 		break;
 	}
@@ -283,7 +301,7 @@ void Player::Draw()
 		break;
 	case State::idle:
 		animationPath = "penitent_idle";
-		frameTimeModifier = 0.3f;
+		frameTimeModifier = 0.5f;
 		break;
 	case State::run:
 		animationPath = "penitent_run";
@@ -361,6 +379,14 @@ void Player::Draw()
 		animationPath = "penitent_pickup";
 		loop = false;
 		break;
+	case State::shrine_activate:
+		animationPath = "penitent_shrine_activate";
+		loop = false;
+		break;
+	case State::respawn:
+		animationPath = "penitent_respawn";
+		loop = false;
+		break;
 	default:
 		break;
 	}
@@ -374,7 +400,7 @@ Rectf& Player::GetHitbox()
 
 bool Player::Attack(Rectf& hurtbox, float damage, bool direction)
 {
-	bool hit{ utils::IsOverlapping(m_HitBox, hurtbox) && m_PlayerState != State::knockback && m_PlayerState != State::death && m_PlayerState != State::death_spike };
+	bool hit{ utils::IsOverlapping(m_HitBox, hurtbox) && m_PlayerState != State::knockback && m_PlayerState != State::death && m_PlayerState != State::death_spike && m_PlayerState != State::shrine_activate && m_PlayerState != State::respawn };
 	if (hit) {
 		if (m_PlayerState == State::block) {
 			m_LeftFacing = !direction;
@@ -543,6 +569,7 @@ void Player::DeathSpike()
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
 	m_SoundManagerPtr->Play("penitent_death_spike");
+	m_SaveManagerPtr->AddGuilt(m_GuiltLocation, m_LevelManagerPtr->GetCurrentArea());
 }
 
 void Player::Death()
@@ -553,6 +580,7 @@ void Player::Death()
 	m_Velocity.x = 0.0f;
 	m_Velocity.y = 0.0f;
 	m_SoundManagerPtr->Play("penitent_death");
+	m_SaveManagerPtr->AddGuilt(m_GuiltLocation, m_LevelManagerPtr->GetCurrentArea());
 }
 
 void Player::Attack1()
@@ -685,4 +713,25 @@ void Player::Pickup()
 	m_PlayerState = State::pickup;
 	m_AnimationDuration = 0.0f;
 	m_Velocity.x = 0.0f;
+}
+
+void Player::ActivateShrine()
+{
+	m_PlayerState = State::shrine_activate;
+	m_AnimationDuration = 0.0f;
+	m_Velocity.x = 0.0f;
+	m_SoundManagerPtr->Play("shrine_activate");
+}
+
+void Player::Respawn()
+{
+	m_PlayerState = State::respawn;
+	m_AnimationDuration = 0.0f;
+	m_LeftFacing = false;
+	m_Velocity.x = 0.0f;
+	m_SoundManagerPtr->Play("penitent_respawn");
+	m_Health = MAXHEALTH;
+	m_HitBox.left = m_SaveManagerPtr->GetSavePosition().x;
+	m_HitBox.bottom = m_SaveManagerPtr->GetSavePosition().y;
+	m_LevelManagerPtr->LoadLevel(m_SaveManagerPtr->GetSaveArea());
 }

@@ -2466,7 +2466,7 @@
                                 "x": 291,
                                 "y": 171,
                                 "alignment": 1,
-                                "text": "Sacred technique that allows the bearer of Mae\nCulpa to use the cut of its blade to bless his own\nblood and turn it into a throwing weapon. It\nconsumes fervour.",
+                                "text": "Sacred technique that allows the bearer of Mea\nCulpa to use the cut of its blade to bless his own\nblood and turn it into a throwing weapon. It\nconsumes fervour.",
                                 "textureId": "inventory_ability_text_3_1",
                                 "color": {
                                   "R": 0.545,
@@ -2582,7 +2582,7 @@
                                 "x": 291,
                                 "y": 171,
                                 "alignment": 1,
-                                "text": "The Penitent One takes advantage of the dodge\nimpulse to thrust Mae Culpa at the enemies\nfurthest away.",
+                                "text": "The Penitent One takes advantage of the dodge\nimpulse to thrust Mea Culpa at the enemies\nfurthest away.",
                                 "textureId": "inventory_ability_text_5_1",
                                 "color": {
                                   "R": 0.545,
@@ -2700,7 +2700,7 @@
                                 "x": 291,
                                 "y": 171,
                                 "alignment": 1,
-                                "text": "Optimises the way Mae Culpa concentrates its\npower, using its sharp thorns instead of the blade,\nand allowing The Penitent One to perform a\ndevastating attack much faster",
+                                "text": "Optimises the way Mea Culpa concentrates its\npower, using its sharp thorns instead of the blade,\nand allowing The Penitent One to perform a\ndevastating attack much faster",
                                 "textureId": "inventory_ability_text_7_1",
                                 "color": {
                                   "R": 0.545,
@@ -3050,7 +3050,7 @@
                                 "x": 291,
                                 "y": 171,
                                 "alignment": 1,
-                                "text": "Reaches mastry in the technique of casting\nblessed blood. After launching, the projectile\ncauses a sacred explosion at the furthest point\nfrom its trajectory, causing additional damage. It\nconsumes fervour.",
+                                "text": "Reaches mastery in the technique of casting\nblessed blood. After launching, the projectile\ncauses a sacred explosion at the furthest point\nfrom its trajectory, causing additional damage. It\nconsumes fervour.",
                                 "textureId": "inventory_ability_text_13_1",
                                 "color": {
                                   "R": 0.545,
@@ -3108,7 +3108,7 @@
                                 "x": 291,
                                 "y": 171,
                                 "alignment": 1,
-                                "text": "Achieves mastery in the technique of the plunged\nattack. During the fall, Mae Culpa concentrates so\nmuch sacred power that, from its point of impact,\na large column of divine light emerges, damaging\neverything in its path.",
+                                "text": "Achieves mastery in the technique of the plunged\nattack. During the fall, Mea Culpa concentrates so\nmuch sacred power that, from its point of impact,\na large column of divine light emerges, damaging\neverything in its path.",
                                 "textureId": "inventory_ability_text_14_1",
                                 "color": {
                                   "R": 0.545,
@@ -3166,7 +3166,7 @@
                                 "x": 291,
                                 "y": 171,
                                 "alignment": 1,
-                                "text": "It reaches the maximum level of mastry in the art\nof lunge. Mae Culpa cuts the air in such a way that\nit manages to produce a wave that also produces\ndamage above and below the blade.",
+                                "text": "It reaches the maximum level of mastery in the art\nof lunge. Mea Culpa cuts the air in such a way that\nit manages to produce a wave that also produces\ndamage above and below the blade.",
                                 "textureId": "inventory_ability_text_15_1",
                                 "color": {
                                   "R": 0.545,

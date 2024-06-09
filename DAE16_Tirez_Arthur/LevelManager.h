@@ -28,6 +28,11 @@ struct Object {
 	Item item;
 };
 
+struct Shrine {
+	Rectf hitbox;
+	bool enabled;
+};
+
 class LevelManager final
 {
 public:
@@ -37,7 +42,8 @@ public:
 		ladder,
 		ledge,
 		spike,
-		pickup
+		pickup,
+		shrine
 	};
 
 	bool Interact(Interactions interaction, Rectf& hitbox, const Vector2f& velocity = Vector2f{ 0.0f, 0.0f });
@@ -48,6 +54,8 @@ public:
 	void DrawBackGround();
 	void DrawForeground();
 	void LoadLevel(std::string path);
+
+	std::string GetCurrentArea() const;
 private:
 	TextureManager* m_TextureManagerPtr{};
 	EnemyManager* m_EnemyManagerPtr{};
@@ -63,6 +71,7 @@ private:
 	std::vector<Rectf> m_LevelSpikes;
 	std::vector<Object> m_Items;
 	std::vector<Rectf> m_HiddenAreas;
+	std::vector<Shrine> m_RespawnShrines;
 	std::vector<std::string> m_LevelBackground;
 	std::string m_CurrentLevel;
 };

@@ -4,12 +4,13 @@ class TextureManager;
 class LevelManager;
 class EnemyManager;
 class SoundManager;
+class SaveManager;
 class InputManager;
 
 class Player final
 {
 public:
-	explicit Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager, InputManager* inputManager);
+	explicit Player(TextureManager* textureManager, LevelManager* levelManager, EnemyManager* enemyManager, SoundManager* soundManager, InputManager* inputManager, SaveManager* saveManager);
 
 	void Update(float elapsedSec);
 	void Draw();
@@ -17,6 +18,7 @@ public:
 	Rectf& GetHitbox();
 	bool Attack(Rectf& hurtbox, float damage, bool direction);
 	bool IsDead();
+	void Respawn();
 	void SetTears(int tears);
 	const float& GetHealth() const;
 	const float& GetMaxHealth() const;
@@ -45,7 +47,9 @@ private:
 		parry,
 		knockback,
 		heal,
-		pickup
+		pickup,
+		shrine_activate,
+		respawn
 	};
 
 	void HorizontalMovement(bool leftHeld, bool rightHeld);
@@ -70,16 +74,19 @@ private:
 	void Parry();
 	void Heal();
 	void Pickup();
+	void ActivateShrine();
 
 	TextureManager* m_TextureManagerPtr;
 	EnemyManager* m_EnemyManagerPtr;
 	LevelManager* m_LevelManagerPtr;
 	SoundManager* m_SoundManagerPtr;
 	InputManager* m_InputManagerPtr;
+	SaveManager* m_SaveManagerPtr;
 
 	Rectf m_HitBox;
 	State m_PlayerState{ State::idle };
 	Vector2f m_Velocity{ 0.0f, 0.0f };
+	Point2f m_GuiltLocation{};
 	bool m_LeftFacing{ false };
 	float m_AnimationDuration{ 0.0f };
 	float m_DodgeCooldown{ 0.0f };
@@ -92,7 +99,7 @@ private:
 	int m_ComboCounter{ 0 };
 	int m_Flasks{ MAXFLASKS };
 	int m_AudioChannel{ -1 };
-	int m_Tears{ 0 };
+	int& m_Tears;
 	float m_Health{ MAXHEALTH };
 
 	static const float GRAVITY;

@@ -23,5 +23,6 @@ void UiAnimatedGraphic::Update(float elapsedSec, bool selected)
 
 void UiAnimatedGraphic::Draw(bool selected) const
 {
-	m_TextureManager->Animate(m_Texture, m_Position, m_AnimationDuration, m_Flipped, true, m_FrameModifier);
+	if (!selected) m_TextureManager->Animate(m_Texture, m_Position, m_AnimationDuration, m_Flipped, true, m_FrameModifier);
+	else m_TextureManager->Animate(m_Texture+"_selected", m_Position, m_AnimationDuration, m_Flipped, true, m_FrameModifier);
 }

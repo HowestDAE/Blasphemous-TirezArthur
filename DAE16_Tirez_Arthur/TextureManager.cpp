@@ -84,6 +84,10 @@ void TextureManager::Animate(const std::string& path, Point2f pos, float animati
 					sourceRect,
 					flipped);
 			}
+			else
+			{
+				Draw(path, pos, flipped);
+			}
 		}
 		else
 		{

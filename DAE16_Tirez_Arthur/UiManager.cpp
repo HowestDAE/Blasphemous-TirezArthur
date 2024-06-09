@@ -4,6 +4,7 @@
 #include "SaveManager.h"
 #include "UiElement.h"
 #include "UiStaticGraphic.h"
+#include "UiSave.h"
 #include "UiAnimatedGraphic.h"
 #include "UiList.h"
 #include "UiBar.h"
@@ -28,7 +29,7 @@ UiManager::UiManager( TextureManager* textureManager, Player* player, SoundManag
 	m_InputManagerPtr{inputManager},
 	m_SaveManagerPtr{saveManager}
 {
-	LoadScreen("game");
+	LoadScreen("main");
 }
 
 UiManager::~UiManager()
@@ -40,6 +41,7 @@ UiManager::~UiManager()
 		}
 		delete screen.second;
 	}
+	delete m_Quit;
 }
 
 void UiManager::Update(float elapsedSec)
@@ -60,10 +62,19 @@ void UiManager::Update(float elapsedSec)
 		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("game");
 	}
 	else if (m_CurrentScreen == "controls") {
-		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("options");
+		if (m_SaveManagerPtr->SaveLoaded() != -1) {
+			if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("options");
+		}
+		else if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("main_options");
 	}
 	else if (m_CurrentScreen == "sound") {
-		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("options");
+		if (m_SaveManagerPtr->SaveLoaded() != -1) {
+			if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("options");
+		}
+		else if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("main_options");
+	}
+	else if (m_CurrentScreen == "saves") {
+		if (m_InputManagerPtr->GetKeyState(InputManager::Keybind::escape)) LoadScreen("main");
 	}
 }
 
@@ -89,7 +100,7 @@ void UiManager::LoadScreen(const std::string& path)
 		if (!screenFile)
 		{
 			std::cout << "Screen \"" + path + "\" does not exist.";
-			m_ScreenMap.at(path) = nullptr;
+			m_ScreenMap[path] = nullptr;
 			return;
 		}
 
@@ -113,9 +124,17 @@ void UiManager::UiButtonFunction(int functionId, const std::string& data)
 	{
 	case 0:
 		LoadScreen(data);
+		if (data == "main") m_SaveManagerPtr->UnLoadSave();
 		break;
 	case 1:
 		m_InputManagerPtr->ChangeKeybindEvent((InputManager::Keybind)std::stoi(data));
+		break;
+	case 2:
+		SDL_PushEvent(m_Quit);
+		break;
+	case 3:
+		m_SaveManagerPtr->ConfirmDelete((bool)std::stoi(data));
+		LoadScreen("saves");
 		break;
 	default:
 		break;
@@ -126,6 +145,7 @@ UiElement* UiManager::GetElement(const Json::Value& data)
 {
 	const std::string type{ data.get("type", "").asString() };
 	if (type == "static_graphic") return GetStaticGraphic(data);
+	else if (type == "animated_graphic") return GetAnimatedGraphic(data);
 	else if (type == "list") return GetList(data);
 	else if (type == "collection") return GetCollection(data);
 	else if (type == "static_text") return GetStaticText(data);
@@ -137,6 +157,7 @@ UiElement* UiManager::GetElement(const Json::Value& data)
 	else if (type == "button") return GetButton(data);
 	else if (type == "volume_slider") return GetVolumeSlider(data);
 	else if (type == "inventory_slot") return GetInventorySlot(data);
+	else if (type == "save_display") return GetSaveDisplay(data);
 	else return nullptr;
 }
 
@@ -146,6 +167,15 @@ UiElement* UiManager::GetStaticGraphic(const Json::Value& data)
 	const std::string texture{ data.get("texture", "").asString() };
 	const bool flipped{ data.get("flipped", false).asBool() };
 	return new UiStaticGraphic{ pos, texture, m_TextureManager, flipped };
+}
+
+UiElement* UiManager::GetAnimatedGraphic(const Json::Value& data)
+{
+	const Point2f pos{ data.get("x", 0.0f).asFloat(), data.get("y", 0.0f).asFloat() };
+	const std::string texture{ data.get("texture", "").asString() };
+	const float frameModifier{ data.get("frameModifier", 1.0f).asFloat() };
+	const bool flipped{ data.get("flipped", false).asBool() };
+	return new UiAnimatedGraphic{ pos, texture, m_TextureManager, frameModifier, flipped };
 }
 
 UiElement* UiManager::GetList(const Json::Value& data)
@@ -297,4 +327,11 @@ UiElement* UiManager::GetInventorySlot(const Json::Value& data)
 	const CategoryId category{ (CategoryId)data.get("category", 0).asInt() };
 	const int index{ data.get("index", 0).asInt() };
 	return new UiInventorySlot{ pos, dispPos, namePos, descPos, m_SaveManagerPtr, m_TextureManager, category, index };
+}
+
+UiElement* UiManager::GetSaveDisplay(const Json::Value& data)
+{
+	const Point2f pos{ data.get("x", 0.0f).asFloat(), data.get("y", 0.0f).asFloat() };
+	const int index{ data.get("save", 0).asInt() };
+	return new UiSave{ pos,index,m_SaveManagerPtr,m_TextureManager,m_InputManagerPtr,this };
 }

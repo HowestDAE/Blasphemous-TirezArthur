@@ -32,6 +32,7 @@ private:
 
 	UiElement* GetElement(const Json::Value& data);
 	UiElement* GetStaticGraphic(const Json::Value& data);
+	UiElement* GetAnimatedGraphic(const Json::Value& data);
 	UiElement* GetList(const Json::Value& data);
 	UiElement* GetCollection(const Json::Value& data);
 	UiElement* GetStaticText(const Json::Value& data);
@@ -43,6 +44,7 @@ private:
 	UiElement* GetButton(const Json::Value& data);
 	UiElement* GetVolumeSlider(const Json::Value& data);
 	UiElement* GetInventorySlot(const Json::Value& data);
+	UiElement* GetSaveDisplay(const Json::Value& data);
 
 	SoundManager* m_SoundManagerPtr;
 	InputManager* m_InputManagerPtr;
@@ -52,6 +54,7 @@ private:
 	std::string m_CurrentScreen;
 	TextureManager* m_TextureManager;
 	Player* m_PlayerPtr;
+	SDL_Event* m_Quit{ new SDL_Event{SDL_QUIT} };
 	bool m_GamePaused{ false };
 
 	friend class UiButton;

@@ -1,4 +1,5 @@
 {
+  "region": "Wasteland of The Buried Chruches",
   "collision": {
     "0": {
       "left": 0,
@@ -192,6 +193,12 @@
       "description": "When the Uvula is equipped, you have a\nchance of earning Tears of Atonement\nwhen destroying an object",
       "x": 1622,
       "y": 140
+    }
+  },
+  "respawn_shrine": {
+    "0": {
+      "x": 450,
+      "y": 301
     }
   },
   "background": [
