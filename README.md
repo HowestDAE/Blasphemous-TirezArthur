@@ -46,8 +46,8 @@
 <!-- ABOUT THE PROJECT -->
 ## About The Project
 
-![Screenshot of the main menu] (/Images/menu.png)
-![Screenshot of the game itself] (/Images/game.png)
+![Screenshot of the main menu](https://github.com/HowestDAE/dae16-TirezArthur/blob/main/Images/menu.png)
+![Screenshot of the game itself](https://github.com/HowestDAE/dae16-TirezArthur/blob/main/Images/game.png)
 
 Here's why:
 * I wanted a game that I enjoyed myself to keep motivation to work on the project.
